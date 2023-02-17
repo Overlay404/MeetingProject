@@ -181,8 +181,8 @@
     <Compile Include="EditArticleUserControl.xaml.cs">
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl.xaml.cs">
-      <DependentUpon>UserControl.xaml</DependentUpon>
+    <Compile Include="UserControl2.xaml.cs">
+      <DependentUpon>UserControl2.xaml</DependentUpon>
     </Compile>
     <Page Include="EditArticleUserControl.xaml">
       <SubType>Designer</SubType>
@@ -200,7 +200,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControl.xaml">
+    <Page Include="UserControl2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +231,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ImagesProject\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

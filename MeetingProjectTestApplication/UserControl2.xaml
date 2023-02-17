@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="MeetingProjectTestApplication.UserControl2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="clr-namespace:MdXaml;assembly=MdXaml">
+    <md:MarkdownScrollViewer Markdown=""
+                                HorizontalAlignment="Center"
+                                Width="280" x:Name="MarkdownScrollViewer">
+
+
+    </md:MarkdownScrollViewer>
+</UserControl>
