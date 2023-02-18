@@ -63,8 +63,11 @@ namespace MeetingProjectTestApplication
 
         public static readonly DependencyProperty JobTitleProperty =
             DependencyProperty.Register("JobTitle", typeof(System.Collections.Generic.List<JobTitle>), typeof(UserInformationWindowModelView));
-    
-            public UserInformationWindowModelView()
+
+
+        
+
+        public UserInformationWindowModelView()
         {
             BackgroundImages = App.user.BackgroundImage;
             github = App.user.github;
