@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="NameExperience" Type="nvarchar(max)" />
+          <Property Name="DescriptionExperience" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ManWithResume">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronomic" Type="nvarchar" MaxLength="50" />
+          <Property Name="github" Type="nvarchar" MaxLength="150" />
+          <Property Name="number" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="telegram" Type="nvarchar" MaxLength="50" />
+          <Property Name="about" Type="nvarchar" MaxLength="50" />
+          <Property Name="BackgroundImage" Type="varbinary(max)" />
+          <Property Name="ProfilePhoto" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ManWithResumeExperienceTable">
+          <Key>
+            <PropertyRef Name="ExperienceId" />
+            <PropertyRef Name="ManWithResumeId" />
+          </Key>
+          <Property Name="ExperienceId" Type="int" Nullable="false" />
+          <Property Name="ManWithResumeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManWithResumeJobTitleTable">
+          <Key>
+            <PropertyRef Name="JobTitleId" />
+            <PropertyRef Name="ManWithResumeId" />
+          </Key>
+          <Property Name="JobTitleId" Type="int" Nullable="false" />
+          <Property Name="ManWithResumeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MyProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="150" />
+          <Property Name="date" Type="date" />
+          <Property Name="MainPicture" Type="varbinary(max)" />
+          <Property Name="text" Type="nvarchar(max)" />
+          <Property Name="ManWithResumeId" Type="int" />
+        </EntityType>
+        <EntityType Name="PictureProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeImage" Type="varbinary(max)" />
+          <Property Name="MyProjectId" Type="int" />
+        </EntityType>
+        <Association Name="FK_ManWithResumeExperienceTable_Experience">
+          <End Role="Experience" Type="Self.Experience" Multiplicity="1" />
+          <End Role="ManWithResumeExperienceTable" Type="Self.ManWithResumeExperienceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Experience">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeExperienceTable">
+              <PropertyRef Name="ExperienceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeExperienceTable_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="1" />
+          <End Role="ManWithResumeExperienceTable" Type="Self.ManWithResumeExperienceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeExperienceTable">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeJobTitleTable_JobTitle">
+          <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="1" />
+          <End Role="ManWithResumeJobTitleTable" Type="Self.ManWithResumeJobTitleTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeJobTitleTable">
+              <PropertyRef Name="JobTitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeJobTitleTable_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="1" />
+          <End Role="ManWithResumeJobTitleTable" Type="Self.ManWithResumeJobTitleTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeJobTitleTable">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MyProject_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="0..1" />
+          <End Role="MyProject" Type="Self.MyProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MyProject">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PictureProject_MyProject">
+          <End Role="MyProject" Type="Self.MyProject" Multiplicity="0..1" />
+          <End Role="PictureProject" Type="Self.PictureProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyProject">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PictureProject">
+              <PropertyRef Name="MyProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MeetingProjectModelContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResumeExperienceTable" EntityType="Self.ManWithResumeExperienceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResumeJobTitleTable" EntityType="Self.ManWithResumeJobTitleTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyProject" EntityType="Self.MyProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PictureProject" EntityType="Self.PictureProject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ManWithResumeExperienceTable_Experience" Association="Self.FK_ManWithResumeExperienceTable_Experience">
+            <End Role="Experience" EntitySet="Experience" />
+            <End Role="ManWithResumeExperienceTable" EntitySet="ManWithResumeExperienceTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeExperienceTable_ManWithResume" Association="Self.FK_ManWithResumeExperienceTable_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="ManWithResumeExperienceTable" EntitySet="ManWithResumeExperienceTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeJobTitleTable_JobTitle" Association="Self.FK_ManWithResumeJobTitleTable_JobTitle">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="ManWithResumeJobTitleTable" EntitySet="ManWithResumeJobTitleTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeJobTitleTable_ManWithResume" Association="Self.FK_ManWithResumeJobTitleTable_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="ManWithResumeJobTitleTable" EntitySet="ManWithResumeJobTitleTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MyProject_ManWithResume" Association="Self.FK_MyProject_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="MyProject" EntitySet="MyProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PictureProject_MyProject" Association="Self.FK_PictureProject_MyProject">
+            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="PictureProject" EntitySet="PictureProject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MeetingProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="NameExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManWithResume" Relationship="Self.ManWithResumeExperienceTable" FromRole="Experience" ToRole="ManWithResume" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManWithResume" Relationship="Self.ManWithResumeJobTitleTable" FromRole="JobTitle" ToRole="ManWithResume" />
+        </EntityType>
+        <EntityType Name="ManWithResume">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronomic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="github" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="about" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MyProject" Relationship="Self.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="MyProject" />
+          <NavigationProperty Name="Experience" Relationship="Self.ManWithResumeExperienceTable" FromRole="ManWithResume" ToRole="Experience" />
+          <NavigationProperty Name="JobTitle" Relationship="Self.ManWithResumeJobTitleTable" FromRole="ManWithResume" ToRole="JobTitle" />
+        </EntityType>
+        <EntityType Name="MyProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="MainPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManWithResumeId" Type="Int32" />
+          <NavigationProperty Name="ManWithResume" Relationship="Self.FK_MyProject_ManWithResume" FromRole="MyProject" ToRole="ManWithResume" />
+          <NavigationProperty Name="PictureProject" Relationship="Self.FK_PictureProject_MyProject" FromRole="MyProject" ToRole="PictureProject" />
+        </EntityType>
+        <EntityType Name="PictureProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="MyProjectId" Type="Int32" />
+          <NavigationProperty Name="MyProject" Relationship="Self.FK_PictureProject_MyProject" FromRole="PictureProject" ToRole="MyProject" />
+        </EntityType>
+        <Association Name="FK_MyProject_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="0..1" />
+          <End Role="MyProject" Type="Self.MyProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MyProject">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PictureProject_MyProject">
+          <End Role="MyProject" Type="Self.MyProject" Multiplicity="0..1" />
+          <End Role="PictureProject" Type="Self.PictureProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyProject">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PictureProject">
+              <PropertyRef Name="MyProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ManWithResumeExperienceTable">
+          <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="*" />
+        </Association>
+        <Association Name="ManWithResumeJobTitleTable">
+          <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="*" />
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MeetingProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="Experience" EntityType="Self.Experience" />
+          <EntitySet Name="JobTitle" EntityType="Self.JobTitle" />
+          <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" />
+          <EntitySet Name="MyProject" EntityType="Self.MyProject" />
+          <EntitySet Name="PictureProject" EntityType="Self.PictureProject" />
+          <AssociationSet Name="FK_MyProject_ManWithResume" Association="Self.FK_MyProject_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="MyProject" EntitySet="MyProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PictureProject_MyProject" Association="Self.FK_PictureProject_MyProject">
+            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="PictureProject" EntitySet="PictureProject" />
+          </AssociationSet>
+          <AssociationSet Name="ManWithResumeExperienceTable" Association="Self.ManWithResumeExperienceTable">
+            <End Role="Experience" EntitySet="Experience" />
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+          </AssociationSet>
+          <AssociationSet Name="ManWithResumeJobTitleTable" Association="Self.ManWithResumeJobTitleTable">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MeetingProjectModelContainer" CdmEntityContainer="MeetingProjectEntities">
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="MeetingProjectModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Experience">
+            <EntityTypeMapping TypeName="MeetingProjectModel.Experience">
+              <MappingFragment StoreEntitySet="Experience">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="NameExperience" ColumnName="NameExperience" />
+                <ScalarProperty Name="DescriptionExperience" ColumnName="DescriptionExperience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTitle">
+            <EntityTypeMapping TypeName="MeetingProjectModel.JobTitle">
+              <MappingFragment StoreEntitySet="JobTitle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManWithResume">
+            <EntityTypeMapping TypeName="MeetingProjectModel.ManWithResume">
+              <MappingFragment StoreEntitySet="ManWithResume">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="patronomic" ColumnName="patronomic" />
+                <ScalarProperty Name="github" ColumnName="github" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telegram" ColumnName="telegram" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyProject">
+            <EntityTypeMapping TypeName="MeetingProjectModel.MyProject">
+              <MappingFragment StoreEntitySet="MyProject">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="MainPicture" ColumnName="MainPicture" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="ManWithResumeId" ColumnName="ManWithResumeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PictureProject">
+            <EntityTypeMapping TypeName="MeetingProjectModel.PictureProject">
+              <MappingFragment StoreEntitySet="PictureProject">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codeImage" ColumnName="codeImage" />
+                <ScalarProperty Name="MyProjectId" ColumnName="MyProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ManWithResumeExperienceTable" TypeName="MeetingProjectModel.ManWithResumeExperienceTable" StoreEntitySet="ManWithResumeExperienceTable">
+            <EndProperty Name="Experience">
+              <ScalarProperty Name="id" ColumnName="ExperienceId" />
+            </EndProperty>
+            <EndProperty Name="ManWithResume">
+              <ScalarProperty Name="id" ColumnName="ManWithResumeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ManWithResumeJobTitleTable" TypeName="MeetingProjectModel.ManWithResumeJobTitleTable" StoreEntitySet="ManWithResumeJobTitleTable">
+            <EndProperty Name="JobTitle">
+              <ScalarProperty Name="id" ColumnName="JobTitleId" />
+            </EndProperty>
+            <EndProperty Name="ManWithResume">
+              <ScalarProperty Name="id" ColumnName="ManWithResumeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

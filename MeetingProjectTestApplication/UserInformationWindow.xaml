@@ -3,8 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:MeetingProjectTestApplication"
         mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" 
         Title="UserInformationWindow" Height="800" Width="1000">
+
+    <Window.DataContext>
+        <local:UserInformationWindowModelView/>
+    </Window.DataContext>
+    
     <Window.Resources>
         <Style TargetType="Rectangle">
             <Setter Property="Width" Value="19"/>
@@ -36,6 +43,57 @@
                 <Grid.Background>
                     <ImageBrush ImageSource="{Binding BackgroundImage}"/>
                 </Grid.Background>
+
+                <StackPanel HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            Margin="0 10 0 0">
+                    <fa:ImageAwesome Icon="Github"
+                                     Width="30"/>
+                    <TextBlock Text="{Binding github}"/>
+                </StackPanel>
+
+                <Border CornerRadius="100"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0 0 0 80">
+                    <Image Width="150" Height="150"
+                           Source="{Binding ProfilePhoto}"/>
+                </Border>
+
+                <TextBlock Text="{Binding Fullname}"
+                           HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                           Margin="0 150 0 0"
+                           FontSize="16" FontWeight="Bold"/>
+
+                <ListBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Margin="0 240 0 0"
+                         ItemsSource="{Binding JobTitle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    Padding="4"
+                                    Background="#D9D9D9">
+                                <TextBlock Text="{Binding name}"
+                                           FontWeight="Bold"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+            <Grid Height="473">
+                <Button Content="1" HorizontalAlignment="Left" Click="Button_Click" />
+                <Button Content="2" HorizontalAlignment="Right" Click="Button_Click_1"/>
             </Grid>
         </StackPanel>
     </StackPanel>
