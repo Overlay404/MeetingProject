@@ -1,43 +1,59 @@
-﻿<Window x:Class="MeetingProjectTestApplication.UserInformationWindow"
+﻿<Border x:Class="MeetingProjectTestApplication.UserInformationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:MeetingProjectTestApplication"
-        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" 
-        Title="UserInformationWindow" Height="800" Width="1000">
+        mc:Ignorable="d" Height="800" Width="1000"
+        Background="Wheat" CornerRadius="5">
 
-    <Window.DataContext>
+    <Border.DataContext>
         <local:UserInformationWindowModelView/>
-    </Window.DataContext>
-    
-    <Window.Resources>
-        <Style TargetType="Rectangle">
+    </Border.DataContext>
+
+    <Border.Resources>
+        <Style TargetType="Border" x:Key="ButtonShutdown">
             <Setter Property="Width" Value="19"/>
-            <Setter Property="Fill" Value="#FF4444"/>
+            <Setter Property="Background" Value="#9DAFB5"/>
             <Setter Property="Height" Value="19"/>
+            <Setter Property="CornerRadius" Value="0 5 0 0"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Width" Value="20"/>
                     <Setter Property="Height" Value="20"/>
-                    <Setter Property="Fill" Value="#FF0000"/>
+                    <Setter Property="Background" Value="#FF0000"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Window.Resources>
+        <Style TargetType="fa:ImageAwesome" x:Key="closeImage">
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Width" Value="10"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Border.Resources>
 
     <StackPanel>
-        <Border Background="#9DAFB5" 
+        <Grid>
+            <Border Background="#9DAFB5" 
                 VerticalAlignment="Top"
                 Height="28"
-                MouseLeftButtonDown="Border_MouseLeftButtonDown">
-            <Rectangle 
+                MouseLeftButtonDown="Border_MouseLeftButtonDown"
+                CornerRadius="5 5 0 0">
+            </Border>
+            <Border
                     HorizontalAlignment="Right"
-                    Margin="0,0,10,0" Height="20"
-                    RadiusY="3" RadiusX="3"
-                    MouseDown="Rectangle_MouseDown"/>
-        </Border>
+                    Height="28" Width="30"
+                    MouseDown="Rectangle_MouseDown"
+                    Style="{StaticResource ButtonShutdown}">
+                <fa:ImageAwesome Icon="Close" Width="10"
+                                 Foreground="Gray"/>
+            </Border>
+        </Grid>
         <StackPanel>
             <Grid Height="294">
                 <Grid.Background>
@@ -97,4 +113,4 @@
             </Grid>
         </StackPanel>
     </StackPanel>
-</Window>
+</Border>

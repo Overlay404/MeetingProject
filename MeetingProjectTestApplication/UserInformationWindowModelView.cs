@@ -9,7 +9,7 @@ namespace MeetingProjectTestApplication
 
     public class UserInformationWindowModelView : Window
     {
-        public byte[] BackgroundImages
+        public byte[] BackgroundImage
         {
             get { return (byte[])GetValue(BackgroundImageProperty); }
             set { SetValue(BackgroundImageProperty, value); }
@@ -69,7 +69,12 @@ namespace MeetingProjectTestApplication
 
         public UserInformationWindowModelView()
         {
-            BackgroundImages = App.user.BackgroundImage;
+            UpdateData();
+        }
+
+        private void UpdateData()
+        {
+            BackgroundImage = App.user.BackgroundImage;
             github = App.user.github;
             ProfilePhoto = App.user.ProfilePhoto;
             Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";

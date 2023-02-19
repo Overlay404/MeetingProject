@@ -17,6 +17,5 @@ namespace MeetingProjectTestApplication
         public static MeetingProjectEntities db = new MeetingProjectEntities();
 
         public static ManWithResume user = db.ManWithResume.FirstOrDefault();
-
     }
 }
