@@ -20,14 +20,14 @@ namespace MeetingProjectTestApplication
 
         
         
-        public string github
+        public string GithubLink
         {
-            get { return (string)GetValue(githubProperty); }
-            set { SetValue(githubProperty, value); }
+            get { return (string)GetValue(GithubLinkProperty); }
+            set { SetValue(GithubLinkProperty, value); }
         }
 
-        public static readonly DependencyProperty githubProperty =
-            DependencyProperty.Register("github", typeof(string), typeof(UserInformationWindowModelView));
+        public static readonly DependencyProperty GithubLinkProperty =
+            DependencyProperty.Register("GithubLink", typeof(string), typeof(UserInformationWindowModelView));
 
         
         
@@ -74,9 +74,9 @@ namespace MeetingProjectTestApplication
 
         private void UpdateData()
         {
-            BackgroundImage = App.user.BackgroundImage;
-            github = App.user.github;
-            ProfilePhoto = App.user.ProfilePhoto;
+            BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("C:\\Users\\denis\\source\\repos\\MeetingProject\\MeetingProjectTestApplication\\Image\\EmptyBackgroundImage.png");
+            GithubLink = App.user.github ?? "Не подключен";
+            ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("C:\\Users\\denis\\source\\repos\\MeetingProject\\MeetingProjectTestApplication\\Image\\EmptyPersonImage.png");
             Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";
             JobTitle = App.user.JobTitle.ToList();
         }

@@ -189,6 +189,7 @@
     <Compile Include="EditArticleUserControl.xaml.cs">
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageConverter.cs" />
     <Compile Include="Model\Company.cs">
       <DependentUpon>DateBase.tt</DependentUpon>
     </Compile>
@@ -292,6 +293,8 @@
     <Folder Include="ImagesProject\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\EmptyBackgroundImage.png" />
+    <Resource Include="Image\EmptyPersonImage.png" />
     <Content Include="Model\DateBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DateBase.Context.cs</LastGenOutput>

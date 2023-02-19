@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using Microsoft.Win32;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace MeetingProjectTestApplication
 {
@@ -17,14 +16,12 @@ namespace MeetingProjectTestApplication
         public UserInformationWindow()
         {
             InitializeComponent();
-
-
-
+            
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
@@ -38,35 +35,43 @@ namespace MeetingProjectTestApplication
                 Application.Current.Shutdown();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog()
-            {
-                Filter = "All Files (*.*)|*.*"
-            };
+            DoubleAnimationUsingPath doubleAnimationUsing = new DoubleAnimationUsingPath();
 
-            if (openFile.ShowDialog().GetValueOrDefault())
-            {
-                BitmapFrame.Create(new MemoryStream(File.ReadAllBytes(openFile.FileName)), BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                App.user.ProfilePhoto = File.ReadAllBytes(openFile.FileName);
-            }
+            PathGeometry animationPath = new PathGeometry();
+            PathFigure pFigure = new PathFigure();
+            pFigure.StartPoint = new Point(10, 100);
+            PolyBezierSegment pBezierSegment = new PolyBezierSegment();
+            pBezierSegment.Points.Add(new Point(35, 0));
+            pBezierSegment.Points.Add(new Point(135, 0));
+            pBezierSegment.Points.Add(new Point(160, 100));
+            pBezierSegment.Points.Add(new Point(180, 190));
+            pBezierSegment.Points.Add(new Point(285, 200));
+            pBezierSegment.Points.Add(new Point(310, 100));
+            pFigure.Segments.Add(pBezierSegment);
+            animationPath.Figures.Add(pFigure);
+            animationPath.Freeze();
+
+            doubleAnimationUsing.PathGeometry = animationPath;
+            doubleAnimationUsing.Duration = TimeSpan.FromSeconds(5);
+            doubleAnimationUsing.Source = PathAnimationSource.Y;
+
+            Storyboard pathAnimationStoryboard = new Storyboard();
+            pathAnimationStoryboard.RepeatBehavior = RepeatBehavior.Forever;
+            pathAnimationStoryboard.Children.Add(doubleAnimationUsing);
+
+            Storyboard.SetTargetName(doubleAnimationUsing, "AnimatedTranslateTransform");
+            Storyboard.SetTargetProperty(doubleAnimationUsing,
+                new PropertyPath(TranslateTransform.YProperty));
+
+            pathAnimationStoryboard.Begin();
+
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog()
-            {
-                Filter = "All Files (*.*)|*.*"
-            };
-
-            if (openFile.ShowDialog().GetValueOrDefault())
-            {
-                BitmapFrame.Create(new MemoryStream(File.ReadAllBytes(openFile.FileName)), BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                App.user.BackgroundImage = File.ReadAllBytes(openFile.FileName);
-            }
-
-            App.db.SaveChanges();
-            App.user = App.db.ManWithResume.FirstOrDefault();
+            ChangeBackgroundImage.Width = 1000;
         }
     }
 }
