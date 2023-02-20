@@ -37,41 +37,51 @@ namespace MeetingProjectTestApplication
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            DoubleAnimationUsingPath doubleAnimationUsing = new DoubleAnimationUsingPath();
-
-            PathGeometry animationPath = new PathGeometry();
-            PathFigure pFigure = new PathFigure();
-            pFigure.StartPoint = new Point(10, 100);
-            PolyBezierSegment pBezierSegment = new PolyBezierSegment();
-            pBezierSegment.Points.Add(new Point(35, 0));
-            pBezierSegment.Points.Add(new Point(135, 0));
-            pBezierSegment.Points.Add(new Point(160, 100));
-            pBezierSegment.Points.Add(new Point(180, 190));
-            pBezierSegment.Points.Add(new Point(285, 200));
-            pBezierSegment.Points.Add(new Point(310, 100));
-            pFigure.Segments.Add(pBezierSegment);
-            animationPath.Figures.Add(pFigure);
-            animationPath.Freeze();
-
-            doubleAnimationUsing.PathGeometry = animationPath;
-            doubleAnimationUsing.Duration = TimeSpan.FromSeconds(5);
-            doubleAnimationUsing.Source = PathAnimationSource.Y;
-
-            Storyboard pathAnimationStoryboard = new Storyboard();
-            pathAnimationStoryboard.RepeatBehavior = RepeatBehavior.Forever;
-            pathAnimationStoryboard.Children.Add(doubleAnimationUsing);
-
-            Storyboard.SetTargetName(doubleAnimationUsing, "AnimatedTranslateTransform");
-            Storyboard.SetTargetProperty(doubleAnimationUsing,
-                new PropertyPath(TranslateTransform.YProperty));
-
-            pathAnimationStoryboard.Begin();
-
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImage.Opacity;
+            animation.To = 1;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            ChangeBackgroundImage.BeginAnimation(OpacityProperty, animation);
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            ChangeBackgroundImage.Width = 1000;
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImage.Opacity;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            ChangeBackgroundImage.BeginAnimation(OpacityProperty, animation);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.user.BackgroundImage = ImageConverter.OpenFileDialogSave();
+            new UserInformationWindowModelView().BackgroundImage = App.user.BackgroundImage;
+            App.db.SaveChanges();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            App.user.BackgroundImage = null;
+            App.db.SaveChanges();
+        }
+
+        private void GridContent_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImageButtons.Opacity;
+            animation.To = 1;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            ChangeBackgroundImageButtons.BeginAnimation(OpacityProperty, animation);
+        }
+
+        private void GridContent_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImageButtons.Opacity;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.3);
+            ChangeBackgroundImageButtons.BeginAnimation(OpacityProperty, animation);
         }
     }
 }

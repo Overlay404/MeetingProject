@@ -42,9 +42,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="10"
-                                BorderThickness="1"
-                                BorderBrush="Black"
-                                Background="Black">
+                                BorderThickness="2"
+                                BorderBrush="#9DAFB5"
+                                Background="#FF788082"
+                                Padding="3 0 0 0">
                             <StackPanel Orientation="Horizontal">
                                 <fa:ImageAwesome Icon="Pencil"
                                                  Width="20"
@@ -56,6 +57,44 @@
                                            Foreground="White"/>
                             </StackPanel>
                         </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="DeleteBackgroungImage">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="TrashOutline"
+                                                 Width="20"
+                                                 Margin="5 0 5 0"
+                                                 Foreground="Red"/>
+                            <TextBlock Text="Удалить"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Medium"
+                                           Foreground="White"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="AddBackgroungImage">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Folder"
+                                                 Width="20"
+                                                 Margin="5 0 5 0"
+                                                 Foreground="White"/>
+                            <TextBlock Text="Из проводника"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Medium"
+                                           Foreground="White"/>
+                        </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -89,16 +128,44 @@
                                 Opacity="0.5"/>
                     </Grid.Background>
 
+
                     <Button x:Name="ChangeBackgroundImage"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Width="150"
                             Height="30"
                             Content="Изменить обложку"
-                            Style="{StaticResource ChangeBackgroundImage}"/>
-
-
-
+                            Style="{StaticResource ChangeBackgroundImage}"
+                            Opacity="0"
+                            MouseEnter="GridContent_MouseEnter"
+                            MouseLeave="GridContent_MouseLeave"/>
+                    <Border HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Padding="6"
+                            Background="Gray"
+                            Margin="0 0 0 50"
+                            CornerRadius="10"
+                            x:Name="ChangeBackgroundImageButtons"
+                            Visibility="Visible"
+                            MouseEnter="GridContent_MouseEnter"
+                            MouseLeave="GridContent_MouseLeave"
+                                Opacity="0">
+                        <StackPanel>
+                            <Button HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Width="160"
+                            Height="30"
+                            BorderThickness="0"
+                            Style="{StaticResource DeleteBackgroungImage}" Click="Button_Click_1"/>
+                            <Button HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Width="160"
+                            Height="30"
+                            BorderThickness="0"
+                            Style="{StaticResource AddBackgroungImage}" Click="Button_Click"/>
+                        </StackPanel>
+                    </Border>
+                    
                     <StackPanel HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Orientation="Horizontal"
@@ -158,7 +225,8 @@
                     </ItemsControl>
 
                 </Grid>
-                <Grid Height="473">
+                <Grid Height="473"
+                      Background="White">
 
                 </Grid>
             </StackPanel>
