@@ -125,7 +125,7 @@
                       MouseLeave="Grid_MouseLeave">
                     <Grid.Background>
                         <ImageBrush ImageSource="{Binding BackgroundImage}"
-                                Opacity="0.5"/>
+                                Opacity="0.5" x:Name="BackgroundImage"/>
                     </Grid.Background>
 
 
@@ -149,7 +149,7 @@
                             Visibility="Visible"
                             MouseEnter="GridContent_MouseEnter"
                             MouseLeave="GridContent_MouseLeave"
-                                Opacity="0">
+                            Opacity="0">
                         <StackPanel>
                             <Button HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"

@@ -11,7 +11,7 @@ namespace MeetingProjectTestApplication
 
         public static byte[] ConvertToByteCollection(string uri)
         {
-            BitmapImage image = new BitmapImage(new Uri(@uri));
+            BitmapImage image = new BitmapImage(new Uri($"{uri}", UriKind.Relative));
             MemoryStream memoryStream = new MemoryStream();
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(image));

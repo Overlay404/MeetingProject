@@ -1,4 +1,5 @@
 ﻿using MeetingProjectTestApplication.Model;
+using System;
 using System.Data;
 using System.Linq;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace MeetingProjectTestApplication
 
         
         
+
         public string GithubLink
         {
             get { return (string)GetValue(GithubLinkProperty); }
@@ -31,6 +33,7 @@ namespace MeetingProjectTestApplication
 
         
         
+
         public byte[] ProfilePhoto
         {
             get { return (byte[])GetValue(ProfilePhotoProperty); }
@@ -74,9 +77,9 @@ namespace MeetingProjectTestApplication
 
         private void UpdateData()
         {
-            BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("C:\\Users\\denis\\source\\repos\\MeetingProject\\MeetingProjectTestApplication\\Image\\EmptyBackgroundImage.png");
+            BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
             GithubLink = App.user.github ?? "Не подключен";
-            ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("C:\\Users\\denis\\source\\repos\\MeetingProject\\MeetingProjectTestApplication\\Image\\EmptyPersonImage.png");
+            ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
             Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";
             JobTitle = App.user.JobTitle.ToList();
         }
