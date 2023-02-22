@@ -17,7 +17,7 @@ namespace MeetingProjectTestApplication
         public UserInformationWindow()
         {
             InitializeComponent();
-            
+            FrameDisplayingContent.Navigate(new UserInformationPage());
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -78,7 +78,7 @@ namespace MeetingProjectTestApplication
         {
             var byteImage = ImageConverter.OpenFileDialogSave();
             App.user.BackgroundImage = byteImage;
-            BackgroundImage.ImageSource = ;
+            BackgroundImage.ImageSource = (ImageSource) new ImageSourceConverter().ConvertFrom(byteImage);
             new UserInformationWindowModelView().BackgroundImage = App.user.BackgroundImage;
             App.db.SaveChanges();
         }
@@ -86,7 +86,25 @@ namespace MeetingProjectTestApplication
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             App.user.BackgroundImage = null;
+            if (MessageBox.Show("Поменять фон на стандартный?", "Смена фона", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
             App.db.SaveChanges();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                FrameDisplayingContent.Navigate(new UserInformationPage());
+            }
+            catch { }
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton) == null) return;
+
+            FrameDisplayingContent.Navigate(new ProjectPage());
         }
     }
 }

@@ -68,7 +68,41 @@ namespace MeetingProjectTestApplication
             DependencyProperty.Register("JobTitle", typeof(System.Collections.Generic.List<JobTitle>), typeof(UserInformationWindowModelView));
 
 
-        
+
+
+        public string Phone
+        {
+            get { return (string)GetValue(PhoneProperty); }
+            set { SetValue(PhoneProperty, value); }
+        }
+
+        public static readonly DependencyProperty PhoneProperty =
+            DependencyProperty.Register("Phone", typeof(string), typeof(UserInformationWindowModelView));
+
+
+
+
+        public string Email
+        {
+            get { return (string)GetValue(EmailProperty); }
+            set { SetValue(EmailProperty, value); }
+        }
+
+        public static readonly DependencyProperty EmailProperty =
+            DependencyProperty.Register("Email", typeof(string), typeof(UserInformationWindowModelView));
+
+
+
+
+        public string Telegram
+        {
+            get { return (string)GetValue(TelegramProperty); }
+            set { SetValue(TelegramProperty, value); }
+        }
+
+        public static readonly DependencyProperty TelegramProperty =
+            DependencyProperty.Register("Telegram", typeof(string), typeof(UserInformationWindowModelView));
+
 
         public UserInformationWindowModelView()
         {
@@ -82,6 +116,9 @@ namespace MeetingProjectTestApplication
             ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
             Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";
             JobTitle = App.user.JobTitle.ToList();
+            Phone = App.user.number;
+            Email = App.user.email;
+            Telegram = App.user.telegram;
         }
     }
 }

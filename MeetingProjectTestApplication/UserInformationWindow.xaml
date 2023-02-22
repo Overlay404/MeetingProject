@@ -100,6 +100,32 @@
             </Setter>
         </Style>
 
+        <Style x:Key="RadioButton" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid x:Name="Grid" Width="190" Background="#DFDAFF">
+                            <Rectangle x:Name="Rect" Width="2" Fill="#044AFD" Visibility="Hidden"
+                                       HorizontalAlignment="Left"/>
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="Black"
+                                       x:Name="TextBlock"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Grid" Property="Background" Value="#F2F0FF"/>
+                                <Setter TargetName="Rect" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#044AFD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
     <Border CornerRadius="5"
             Background="White">
@@ -165,7 +191,7 @@
                             Style="{StaticResource AddBackgroungImage}" Click="Button_Click"/>
                         </StackPanel>
                     </Border>
-                    
+
                     <StackPanel HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Orientation="Horizontal"
@@ -223,11 +249,28 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-
                 </Grid>
+                
                 <Grid Height="473"
                       Background="White">
-
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <StackPanel>
+                            <RadioButton Style="{StaticResource RadioButton}"
+                                         Width="190"
+                                         Height="48"
+                                         IsChecked="True"
+                                         Content="Информация о пользователе" Checked="RadioButton_Checked"/>
+                            <RadioButton Style="{StaticResource RadioButton}"
+                                         Width="190"
+                                         Height="48"
+                                         Content="Мои проекты" Checked="RadioButton_Checked_1"/>
+                        </StackPanel>
+                        <Frame x:Name="FrameDisplayingContent"
+                               Width="810"
+                               Height="473"
+                               Background="#F2F0FF"
+                               NavigationUIVisibility="Hidden"/>
+                    </StackPanel>
                 </Grid>
             </StackPanel>
         </StackPanel>
