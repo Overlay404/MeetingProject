@@ -163,7 +163,8 @@
                             Style="{StaticResource ChangeBackgroundImage}"
                             Opacity="0"
                             MouseEnter="GridContent_MouseEnter"
-                            MouseLeave="GridContent_MouseLeave"/>
+                            MouseLeave="GridContent_MouseLeave"
+                            Margin="0 0 0 10"/>
                     <Border HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Padding="6"
@@ -208,10 +209,11 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="0 0 0 80">
-                        <Image
+                        <Image x:Name="Profile"
                            Stretch="UniformToFill"
                            Source="{Binding ProfilePhoto}"
-                           Width="150" Height="150">
+                           Width="150" Height="150"
+                           MouseDown="Image_MouseDown">
                             <Image.Clip>
                                 <RectangleGeometry RadiusX="100" RadiusY="100" Rect="0,0,150,150"/>
                             </Image.Clip>

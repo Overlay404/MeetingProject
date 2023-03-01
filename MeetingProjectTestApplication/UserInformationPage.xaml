@@ -7,8 +7,10 @@
       xmlns:local="clr-namespace:MeetingProjectTestApplication"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserInformationPage"
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+      Title="UserInformationPage">
+    <Page.DataContext>
+        <local:UserInformationWindowModelView/>
+    </Page.DataContext>
 
     <Page.Resources>
         <Style TargetType="Button" x:Key="ContactButton">

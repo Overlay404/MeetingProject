@@ -80,6 +80,7 @@ namespace MeetingProjectTestApplication
             var byteImage = ImageConverter.OpenFileDialogSave();
             App.user.BackgroundImage = byteImage;
             App.db.SaveChanges();
+            BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage) ?? (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -100,6 +101,14 @@ namespace MeetingProjectTestApplication
             if ((sender as RadioButton) == null) return;
 
             FrameDisplayingContent.Navigate(new ProjectPage());
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var byteImage = ImageConverter.OpenFileDialogSave();
+            if(byteImage != null) App.user.ProfilePhoto = byteImage;
+            App.db.SaveChanges();
+            Profile.Source = byteImage == null ? (ImageSource)new ImageSourceConverter().ConvertFrom(new UserInformationWindowModelView().ProfilePhoto) : (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage);
         }
     }
 }
