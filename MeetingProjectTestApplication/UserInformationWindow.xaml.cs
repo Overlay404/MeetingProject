@@ -12,11 +12,12 @@ namespace MeetingProjectTestApplication
     /// </summary>
     public partial class UserInformationWindow : Window
     {
-
+        public static UserInformationWindow Instance;
 
         public UserInformationWindow()
         {
             InitializeComponent();
+            Instance = this;
             FrameDisplayingContent.Navigate(new UserInformationPage());
         }
 
@@ -78,8 +79,6 @@ namespace MeetingProjectTestApplication
         {
             var byteImage = ImageConverter.OpenFileDialogSave();
             App.user.BackgroundImage = byteImage;
-            BackgroundImage.ImageSource = (ImageSource) new ImageSourceConverter().ConvertFrom(byteImage);
-            new UserInformationWindowModelView().BackgroundImage = App.user.BackgroundImage;
             App.db.SaveChanges();
         }
 
@@ -93,11 +92,7 @@ namespace MeetingProjectTestApplication
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                FrameDisplayingContent.Navigate(new UserInformationPage());
-            }
-            catch { }
+            if(this.IsLoaded) FrameDisplayingContent.Navigate(new UserInformationPage());
         }
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)

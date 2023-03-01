@@ -22,14 +22,14 @@ namespace MeetingProjectTestApplication
     public partial class MainWindow : Window
     {
 
-    public string TextMd
-    {
-        get { return (string)GetValue(TextMdProperty); }
-        set { SetValue(TextMdProperty, value); }
-    }
+        public string TextMd
+        {
+            get { return (string)GetValue(TextMdProperty); }
+            set { SetValue(TextMdProperty, value); }
+        }
 
-    public static readonly DependencyProperty TextMdProperty =
-        DependencyProperty.Register("TextMd", typeof(string), typeof(MainWindow));
+        public static readonly DependencyProperty TextMdProperty =
+            DependencyProperty.Register("TextMd", typeof(string), typeof(MainWindow));
 
         public MainWindow()
         {

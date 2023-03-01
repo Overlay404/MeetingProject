@@ -1,30 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MeetingProjectTestApplication
 {
     /// <summary>
     /// Логика взаимодействия для ChangeContactInformation.xaml
     /// </summary>
-    public partial class ChangeContactInformation : UserControl
+    public partial class ChangeContactInformation : Window
     {
-        public ChangeContactInformation()
+        public static ChangeContactInformation Instance;
+        string NameComponent;
+
+        public ChangeContactInformation(string Title, string nameComponent)
         {
             InitializeComponent();
+            TitleComponent.Text = Title;
+            NameComponent = nameComponent;
+            Instance = this;
         }
 
-        public string Title { get; set; }
+        private void ButtonPress_Click(object sender, RoutedEventArgs e)
+        {
+            Regex phoneRegex = new Regex(@"(\+7|8|\b)[\(\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[)\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)");
+            Regex telegramRegex = new Regex(@"");
+            Regex emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
+
+            switch (NameComponent)
+            { 
+                case "Phone":
+                    if (ValueComponent.Text.Trim() == "" || !phoneRegex.IsMatch(ValueComponent.Text)) return;
+                        App.user.number = ValueComponent.Text;
+                    Close();
+                    break;
+                case "Telegram":
+                    if (ValueComponent.Text.Trim() == "" || !telegramRegex.IsMatch(ValueComponent.Text)) return;
+                        App.user.telegram = ValueComponent.Text;
+                    Close();
+                    break;
+                case "Email":
+                    if (ValueComponent.Text.Trim() == "" || !emailRegex.IsMatch(ValueComponent.Text)) return;
+                        App.user.email = ValueComponent.Text;
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+            new UserInformationWindowModelView().UpdateData();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            new UserInformationPage().InitializeEvent();
+        }
     }
 }

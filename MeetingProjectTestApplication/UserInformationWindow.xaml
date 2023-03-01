@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:MeetingProjectTestApplication"
-        mc:Ignorable="d" Height="800" Width="1000"
-        Background="Transparent" AllowsTransparency="True"
+        mc:Ignorable="d" Height="800" Width="1000" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent"
         WindowStyle="None">
 
     <Window.DataContext>
@@ -127,8 +127,7 @@
         </Style>
 
     </Window.Resources>
-    <Border CornerRadius="5"
-            Background="White">
+    <Border CornerRadius="5" Background="White">
         <StackPanel>
             <Grid>
                 <Border Background="#9DAFB5" 

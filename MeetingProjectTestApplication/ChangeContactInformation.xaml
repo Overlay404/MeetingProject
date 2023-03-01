@@ -1,19 +1,29 @@
-﻿<UserControl x:Class="MeetingProjectTestApplication.ChangeContactInformation"
+﻿<Window x:Class="MeetingProjectTestApplication.ChangeContactInformation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeetingProjectTestApplication"
-             mc:Ignorable="d"
-             DataContext="{Binding RelativeSource = {RelativeSource Self}}">
-    <Border Padding="30"
-            Background="White">
-        <StackPanel>
-            <TextBlock Text="{Binding Title}"/>
-            <TextBox TextWrapping="Wrap" Width="300"/>
-            <Button Height="25"
-                    Content="Подтвердить"
-                    Width="100"/>
+             mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize"
+             AllowsTransparency="True"
+             DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
+             SizeToContent="WidthAndHeight" Background="Transparent"
+        Loaded="Window_Loaded">
+    <Border Background="White" CornerRadius="5">
+        <StackPanel Background="Transparent">
+            <local:CloseApplicationCotrol/>
+            <Border Padding="10">
+                <StackPanel>
+                    <TextBlock Text="" x:Name="TitleComponent"/>
+                    <TextBox TextWrapping="Wrap" Width="300"
+                         Margin="0 0 0 10" x:Name="ValueComponent"/>
+                    <Button Height="25"
+                        Content="Подтвердить"
+                        Width="100"
+                        x:Name="ButtonPress" Click="ButtonPress_Click"
+                        Margin="0 0 0 10"/>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Border>
-</UserControl>
+</Window>

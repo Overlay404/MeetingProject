@@ -189,6 +189,9 @@
     <Compile Include="ChangeContactInformation.xaml.cs">
       <DependentUpon>ChangeContactInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CloseApplicationCotrol.xaml.cs">
+      <DependentUpon>CloseApplicationCotrol.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditArticleUserControl.xaml.cs">
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
@@ -240,6 +243,10 @@
     </Compile>
     <Compile Include="UserInformationWindowModelView.cs" />
     <Page Include="ChangeContactInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CloseApplicationCotrol.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

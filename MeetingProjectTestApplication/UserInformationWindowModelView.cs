@@ -17,7 +17,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty BackgroundImageProperty =
-            DependencyProperty.Register("BackgroundImage", typeof(byte[]), typeof(UserInformationWindowModelView));
+            DependencyProperty.Register("BackgroundImage", typeof(byte[]), typeof(UserInformationWindow));
 
         
         
@@ -29,7 +29,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty GithubLinkProperty =
-            DependencyProperty.Register("GithubLink", typeof(string), typeof(UserInformationWindowModelView));
+            DependencyProperty.Register("GithubLink", typeof(string), typeof(UserInformationWindow));
 
         
         
@@ -41,7 +41,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty ProfilePhotoProperty =
-            DependencyProperty.Register("github", typeof(byte[]), typeof(UserInformationWindowModelView));
+            DependencyProperty.Register("github", typeof(byte[]), typeof(UserInformationWindow));
 
 
 
@@ -53,7 +53,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty FullnameProperty =
-            DependencyProperty.Register("Fullname", typeof(string), typeof(UserInformationWindowModelView));
+            DependencyProperty.Register("Fullname", typeof(string), typeof(UserInformationWindow));
 
 
 
@@ -65,43 +65,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty JobTitleProperty =
-            DependencyProperty.Register("JobTitle", typeof(System.Collections.Generic.List<JobTitle>), typeof(UserInformationWindowModelView));
-
-
-
-
-        public string Phone
-        {
-            get { return (string)GetValue(PhoneProperty); }
-            set { SetValue(PhoneProperty, value); }
-        }
-
-        public static readonly DependencyProperty PhoneProperty =
-            DependencyProperty.Register("Phone", typeof(string), typeof(UserInformationWindowModelView));
-
-
-
-
-        public string Email
-        {
-            get { return (string)GetValue(EmailProperty); }
-            set { SetValue(EmailProperty, value); }
-        }
-
-        public static readonly DependencyProperty EmailProperty =
-            DependencyProperty.Register("Email", typeof(string), typeof(UserInformationWindowModelView));
-
-
-
-
-        public string Telegram
-        {
-            get { return (string)GetValue(TelegramProperty); }
-            set { SetValue(TelegramProperty, value); }
-        }
-
-        public static readonly DependencyProperty TelegramProperty =
-            DependencyProperty.Register("Telegram", typeof(string), typeof(UserInformationWindowModelView));
+            DependencyProperty.Register("JobTitle", typeof(System.Collections.Generic.List<JobTitle>), typeof(UserInformationWindow));
 
 
         public UserInformationWindowModelView()
@@ -109,16 +73,13 @@ namespace MeetingProjectTestApplication
             UpdateData();
         }
 
-        private void UpdateData()
+        public void UpdateData()
         {
             BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
             GithubLink = App.user.github ?? "Не подключен";
             ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
             Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";
             JobTitle = App.user.JobTitle.ToList();
-            Phone = App.user.number;
-            Email = App.user.email;
-            Telegram = App.user.telegram;
-        }
+        } 
     }
 }

@@ -7,11 +7,8 @@
       xmlns:local="clr-namespace:MeetingProjectTestApplication"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserInformationPage">
-
-    <Page.DataContext>
-        <local:UserInformationWindowModelView/>
-    </Page.DataContext>
+      Title="UserInformationPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Page.Resources>
         <Style TargetType="Button" x:Key="ContactButton">
@@ -57,15 +54,15 @@
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Phone}"
                         Tag="Phone"
-                        Click="PhoneButton_Click"/>
+                        x:Name="PhoneButton" Click="PhoneButton_Click"/>
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Email}"
                         Tag="EnvelopeOutline"
-                        Click="EmailButton_Click"/>
+                        x:Name="EmailButton" Click="EmailButton_Click"/>
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Telegram}"
                         Tag="Telegram"
-                        Click="TelegramButton_Click"/>
+                        x:Name="TelegramButton" Click="TelegramButton_Click"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Top"
