@@ -47,10 +47,5 @@ namespace MeetingProjectTestApplication
             }
             new UserInformationWindowModelView().UpdateData();
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            new UserInformationPage().InitializeEvent();
-        }
     }
 }

@@ -20,43 +20,84 @@ namespace MeetingProjectTestApplication
             Instance = this;
             FrameDisplayingContent.Navigate(new UserInformationPage());
         }
+        /// <summary>
+        /// Event
+        /// </summary>
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { DragMove(); }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e) { ShutdownApplication(); }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e) { AnimationButton(1); }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e) { AnimationButton(0); }
+
+        private void GridContent_MouseEnter(object sender, MouseEventArgs e) { AnimationBorder(1); }
+
+        private void GridContent_MouseLeave(object sender, MouseEventArgs e) { AnimationBorder(0); }
+
+        private void AddBackgroundImageButton_Click(object sender, RoutedEventArgs e)
         {
-            DragMove();
+            var byteImage = ImageConverter.OpenFileDialogSave();
+            App.user.BackgroundImage = byteImage;
+            App.db.SaveChanges();
+            BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage) ?? (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
         }
 
-        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        private void DeleteBackgroundImageButton_Click(object sender, RoutedEventArgs e)
         {
-            ShutdownApplication();
+            App.user.BackgroundImage = null;
+            if (MessageBox.Show("Поменять фон на стандартный?", "Смена фона", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
+            App.db.SaveChanges();
         }
 
-        private static void ShutdownApplication()
+        private void MyInfoButton_Checked(object sender, RoutedEventArgs e) { if (this.IsLoaded) FrameDisplayingContent.Navigate(new UserInformationPage()); }
+
+        private void MyProjectButton_Checked(object sender, RoutedEventArgs e) { if ((sender as RadioButton) != null) FrameDisplayingContent.Navigate(new ProjectPage()); }
+
+        private void ProfileImage_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (MessageBox.Show("Завершить сеанс?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                Application.Current.Shutdown();
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImage.Opacity;
+            animation.To = 0.5;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+            Profile.BeginAnimation(OpacityProperty, animation);
+            ButtonProfile.Opacity = 1;
         }
 
-        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        private void ProfileImage_MouseLeave(object sender, MouseEventArgs e)
         {
-            AnimationButton(1);
+            var animation = new DoubleAnimation();
+            animation.From = ChangeBackgroundImage.Opacity;
+            animation.To = 1;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+            Profile.BeginAnimation(OpacityProperty, animation);
+            ButtonProfile.Opacity = 0;
         }
 
-        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        private void AddProfileImageButton_Click(object sender, RoutedEventArgs e)
         {
-            AnimationButton(0);
+            var byteImage = ImageConverter.OpenFileDialogSave();
+            if (byteImage != null) App.user.ProfilePhoto = byteImage;
+            App.db.SaveChanges();
+            Profile.Source = byteImage == null ? (ImageSource)new ImageSourceConverter().ConvertFrom(new UserInformationWindowModelView().ProfilePhoto) : (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage);
         }
 
-        private void GridContent_MouseEnter(object sender, MouseEventArgs e)
+        private void DeleteProfileImageButton_Click(object sender, RoutedEventArgs e)
         {
-            AnimationBorder(1);
+            App.user.ProfilePhoto = null;
+            if (MessageBox.Show("Поменять фото профиля на стандартное?", "Смена фото профиля", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                Profile.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new UserInformationWindowModelView().ProfilePhoto);
+            App.db.SaveChanges();
         }
 
-        private void GridContent_MouseLeave(object sender, MouseEventArgs e)
+        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AnimationBorder(0);
-        }
 
+        }
+        /// <summary>
+        /// Методы
+        /// </summary>
         private void AnimationButton(int Opacity)
         {
             var animation = new DoubleAnimation();
@@ -75,40 +116,11 @@ namespace MeetingProjectTestApplication
             ChangeBackgroundImageButtons.BeginAnimation(OpacityProperty, animation);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private static void ShutdownApplication()
         {
-            var byteImage = ImageConverter.OpenFileDialogSave();
-            App.user.BackgroundImage = byteImage;
-            App.db.SaveChanges();
-            BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage) ?? (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
+            if (MessageBox.Show("Завершить сеанс?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                Application.Current.Shutdown();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            App.user.BackgroundImage = null;
-            if (MessageBox.Show("Поменять фон на стандартный?", "Смена фона", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
-            App.db.SaveChanges();
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if(this.IsLoaded) FrameDisplayingContent.Navigate(new UserInformationPage());
-        }
-
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
-        {
-            if ((sender as RadioButton) == null) return;
-
-            FrameDisplayingContent.Navigate(new ProjectPage());
-        }
-
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var byteImage = ImageConverter.OpenFileDialogSave();
-            if(byteImage != null) App.user.ProfilePhoto = byteImage;
-            App.db.SaveChanges();
-            Profile.Source = byteImage == null ? (ImageSource)new ImageSourceConverter().ConvertFrom(new UserInformationWindowModelView().ProfilePhoto) : (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage);
-        }
     }
 }

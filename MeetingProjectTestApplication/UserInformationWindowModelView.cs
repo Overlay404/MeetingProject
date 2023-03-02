@@ -104,11 +104,11 @@ namespace MeetingProjectTestApplication
             BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
             GithubLink = App.user.github ?? "Не подключен";
             ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
-            Fullname = $"{App.user.name} {App.user.surname} {App.user.patronomic}";
+            Fullname = $"{App.user.surname} {App.user.name} {App.user.patronomic}";
             JobTitle = App.user.JobTitle.ToList();
-            Phone = App.user.number;
-            Email = App.user.email;
-            Telegram = App.user.telegram;
+            Phone = App.user.number ?? "Поле не заполнено";
+            Email = App.user.email ?? "Поле не заполнено";
+            Telegram = App.user.telegram ?? "Поле не заполнено";
         }
     }
 }

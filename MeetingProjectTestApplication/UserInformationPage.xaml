@@ -28,7 +28,7 @@
                         </StackPanel>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#044AFD"/>
+                                <Setter Property="Foreground" Value="Gray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -48,7 +48,7 @@
                                FontSize="14"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                    <Rectangle Width="750" Height="2"
+                    <Rectangle Width="750" Height="1.5"
                                Fill="#044AFD"
                                HorizontalAlignment="Center"/>
 
@@ -56,15 +56,15 @@
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Phone}"
                         Tag="Phone"
-                        x:Name="PhoneButton" Click="PhoneButton_Click"/>
+                        x:Name="PhoneButton"/>
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Email}"
                         Tag="EnvelopeOutline"
-                        x:Name="EmailButton" Click="EmailButton_Click"/>
+                        x:Name="EmailButton"/>
                 <Button Style="{StaticResource ContactButton}"
                         Content="{Binding Telegram}"
                         Tag="Telegram"
-                        x:Name="TelegramButton" Click="TelegramButton_Click"/>
+                        x:Name="TelegramButton"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Top"
@@ -75,7 +75,7 @@
                        FontSize="14"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-            <Rectangle Width="750" Height="2"
+            <Rectangle Width="750" Height="1.5"
                        Fill="#044AFD"
                        HorizontalAlignment="Center"/>
 
@@ -89,7 +89,7 @@
                        FontSize="14"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-            <Rectangle Width="750" Height="2"
+            <Rectangle Width="750" Height="1.5"
                        Fill="#044AFD"
                        HorizontalAlignment="Center"/>
 
@@ -103,7 +103,7 @@
                        FontSize="14"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-            <Rectangle Width="750" Height="2"
+            <Rectangle Width="750" Height="1.5"
                        Fill="#044AFD"
                        HorizontalAlignment="Center"/>
 

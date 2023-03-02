@@ -7,8 +7,7 @@
              mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize"
              AllowsTransparency="True"
              DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
-             SizeToContent="WidthAndHeight" Background="Transparent"
-        Loaded="Window_Loaded">
+             SizeToContent="WidthAndHeight" Background="Transparent">
     <Border Background="White" CornerRadius="5">
         <StackPanel Background="Transparent">
             <local:CloseApplicationCotrol/>
@@ -18,7 +17,7 @@
                     <TextBox TextWrapping="Wrap" Width="300"
                          Margin="0 0 0 10" x:Name="ValueComponent"/>
                     <Button Height="25"
-                        Content="Подтвердить"
+                        Content="Подключить"
                         Width="100"
                         x:Name="ButtonPress" Click="ButtonPress_Click"
                         Margin="0 0 0 10"/>
