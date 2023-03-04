@@ -12,14 +12,14 @@
     <Border Background="White" CornerRadius="5">
         <StackPanel Background="Transparent">
             <local:CloseApplicationCotrol/>
-            <Border Padding="10">
+            <Border Padding="10" Width="400">
                 <StackPanel>
                     <TextBlock Text="" x:Name="TitleComponent"/>
-                    <TextBox TextWrapping="Wrap" Width="300"
-                         Margin="0 0 0 10" x:Name="ValueComponent"/>
-                    <Border x:Name="BorderGithubProfile" BorderBrush="Black" BorderThickness="1" Padding="5">
+                    <TextBox TextWrapping="Wrap" Width="380"
+                         Margin="0 0 0 10" TextChanged="ValueComponent_TextChanged" x:Name="GithabNameAccount"/>
+                    <Border x:Name="BorderGithubProfile" BorderBrush="Gray" BorderThickness="1" Padding="5" CornerRadius="4" Margin="0 0 0 10" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="60" Width="60" Stretch="UniformToFill" Source="{Binding GithubProfilePhoto}">
+                            <Image Height="60" Width="60" Stretch="UniformToFill" Source="{Binding GithubProfilePhoto}" x:Name="ProfilePhoto">
                                 <Image.Clip>
                                     <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,60,60"/>
                                 </Image.Clip>
