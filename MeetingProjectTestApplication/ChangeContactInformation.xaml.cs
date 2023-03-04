@@ -1,4 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using AngleSharp;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MeetingProjectTestApplication
@@ -9,43 +14,27 @@ namespace MeetingProjectTestApplication
     public partial class ChangeContactInformation : Window
     {
         public static ChangeContactInformation Instance;
-        string NameComponent;
 
-        public ChangeContactInformation(string Title, string nameComponent)
+        public ChangeContactInformation()
         {
             InitializeComponent();
-            TitleComponent.Text = Title;
-            NameComponent = nameComponent;
             Instance = this;
         }
 
-        private void ButtonPress_Click(object sender, RoutedEventArgs e)
+        private async void ButtonPress_Click(object sender, RoutedEventArgs e)
         {
-            Regex phoneRegex = new Regex(@"(\+7|8|\b)[\(\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[)\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)");
-            Regex telegramRegex = new Regex(@"");
-            Regex emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
+            await GetLinkGithudProfileImageAsync();
+        }
 
-            switch (NameComponent)
-            { 
-                case "Phone":
-                    if (ValueComponent.Text.Trim() == "" || !phoneRegex.IsMatch(ValueComponent.Text)) return;
-                        App.user.number = ValueComponent.Text;
-                    Close();
-                    break;
-                case "Telegram":
-                    if (ValueComponent.Text.Trim() == "" || !telegramRegex.IsMatch(ValueComponent.Text)) return;
-                        App.user.telegram = ValueComponent.Text;
-                    Close();
-                    break;
-                case "Email":
-                    if (ValueComponent.Text.Trim() == "" || !emailRegex.IsMatch(ValueComponent.Text)) return;
-                        App.user.email = ValueComponent.Text;
-                    Close();
-                    break;
-                default:
-                    break;
-            }
-            new UserInformationWindowModelView().UpdateData();
+        public async Task GetLinkGithudProfileImageAsync()
+        {
+            var config = Configuration.Default.WithDefaultLoader();
+            var address = "https://github.com/Overlay404";
+            var document = await BrowsingContext.New(config).OpenAsync(address);
+            var cellSelector = ".avatar-user";
+            var cells = document.QuerySelectorAll(cellSelector);
+            var titles = cells.Select(m => m.Attributes["src"].Value);
+            MessageBox.Show(string.Join(" ", titles));
         }
     }
 }

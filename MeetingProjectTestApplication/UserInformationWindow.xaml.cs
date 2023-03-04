@@ -93,7 +93,7 @@ namespace MeetingProjectTestApplication
 
         private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            new ChangeContactInformation().Show();
         }
         /// <summary>
         /// Методы

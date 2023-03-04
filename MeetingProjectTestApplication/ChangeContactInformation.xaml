@@ -8,6 +8,7 @@
              AllowsTransparency="True"
              DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
              SizeToContent="WidthAndHeight" Background="Transparent">
+ 
     <Border Background="White" CornerRadius="5">
         <StackPanel Background="Transparent">
             <local:CloseApplicationCotrol/>
@@ -16,6 +17,21 @@
                     <TextBlock Text="" x:Name="TitleComponent"/>
                     <TextBox TextWrapping="Wrap" Width="300"
                          Margin="0 0 0 10" x:Name="ValueComponent"/>
+                    <Border x:Name="BorderGithubProfile" BorderBrush="Black" BorderThickness="1" Padding="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="60" Width="60" Stretch="UniformToFill" Source="{Binding GithubProfilePhoto}">
+                                <Image.Clip>
+                                    <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,60,60"/>
+                                </Image.Clip>
+                            </Image>
+                            <Grid Margin="20 0 0 0">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding NameGithubProfile}" FontSize="16"/>
+                                    <TextBlock Text="{Binding AboutGithubProfile}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
                     <Button Height="25"
                         Content="Подключить"
                         Width="100"
