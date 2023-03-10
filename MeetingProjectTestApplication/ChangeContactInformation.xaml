@@ -8,16 +8,16 @@
              AllowsTransparency="True"
              DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
              SizeToContent="WidthAndHeight" Background="Transparent">
- 
+
     <Border Background="White" CornerRadius="5">
         <StackPanel Background="Transparent">
             <local:CloseApplicationCotrol/>
             <Border Padding="10" Width="400">
                 <StackPanel>
-                    <TextBlock Text="" x:Name="TitleComponent"/>
+                    <TextBlock Text="Введите своё имя пользователя в GitHub" x:Name="TitleComponent"/>
                     <TextBox TextWrapping="Wrap" Width="380"
                          Margin="0 0 0 10" TextChanged="ValueComponent_TextChanged" x:Name="GithabNameAccount"/>
-                    <Border x:Name="BorderGithubProfile" BorderBrush="Gray" BorderThickness="1" Padding="5" CornerRadius="4" Margin="0 0 0 10" Visibility="Collapsed">
+                    <Border x:Name="BorderGithubProfile" BorderBrush="Gray" BorderThickness="1" Padding="5" Visibility="Collapsed" CornerRadius="4" Margin="0 0 0 10" >
                         <StackPanel Orientation="Horizontal">
                             <Image Height="60" Width="60" Stretch="UniformToFill" Source="{Binding GithubProfilePhoto}" x:Name="ProfilePhoto">
                                 <Image.Clip>
@@ -26,12 +26,30 @@
                             </Image>
                             <Grid Margin="20 0 0 0">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding NameGithubProfile}" FontSize="16"/>
+                                    <TextBlock Text="{Binding NameGithubProfile}" FontSize="16" TextAlignment="Left"/>
                                     <TextBlock Text="{Binding AboutGithubProfile}" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
                     </Border>
+                    <Image Source="Image\ImageLoad.png" Width="40" Margin="0 10" x:Name="ImageLoad" Visibility="Collapsed">
+                        <Image.RenderTransform>
+                            <RotateTransform x:Name="rotate"
+                         CenterX="20"
+                         CenterY="20"/>
+                        </Image.RenderTransform>
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
                     <Button Height="25"
                         Content="Подключить"
                         Width="100"

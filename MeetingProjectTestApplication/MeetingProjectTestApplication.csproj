@@ -334,6 +334,7 @@
     <Content Include="Image\EmptyPersonImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Image\ImageLoad.png" />
     <Content Include="Model\DateBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DateBase.Context.cs</LastGenOutput>

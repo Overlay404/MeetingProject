@@ -21,6 +21,16 @@ namespace MeetingProjectTestApplication
 
         public static string UriGithubProfileImage;
 
+        string NameProfile;
+
+        string NameBaseProfile;
+
+        string NameCollaborationProfile;
+
+        string UsernameCollaborationProfile;
+
+        string AboutProfileGithub;
+
 
         public ImageSource GithubProfilePhoto
         {
@@ -69,10 +79,8 @@ namespace MeetingProjectTestApplication
         {
             try
             {
-                var request = System.Net.WebRequest.Create(UriGithubProfileImage);
-                var response = request.GetResponse();
                 System.Drawing.Bitmap loadedBitmap = null;
-                using (var responseStream = response.GetResponseStream())
+                using (var responseStream = System.Net.WebRequest.Create(UriGithubProfileImage).GetResponse().GetResponseStream())
                 {
                     loadedBitmap = new System.Drawing.Bitmap(responseStream);
                 }
@@ -94,24 +102,59 @@ namespace MeetingProjectTestApplication
 
         public async Task GetInformationProfileGithubAsync(string NameUserGithub)
         {
-            string nameProfile = $"https://github.com/{NameUserGithub}";
+            LoadComponetState(true);
+            await ParsingDataInSite(NameUserGithub);
+            LoadComponetState(false);
+        }
 
-            UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(nameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
+        private async Task ParsingDataInSite(string NameUserGithub)
+        {
+            //Ссылка на Github пользователя
+            NameProfile = $"https://github.com/{NameUserGithub}";
+            //Картинка профиля польщователя
+            UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
+            //Имя обычного профиля
+            NameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault() ?? "";
+            //Имя корпаративного профиля
+            NameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".h2.lh-condensed").Select(m => m.Text()).FirstOrDefault() ?? "";
+            //Имя пользователя обычного пользователя
+            UsernameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-username").Select(m => m.Text()).FirstOrDefault() ?? "";
+            //О пользователе
+            AboutProfileGithub = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".user-profile-bio").Select(m => m.Attributes["data-bio-text"].Value).FirstOrDefault() ?? "";
 
-            string nameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(nameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault();
-            string nameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(nameProfile)).QuerySelectorAll(".h2.lh-condensed").Select(m => m.Text()).FirstOrDefault();
-            string usernameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(nameProfile)).QuerySelectorAll(".vcard-username").Select(m => m.Text()).FirstOrDefault();
+            VilidateDataRequest();
+        }
 
-            if(nameBaseProfile != null) { NameGithubProfile = nameBaseProfile; }
-            else if(nameCollaborationProfile != null) { NameGithubProfile = nameCollaborationProfile; }
-            else { NameGithubProfile = usernameCollaborationProfile; }
+        private void VilidateDataRequest()
+        {
+            if (NameBaseProfile.Replace(Environment.NewLine, "").Trim() != "") { NameGithubProfile = NameBaseProfile.Replace(Environment.NewLine, "").Trim(); }
+            else if (NameCollaborationProfile != "") { NameGithubProfile = NameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
+            else { NameGithubProfile = UsernameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
 
-            AboutGithubProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(nameProfile)).QuerySelectorAll(".user-profile-bio").Select(m => m.Attributes["data-bio-text"].Value).FirstOrDefault();
+            if (AboutProfileGithub != "") AboutGithubProfile = AboutProfileGithub.Replace(Environment.NewLine, "").Trim();
+        }
+
+        private void LoadComponetState(bool IsLoad)
+        {
+            if (IsLoad)
+            {
+                ImageLoad.Visibility = System.Windows.Visibility.Visible;
+                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                ImageLoad.Visibility = System.Windows.Visibility.Collapsed;
+                BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         private async void ValueComponent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (GithabNameAccount.Text == null || GithabNameAccount.Text == "") { BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed; return; }
+            if (GithabNameAccount.Text == null || GithabNameAccount.Text == "") 
+            { 
+                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
+                return; 
+            }
             await GetInformationProfileGithubAsync(GithabNameAccount.Text);
             GetLinkGithudProfileImage();
         }
