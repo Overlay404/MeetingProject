@@ -8,7 +8,7 @@
              AllowsTransparency="True"
              DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
              SizeToContent="WidthAndHeight" Background="Transparent">
-
+    
     <Border Background="White" CornerRadius="5">
         <StackPanel Background="Transparent">
             <local:CloseApplicationCotrol/>
