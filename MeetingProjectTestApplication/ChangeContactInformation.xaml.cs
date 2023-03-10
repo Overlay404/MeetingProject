@@ -96,7 +96,8 @@ namespace MeetingProjectTestApplication
             }
             catch (Exception ex)
             {
-                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
+                GithubProfilePhoto = null;
+                NameGithubProfile = "Нет такого пользователя";
             }
         }
 
@@ -111,7 +112,7 @@ namespace MeetingProjectTestApplication
         {
             //Ссылка на Github пользователя
             NameProfile = $"https://github.com/{NameUserGithub}";
-            //Картинка профиля польщователя
+            //Картинка профиля пользователя
             UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
             //Имя обычного профиля
             NameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault() ?? "";
