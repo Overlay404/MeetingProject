@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,8 @@ namespace MeetingProject
     /// </summary>
     public partial class App : Application
     {
+        public static MeetingProjectEntities db = new MeetingProjectEntities();
+
+        public static ManWithResume user = db.ManWithResume.FirstOrDefault();
     }
 }
