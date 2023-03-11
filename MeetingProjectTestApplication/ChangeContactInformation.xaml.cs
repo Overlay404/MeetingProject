@@ -1,6 +1,8 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using Avalonia.Controls;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace MeetingProjectTestApplication
     /// <summary>
     /// Логика взаимодействия для ChangeContactInformation.xaml
     /// </summary>
-    public partial class ChangeContactInformation : Window
+    public partial class ChangeContactInformation : System.Windows.Window
     {
         public static ChangeContactInformation Instance;
 
@@ -94,7 +96,7 @@ namespace MeetingProjectTestApplication
                 GithubProfilePhoto = image;
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 GithubProfilePhoto = null;
                 NameGithubProfile = "Нет такого пользователя";
@@ -116,7 +118,7 @@ namespace MeetingProjectTestApplication
             UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
             //Имя обычного профиля
             NameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //Имя корпаративного профиля
+            //Имя корпоративного профиля
             NameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".h2.lh-condensed").Select(m => m.Text()).FirstOrDefault() ?? "";
             //Имя пользователя обычного пользователя
             UsernameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-username").Select(m => m.Text()).FirstOrDefault() ?? "";
@@ -132,7 +134,7 @@ namespace MeetingProjectTestApplication
             else if (NameCollaborationProfile != "") { NameGithubProfile = NameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
             else { NameGithubProfile = UsernameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
 
-            if (AboutProfileGithub != "") AboutGithubProfile = AboutProfileGithub.Replace(Environment.NewLine, "").Trim();
+            AboutGithubProfile = AboutProfileGithub.Replace(Environment.NewLine, "").Trim();
         }
 
         private void LoadComponetState(bool IsLoad)
@@ -151,7 +153,8 @@ namespace MeetingProjectTestApplication
 
         private async void ValueComponent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (GithabNameAccount.Text == null || GithabNameAccount.Text == "") 
+            if (GithabNameAccount == null) return;
+            if (GithabNameAccount.Text == "")
             { 
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
                 return; 

@@ -56,7 +56,7 @@
                         Content="Подключить"
                         Width="100"
                         x:Name="ButtonPress" Click="ButtonPress_Click"
-                        Margin="0 0 0 10"/>
+                        Margin="0 0 0 10" Background="White"/>
                 </StackPanel>
             </Border>
         </StackPanel>
