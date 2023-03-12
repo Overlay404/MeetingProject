@@ -4,12 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="NameInstitution" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeOfEducation" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -43,6 +52,14 @@
           <Property Name="about" Type="nvarchar" MaxLength="50" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ManWithResumeEducation">
+          <Key>
+            <PropertyRef Name="ManWithResumeId" />
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="ManWithResumeId" Type="int" Nullable="false" />
+          <Property Name="EducationId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ManWithResumeExperienceTable">
           <Key>
@@ -79,6 +96,30 @@
           <Property Name="codeImage" Type="varbinary(max)" />
           <Property Name="MyProjectId" Type="int" />
         </EntityType>
+        <Association Name="FK_ManWithResumeEducation_Education">
+          <End Role="Education" Type="Self.Education" Multiplicity="1" />
+          <End Role="ManWithResumeEducation" Type="Self.ManWithResumeEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Education">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeEducation">
+              <PropertyRef Name="EducationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeEducation_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="1" />
+          <End Role="ManWithResumeEducation" Type="Self.ManWithResumeEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeEducation">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ManWithResumeExperienceTable_Experience">
           <End Role="Experience" Type="Self.Experience" Multiplicity="1" />
           <End Role="ManWithResumeExperienceTable" Type="Self.ManWithResumeExperienceTable" Multiplicity="*" />
@@ -153,13 +194,23 @@
         </Association>
         <EntityContainer Name="Хранилище MeetingProjectModelContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResumeEducation" EntityType="Self.ManWithResumeEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeExperienceTable" EntityType="Self.ManWithResumeExperienceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeJobTitleTable" EntityType="Self.ManWithResumeJobTitleTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyProject" EntityType="Self.MyProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PictureProject" EntityType="Self.PictureProject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ManWithResumeEducation_Education" Association="Self.FK_ManWithResumeEducation_Education">
+            <End Role="Education" EntitySet="Education" />
+            <End Role="ManWithResumeEducation" EntitySet="ManWithResumeEducation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeEducation_ManWithResume" Association="Self.FK_ManWithResumeEducation_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="ManWithResumeEducation" EntitySet="ManWithResumeEducation" />
+          </AssociationSet>
           <AssociationSet Name="FK_ManWithResumeExperienceTable_Experience" Association="Self.FK_ManWithResumeExperienceTable_Experience">
             <End Role="Experience" EntitySet="Experience" />
             <End Role="ManWithResumeExperienceTable" EntitySet="ManWithResumeExperienceTable" />
@@ -185,8 +236,7 @@
             <End Role="PictureProject" EntitySet="PictureProject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MeetingProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -233,6 +283,7 @@
           <NavigationProperty Name="MyProject" Relationship="Self.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="MyProject" />
           <NavigationProperty Name="Experience" Relationship="Self.ManWithResumeExperienceTable" FromRole="ManWithResume" ToRole="Experience" />
           <NavigationProperty Name="JobTitle" Relationship="Self.ManWithResumeJobTitleTable" FromRole="ManWithResume" ToRole="JobTitle" />
+          <NavigationProperty Name="Education" Relationship="MeetingProjectModel.ManWithResumeEducation" FromRole="ManWithResume" ToRole="Education" />
         </EntityType>
         <EntityType Name="MyProject">
           <Key>
@@ -311,7 +362,26 @@
             <End Role="JobTitle" EntitySet="JobTitle" />
             <End Role="ManWithResume" EntitySet="ManWithResume" />
           </AssociationSet>
+          <EntitySet Name="Education" EntityType="MeetingProjectModel.Education" />
+          <AssociationSet Name="ManWithResumeEducation" Association="MeetingProjectModel.ManWithResumeEducation">
+            <End Role="Education" EntitySet="Education" />
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="NameInstitution" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfEducation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManWithResume" Relationship="MeetingProjectModel.ManWithResumeEducation" FromRole="Education" ToRole="ManWithResume" />
+        </EntityType>
+        <Association Name="ManWithResumeEducation">
+          <End Type="MeetingProjectModel.Education" Role="Education" Multiplicity="*" />
+          <End Type="MeetingProjectModel.ManWithResume" Role="ManWithResume" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -396,6 +466,24 @@
             </EndProperty>
             <EndProperty Name="ManWithResume">
               <ScalarProperty Name="id" ColumnName="ManWithResumeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Education">
+            <EntityTypeMapping TypeName="MeetingProjectModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="TypeOfEducation" ColumnName="TypeOfEducation" />
+                <ScalarProperty Name="NameInstitution" ColumnName="NameInstitution" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ManWithResumeEducation" TypeName="MeetingProjectModel.ManWithResumeEducation" StoreEntitySet="ManWithResumeEducation">
+            <EndProperty Name="ManWithResume">
+              <ScalarProperty Name="id" ColumnName="ManWithResumeId" />
+            </EndProperty>
+            <EndProperty Name="Education">
+              <ScalarProperty Name="id" ColumnName="EducationId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

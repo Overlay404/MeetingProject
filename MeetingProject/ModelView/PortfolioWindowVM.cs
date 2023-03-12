@@ -1,5 +1,6 @@
 ﻿using MeetingProject.Model;
 using MeetingProject.SupportiveClasses;
+using MeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace MeetingProject.ModelView
         }
 
         public static readonly DependencyProperty ProfilePhotoProperty =
-            DependencyProperty.Register("github", typeof(byte[]), typeof(PortfolioWindowVM));
+            DependencyProperty.Register("ProfilePhoto", typeof(byte[]), typeof(PortfolioWindow));
 
         public string Fullname
         {
@@ -45,7 +46,7 @@ namespace MeetingProject.ModelView
         }
 
         public static readonly DependencyProperty FullnameProperty =
-            DependencyProperty.Register("Fullname", typeof(string), typeof(PortfolioWindowVM));
+            DependencyProperty.Register("Fullname", typeof(string), typeof(PortfolioWindow));
 
         public System.Collections.Generic.List<JobTitle> JobTitle
         {
@@ -61,7 +62,11 @@ namespace MeetingProject.ModelView
 
         public PortfolioWindowVM()
         {
-            UpdateData();
+            BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
+            GithubLink = App.user.github ?? "Не подключен";
+            ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
+            Fullname = $"{App.user.surname} {App.user.name} {App.user.patronomic}";
+            JobTitle = App.user.JobTitle.ToList();
         }
 
         public static void UpdateData()

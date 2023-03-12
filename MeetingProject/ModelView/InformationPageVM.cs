@@ -1,4 +1,6 @@
-﻿using MeetingProject.SupportiveClasses;
+﻿using MeetingProject.Model;
+using MeetingProject.ModelView;
+using MeetingProject.SupportiveClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,18 +39,46 @@ namespace MeetingProject.ModelView
         public static readonly DependencyProperty TelegramProperty =
             DependencyProperty.Register("Telegram", typeof(string), typeof(InformationPageVM));
 
-        public static readonly InformationPageVM Instance = new InformationPageVM();
 
-        private InformationPageVM()
+        public List<Experience> ExperienceList
         {
-            UpdateData();
+            get { return (List<Experience>)GetValue(ExperienceListProperty); }
+            set { SetValue(ExperienceListProperty, value); }
         }
 
-        public static void UpdateData()
+        public static readonly DependencyProperty ExperienceListProperty =
+            DependencyProperty.Register("ExperienceList", typeof(List<Experience>), typeof(InformationPageVM));
+
+
+        public List<Education> EducationList
         {
-            Instance.Phone = App.user.number ?? "Поле не заполнено";
-            Instance.Email = App.user.email ?? "Поле не заполнено";
-            Instance.Telegram = App.user.telegram ?? "Поле не заполнено";
+            get { return (List<Education>)GetValue(EducationListProperty); }
+            set { SetValue(EducationListProperty, value); }
+        }
+
+        public static readonly DependencyProperty EducationListProperty =
+            DependencyProperty.Register("EducationList", typeof(List<Education>), typeof(InformationPageVM));
+
+
+        public string About
+        {
+            get { return (string)GetValue(AboutProperty); }
+            set { SetValue(AboutProperty, value); }
+        }
+
+        public static readonly DependencyProperty AboutProperty =
+            DependencyProperty.Register("About", typeof(string), typeof(InformationPageVM));
+
+
+
+        public InformationPageVM()
+        {
+            Phone = App.user.number ?? "Поле не заполнено";
+            Email = App.user.email ?? "Поле не заполнено";
+            Telegram = App.user.telegram ?? "Поле не заполнено";
+            ExperienceList = App.user.Experience.ToList();
+            EducationList = App.user.Education.ToList();
+            About = App.user.about ?? "Поле не заполнено";
         }
     }
 }

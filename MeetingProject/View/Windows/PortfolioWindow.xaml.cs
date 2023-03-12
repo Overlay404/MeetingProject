@@ -27,7 +27,10 @@ namespace MeetingProject.View.Windows
 
         public PortfolioWindow()
         {
+            DataContext = new PortfolioWindowVM();
+
             InitializeComponent();
+
             Instance = this;
             FrameDisplayingContent.Navigate(new InformationPage());
         }
@@ -44,25 +47,14 @@ namespace MeetingProject.View.Windows
 
         private void GridContent_MouseLeave(object sender, MouseEventArgs e) { AnimationBorder(0); }
 
-        private void AddBackgroundImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            var byteImage = ImageConverter.OpenFileDialogSave();
-            App.user.BackgroundImage = byteImage;
-            App.db.SaveChanges();
-            BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(byteImage) ?? (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
-        }
-
-        private void DeleteBackgroundImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.user.BackgroundImage = null;
-            if (MessageBox.Show("Поменять фон на стандартный?", "Смена фона", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                BackgroundImage.ImageSource = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("Image/EmptyBackgroundImage.png", UriKind.Relative));
-            App.db.SaveChanges();
-        }
-
         private void MyInfoButton_Checked(object sender, RoutedEventArgs e) { if (this.IsLoaded) FrameDisplayingContent.Navigate(new InformationPage()); }
 
         private void MyProjectButton_Checked(object sender, RoutedEventArgs e) { if ((sender as RadioButton) != null) FrameDisplayingContent.Navigate(new ProjectPage()); }
+
+        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //new ChangeContactInformation().Show();
+        }
 
         private void ProfileImage_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -90,19 +82,37 @@ namespace MeetingProject.View.Windows
             if (byteImage != null) App.user.ProfilePhoto = byteImage;
             App.db.SaveChanges();
             PortfolioWindowVM.Instance.ProfilePhoto = App.user.ProfilePhoto;
+            UpdateDataContext();
         }
 
         private void DeleteProfileImageButton_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Поменять фото профиля на стандартное?", "Смена фото профиля", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
                 App.user.ProfilePhoto = null;
                 PortfolioWindowVM.Instance.ProfilePhoto = App.user.ProfilePhoto;
                 App.db.SaveChanges();
+                UpdateDataContext();
+            }
         }
 
-        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
+        private void AddBackgroundImageButton_Click(object sender, RoutedEventArgs e)
         {
-            //new ChangeContactInformation().Show();
+            var byteImage = ImageConverter.OpenFileDialogSave();
+            if (byteImage == null) return;
+            App.user.BackgroundImage = byteImage;
+            App.db.SaveChanges();
+            UpdateDataContext();
+        }
+
+        private void DeleteBackgroundImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Поменять фон на стандартный?", "Смена фона", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                App.user.BackgroundImage = null;
+                App.db.SaveChanges();
+                UpdateDataContext();
+            }
         }
        
 
@@ -130,5 +140,10 @@ namespace MeetingProject.View.Windows
                 Application.Current.Shutdown();
         }
 
+
+        private void UpdateDataContext()
+        {
+            DataContext = new PortfolioWindowVM();
+        }
     }
 }

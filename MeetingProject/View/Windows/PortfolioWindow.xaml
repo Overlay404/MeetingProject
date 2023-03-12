@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:MeetingProject.ModelView"
         mc:Ignorable="d" Height="800" Width="1000" ResizeMode="NoResize"
         AllowsTransparency="True" Background="Transparent"
-        WindowStyle="None">
+        WindowStyle="None" Style="{StaticResource WindowStyle}">
+
+    <Window.DataContext>
+        <local:PortfolioWindowVM/>
+    </Window.DataContext>
     
     <Border CornerRadius="5" Background="White">
         <StackPanel>
@@ -162,7 +167,7 @@
                         </StackPanel>
                         <Frame x:Name="FrameDisplayingContent"
                                Width="810"
-                               Height="473"
+                               Height="475"
                                Background="#F2F0FF"
                                NavigationUIVisibility="Hidden"/>
                     </StackPanel>

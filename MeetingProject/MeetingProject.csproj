@@ -98,6 +98,9 @@
     </ApplicationDefinition>
     <Compile Include="ModelView\InformationPageVM.cs" />
     <Compile Include="ModelView\PortfolioWindowVM.cs" />
+    <Compile Include="Model\Education.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
     <Compile Include="View\Pages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
@@ -108,16 +111,8 @@
     <Compile Include="View\Windows\PortfolioWindow.xaml.cs">
       <DependentUpon>PortfolioWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Style\ProjectTheme.xaml">

@@ -20,6 +20,7 @@ namespace MeetingProject.Model
             this.MyProject = new HashSet<MyProject>();
             this.Experience = new HashSet<Experience>();
             this.JobTitle = new HashSet<JobTitle>();
+            this.Education = new HashSet<Education>();
         }
     
         public int id { get; set; }
@@ -40,5 +41,7 @@ namespace MeetingProject.Model
         public virtual ICollection<Experience> Experience { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobTitle> JobTitle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Education { get; set; }
     }
 }
