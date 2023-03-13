@@ -146,7 +146,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    <Grid x:Name="Grid" Width="190" Background="#DFDAFF">
+                    <Grid x:Name="Grid" Background="#DFDAFF">
                         <Rectangle x:Name="Rect" Width="2" Fill="#044AFD" Visibility="Hidden"
                                        HorizontalAlignment="Left"/>
                         <TextBlock Text="{TemplateBinding Content}"

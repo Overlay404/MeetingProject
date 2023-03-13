@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectPage">
 
-    <Grid>
+    <Grid Background="#F2F0FF"> 
         
     </Grid>
 </Page>
