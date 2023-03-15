@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingProject.View.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,20 @@ namespace MeetingProject.View.Windows
     /// </summary>
     public partial class StartWindow : Window
     {
+        public static StartWindow Instance;
+
         public StartWindow()
         {
             InitializeComponent();
+            Instance = this;
+
+            StartWindowFrame.Navigate(new Autorization());
+
+            if (String.IsNullOrEmpty(Properties.Settings.Default.Login) && String.IsNullOrEmpty(Properties.Settings.Default.Password)) return;
+            
+            App.user = App.db.ManWithResume.Where(u => u.Login.Equals(Properties.Settings.Default.Login) && u.Password.Equals(Properties.Settings.Default.Password)).Select(u => u).FirstOrDefault();
+            new PortfolioWindow().Show();
+            Close();
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { DragMove(); }

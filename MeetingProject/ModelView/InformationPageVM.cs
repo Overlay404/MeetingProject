@@ -73,6 +73,7 @@ namespace MeetingProject.ModelView
 
         public InformationPageVM()
         {
+            if (App.user == null) return;
             Phone = App.user.number ?? "Поле не заполнено";
             Email = App.user.email ?? "Поле не заполнено";
             Telegram = App.user.telegram ?? "Поле не заполнено";

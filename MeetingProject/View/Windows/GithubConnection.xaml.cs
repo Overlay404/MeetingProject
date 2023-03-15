@@ -1,6 +1,8 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using MeetingProject.ModelView;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,14 +10,14 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace MeetingProjectTestApplication
+namespace MeetingProject.View.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для ChangeContactInformation.xaml
+    /// Логика взаимодействия для GithubConnection.xaml
     /// </summary>
-    public partial class ChangeContactInformation : System.Windows.Window
+    public partial class GithubConnection : System.Windows.Window
     {
-        public static ChangeContactInformation Instance;
+        public static GithubConnection Instance { get; private set; }
 
         public static string UriGithubProfileImage;
 
@@ -29,7 +31,6 @@ namespace MeetingProjectTestApplication
 
         string AboutProfileGithub;
 
-
         public ImageSource GithubProfilePhoto
         {
             get { return (ImageSource)GetValue(GithubProfilePhotoProperty); }
@@ -37,7 +38,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty GithubProfilePhotoProperty =
-            DependencyProperty.Register("GithubProfilePhoto", typeof(ImageSource), typeof(ChangeContactInformation));
+            DependencyProperty.Register("GithubProfilePhoto", typeof(ImageSource), typeof(GithubConnection));
 
 
         public string NameGithubProfile
@@ -47,7 +48,7 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty NameGithubProfileProperty =
-            DependencyProperty.Register("NameGithubProfile", typeof(string), typeof(ChangeContactInformation));
+            DependencyProperty.Register("NameGithubProfile", typeof(string), typeof(GithubConnection));
 
 
         public string AboutGithubProfile
@@ -57,11 +58,9 @@ namespace MeetingProjectTestApplication
         }
 
         public static readonly DependencyProperty AboutGithubProfileProperty =
-            DependencyProperty.Register("AboutGithubProfile", typeof(string), typeof(ChangeContactInformation));
+            DependencyProperty.Register("AboutGithubProfile", typeof(string), typeof(GithubConnection));
 
-
-
-        public ChangeContactInformation()
+        public GithubConnection()
         {
             GithubProfilePhoto = null;
             InitializeComponent();
@@ -70,17 +69,21 @@ namespace MeetingProjectTestApplication
 
         private void ButtonPress_Click(object sender, RoutedEventArgs e)
         {
-
+            App.user.github = GithabNameAccount.Text.Trim();
+            App.db.SaveChanges();
+            PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
+            Close();
         }
+
 
         public void GetLinkGithudProfileImage()
         {
             try
             {
-                System.Drawing.Bitmap loadedBitmap = null;
+                Bitmap loadedBitmap = null;
                 using (var responseStream = System.Net.WebRequest.Create(UriGithubProfileImage).GetResponse().GetResponseStream())
                 {
-                    loadedBitmap = new System.Drawing.Bitmap(responseStream);
+                    loadedBitmap = new Bitmap(responseStream);
                 }
                 MemoryStream ms = new MemoryStream();
                 loadedBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -147,7 +150,7 @@ namespace MeetingProjectTestApplication
             }
         }
 
-        private async void ValueComponent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private async void GithabNameAccount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             if (GithabNameAccount == null) return;
             if (GithabNameAccount.Text == "")
@@ -158,5 +161,5 @@ namespace MeetingProjectTestApplication
             await GetInformationProfileGithubAsync(GithabNameAccount.Text);
             GetLinkGithudProfileImage();
         }
-    }
+}
 }

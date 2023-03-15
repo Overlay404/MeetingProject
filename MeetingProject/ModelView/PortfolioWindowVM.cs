@@ -62,6 +62,7 @@ namespace MeetingProject.ModelView
 
         public PortfolioWindowVM()
         {
+            if (App.user == null) return;
             BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
             GithubLink = App.user.github ?? "Не подключен";
             ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");

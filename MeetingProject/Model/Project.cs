@@ -12,10 +12,10 @@ namespace MeetingProject.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class MyProject
+    public partial class Project
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MyProject()
+        public Project()
         {
             this.PictureProject = new HashSet<PictureProject>();
         }

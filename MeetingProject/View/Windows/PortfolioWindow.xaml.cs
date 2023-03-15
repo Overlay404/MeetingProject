@@ -25,6 +25,9 @@ namespace MeetingProject.View.Windows
     {
         public static PortfolioWindow Instance;
 
+        double screenWidth;
+        double positionCursorX;
+
         public PortfolioWindow()
         {
             DataContext = new PortfolioWindowVM();
@@ -35,7 +38,18 @@ namespace MeetingProject.View.Windows
             FrameDisplayingContent.Navigate(new InformationPage());
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { DragMove(); }
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) 
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                screenWidth = SystemParameters.FullPrimaryScreenWidth;
+                positionCursorX =(double) PointToScreen(new Point(e.GetPosition(null).X, e.GetPosition(null).Y)).X;
+                WindowState = WindowState.Normal;
+                Top = 0;
+                Left = positionCursorX - Width / 2;
+            }
+            DragMove();
+        }
 
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e) { ShutdownApplication(); }
 
@@ -53,7 +67,16 @@ namespace MeetingProject.View.Windows
 
         private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //new ChangeContactInformation().Show();
+            new GithubConnection().Show();
+        }
+
+        private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            App.user = null;
+            Properties.Settings.Default.Password = null;
+            Properties.Settings.Default.Login = null;
+            new StartWindow().Show();
+            Close();
         }
 
         private void ProfileImage_MouseEnter(object sender, MouseEventArgs e)

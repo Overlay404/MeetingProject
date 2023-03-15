@@ -26,11 +26,11 @@ namespace MeetingProject.Model
         }
     
         public virtual DbSet<Company> Company { get; set; }
+        public virtual DbSet<Education> Education { get; set; }
         public virtual DbSet<Experience> Experience { get; set; }
         public virtual DbSet<JobTitle> JobTitle { get; set; }
         public virtual DbSet<ManWithResume> ManWithResume { get; set; }
-        public virtual DbSet<MyProject> MyProject { get; set; }
         public virtual DbSet<PictureProject> PictureProject { get; set; }
-        public virtual DbSet<Education> Education { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
     }
 }

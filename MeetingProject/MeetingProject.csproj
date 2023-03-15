@@ -62,6 +62,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -101,12 +102,24 @@
     <Compile Include="Model\Education.cs">
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Project.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
+    <Compile Include="View\Pages\Autorization.xaml.cs">
+      <DependentUpon>Autorization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\CloseApplicationControl.xaml.cs">
+      <DependentUpon>CloseApplicationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\GithubConnection.xaml.cs">
+      <DependentUpon>GithubConnection.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\PortfolioWindow.xaml.cs">
       <DependentUpon>PortfolioWindow.xaml</DependentUpon>
@@ -122,11 +135,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Pages\Autorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Pages\InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\ProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\CloseApplicationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\GithubConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,9 +191,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeetingProjectDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\MyProject.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PictureProject.cs">
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>

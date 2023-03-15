@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:MeetingProject.ModelView"
-        mc:Ignorable="d" Height="800" Width="1000"
+        mc:Ignorable="d" MinHeight="600" MinWidth="800"
+        Height="800" Width="1000" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" Style="{StaticResource WindowStyle}">
 
@@ -23,8 +24,8 @@
             <EventSetter Event="MouseMove" Handler="Resizeing_Form"/>
         </Style>
     </Window.Resources>
-
-    <Border CornerRadius="5" Background="White">
+    <Grid>
+        <Border CornerRadius="5" Background="White" Margin="6">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28"/>
@@ -54,9 +55,14 @@
                         <ImageBrush ImageSource="{Binding BackgroundImage}"
                                 Opacity="0.5" x:Name="BackgroundImage"/>
                     </Grid.Background>
+                <fa:ImageAwesome Icon="ArrowCircleLeft" 
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Width="30"
+                                 Margin="10"
+                                 MouseDown="ImageAwesome_MouseDown"/>
 
-
-                    <Button x:Name="ChangeBackgroundImage"
+                <Button x:Name="ChangeBackgroundImage"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Width="150"
@@ -167,75 +173,77 @@
                     </ItemsControl>
                 </Grid>
 
-                <Grid Background="White"
+            <Grid Background="White"
                       Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="4*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <RadioButton Style="{StaticResource RadioButton}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <RadioButton Style="{StaticResource RadioButton}"
                                          Height="48"
                                          IsChecked="True"
                                          Content="Информация о пользователе" Checked="MyInfoButton_Checked"/>
-                        <RadioButton Style="{StaticResource RadioButton}"
+                    <RadioButton Style="{StaticResource RadioButton}"
                                          Height="48"
                                          Content="Мои проекты" Checked="MyProjectButton_Checked"/>
-                    </StackPanel>
-                    <Frame x:Name="FrameDisplayingContent"
+                </StackPanel>
+                <Frame x:Name="FrameDisplayingContent"
                                Background="#F2F0FF"
                                NavigationUIVisibility="Hidden"
                            Grid.Column="1"/>
-                </Grid>
-            <Rectangle x:Name="leftSizeGrip"
-                Width="7"
-                HorizontalAlignment="Left"
-                Cursor="SizeWE"
-                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
-            <Rectangle x:Name="rightSizeGrip"
-                Width="7"
-                HorizontalAlignment="Right"
-                Cursor="SizeWE"
-                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
-            <Rectangle x:Name="topSizeGrip"
-                Height="7"
-                VerticalAlignment="Top"
-                Cursor="SizeNS"
-                Style="{StaticResource RectBorderStyle}" />
-            <Rectangle x:Name="bottomSizeGrip"
-                Height="7"
-                VerticalAlignment="Bottom"
-                Cursor="SizeNS"
-                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
-            <!--  Corners  -->
-            <Rectangle Name="topLeftSizeGrip"
-                Width="7"
-                Height="7"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Cursor="SizeNWSE"
-                Style="{StaticResource RectBorderStyle}" />
-            <Rectangle Name="bottomRightSizeGrip"
-                Width="7"
-                Height="7"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Cursor="SizeNWSE"
-                Style="{StaticResource RectBorderStyle}" Grid.Row="2" />
-            <Rectangle Name="topRightSizeGrip"
-                Width="7"
-                Height="7"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Cursor="SizeNESW"
-                Style="{StaticResource RectBorderStyle}" />
-            <Rectangle Name="bottomLeftSizeGrip"
-                Width="7"
-                Height="7"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Cursor="SizeNESW"
-                Style="{StaticResource RectBorderStyle}" Grid.Row="2" />
+            </Grid>
         </Grid>
     </Border>
+
+        <Rectangle x:Name="leftSizeGrip"
+                Width="7"
+                HorizontalAlignment="Left"
+                Cursor="SizeWE"
+                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
+        <Rectangle x:Name="rightSizeGrip"
+                Width="7"
+                HorizontalAlignment="Right"
+                Cursor="SizeWE"
+                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
+        <Rectangle x:Name="topSizeGrip"
+                Height="7"
+                VerticalAlignment="Top"
+                Cursor="SizeNS"
+                Style="{StaticResource RectBorderStyle}" />
+        <Rectangle x:Name="bottomSizeGrip"
+                Height="7"
+                VerticalAlignment="Bottom"
+                Cursor="SizeNS"
+                Style="{StaticResource RectBorderStyle}" Grid.RowSpan="3" />
+        <!--  Corners  -->
+        <Rectangle Name="topLeftSizeGrip"
+                Width="7"
+                Height="7"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Cursor="SizeNWSE"
+                Style="{StaticResource RectBorderStyle}" />
+        <Rectangle Name="bottomRightSizeGrip"
+                Width="7"
+                Height="7"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Cursor="SizeNWSE"
+                Style="{StaticResource RectBorderStyle}" Grid.Row="2" />
+        <Rectangle Name="topRightSizeGrip"
+                Width="7"
+                Height="7"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Cursor="SizeNESW"
+                Style="{StaticResource RectBorderStyle}" />
+        <Rectangle Name="bottomLeftSizeGrip"
+                Width="7"
+                Height="7"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Cursor="SizeNESW"
+                Style="{StaticResource RectBorderStyle}" Grid.Row="2" />
+    </Grid>
 </Window>

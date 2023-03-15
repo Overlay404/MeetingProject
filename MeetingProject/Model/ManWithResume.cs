@@ -17,10 +17,10 @@ namespace MeetingProject.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ManWithResume()
         {
-            this.MyProject = new HashSet<MyProject>();
+            this.Project = new HashSet<Project>();
+            this.Education = new HashSet<Education>();
             this.Experience = new HashSet<Experience>();
             this.JobTitle = new HashSet<JobTitle>();
-            this.Education = new HashSet<Education>();
         }
     
         public int id { get; set; }
@@ -34,14 +34,16 @@ namespace MeetingProject.Model
         public string about { get; set; }
         public byte[] BackgroundImage { get; set; }
         public byte[] ProfilePhoto { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MyProject> MyProject { get; set; }
+        public virtual ICollection<Project> Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Education { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Experience> Experience { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobTitle> JobTitle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Education { get; set; }
     }
 }

@@ -16,8 +16,8 @@ namespace MeetingProject.Model
     {
         public int id { get; set; }
         public byte[] codeImage { get; set; }
-        public Nullable<int> MyProjectId { get; set; }
+        public Nullable<int> ProjectId { get; set; }
     
-        public virtual MyProject MyProject { get; set; }
+        public virtual Project Project { get; set; }
     }
 }
