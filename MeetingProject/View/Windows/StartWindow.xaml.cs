@@ -20,14 +20,13 @@ namespace MeetingProject.View.Windows
     /// </summary>
     public partial class StartWindow : Window
     {
+
         public static StartWindow Instance;
 
         public StartWindow()
         {
             InitializeComponent();
             Instance = this;
-
-            StartWindowFrame.Navigate(new Autorization());
 
             if (String.IsNullOrEmpty(Properties.Settings.Default.Login) && String.IsNullOrEmpty(Properties.Settings.Default.Password)) return;
             
@@ -44,6 +43,25 @@ namespace MeetingProject.View.Windows
         {
             if (MessageBox.Show("Завершить сеанс?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
+        }
+
+        private void AutorizationButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Autorization == null || StartWindowFrame == null) return;
+            StartWindowFrame.Navigate(new Autorization());
+        }
+        private void RegistrationButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Registration == null || StartWindowFrame == null) return;
+            StartWindowFrame.Navigate(new Registration());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Autorization.IsChecked == true)
+                StartWindowFrame.Navigate(new Autorization());
+            else
+                StartWindowFrame.Navigate(new Registration());
         }
     }
 }

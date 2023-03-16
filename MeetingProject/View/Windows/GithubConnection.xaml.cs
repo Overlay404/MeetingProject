@@ -69,6 +69,31 @@ namespace MeetingProject.View.Windows
 
         private void ButtonPress_Click(object sender, RoutedEventArgs e)
         {
+            //Проверка что пользователь пуст
+            if(App.user == null)
+            {
+                //Проверка есть ли такой GitHub в базе данных
+                var objectUser = App.db.ManWithResume.Where(m => m.github.Equals(GithabNameAccount.Text.Trim())).FirstOrDefault();
+                if(objectUser == null)
+                {
+                    //Создание нового пользователя с таким GitHub
+                    if(MessageBox.Show("Нет такого пользователя создать нового?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        new StartWindow().Show();
+                        StartWindow.Instance.Registration.IsChecked = true;
+                        Close();
+                        return;
+                    }
+                }
+                //Вход в аккаунт с таким GitHub
+                App.user = objectUser;
+                new PortfolioWindow().Show();
+                PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
+                Close();
+                return;
+            }
+
+            
             App.user.github = GithabNameAccount.Text.Trim();
             App.db.SaveChanges();
             PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();

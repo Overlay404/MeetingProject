@@ -3,34 +3,33 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MeetingProject.View.Pages"
       mc:Ignorable="d" Background="#F2F0FF"
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Autorization">
+      d:DesignHeight="480" d:DesignWidth="400"
+      Title="Autorization" Style="{StaticResource PageStyle}">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="11*"/>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="28*"/>
         </Grid.RowDefinitions>
-        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Content="Нет учётной записи" FontSize="10" Margin="10 10" Height="20" Width="100">
-        </Button>
+        
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
             <TextBlock Text="Пароль"/>
-            <PasswordBox x:Name="password" Width="200" Height="20"/>
+            <PasswordBox x:Name="password" Width="300" Style="{StaticResource PasswordBox}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <TextBlock Text="Логин"/>
-            <TextBox x:Name="login" Width="200" Height="20"/>
+            <TextBox x:Name="login" Width="300" Style="{StaticResource TextBox}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
             <CheckBox x:Name="saveDataCheckBox" Content="Чужой компьютер"/>
         </StackPanel>
-        <Button x:Name="AuthButton" Grid.Row="4" HorizontalAlignment="Center" Content="Вход" Height="30" Width="60" Click="AuthButton_Click"/>
-
+        <Button x:Name="AuthButton" Grid.Row="4" HorizontalAlignment="Center" Content="Вход" Height="30" Width="300" Style="{StaticResource Button}" Click="AuthButton_Click"/>
+        <Separator Grid.Row="5" Width="300"/>
+        <TextBlock Grid.Row="5" Text="Войти с помощью GitHub" Margin="0 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockClue}" MouseDown="TextBlock_MouseDown"/>
     </Grid>
 </Page>

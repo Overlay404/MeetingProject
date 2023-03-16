@@ -6,8 +6,8 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" mc:Ignorable="d" Style="{StaticResource WindowStyle}"
-        Height="450" Width="600" WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="5" Background="White">
+        Height="500" Width="400" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Border CornerRadius="5" Background="#F2F0FF">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="28"/>
@@ -28,7 +28,22 @@
                                  Foreground="Black"/>
             </Border>
         </Grid>
-            <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        Margin="30 10 0 0"
+                        VerticalAlignment="Top">
+                <RadioButton Content="Авторизация"
+                             x:Name="Autorization"
+                             Margin="0 0 10 0"
+                             Style="{StaticResource RadioButtonStart}"
+                             IsChecked="True"
+                             Checked="AutorizationButton_Checked"/>
+                <RadioButton Content="Регистрация"
+                             x:Name="Registration"
+                             Style="{StaticResource RadioButtonStart}"
+                             Checked="RegistrationButton_Checked"/>
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="0 60 0 0">
                 <Frame x:Name="StartWindowFrame"
                        Background="#F2F0FF"
                        NavigationUIVisibility="Hidden"/>

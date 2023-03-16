@@ -6,7 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Style/ProjectTheme.xaml" />
+                <ResourceDictionary Source="Style/ProjectTheme.xaml"/>
+                <ResourceDictionary Source="Style/StartWindowTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

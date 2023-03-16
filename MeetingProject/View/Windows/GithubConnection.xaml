@@ -6,7 +6,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:MeetingProject.View.UserControls"
         mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize"
-        AllowsTransparency="True"
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource = {RelativeSource Self}}" 
         SizeToContent="WidthAndHeight" Background="Transparent">
     <Border Background="White" CornerRadius="5">
@@ -15,10 +15,11 @@
             <Border Padding="10" Width="400">
                 <StackPanel>
                     <TextBlock Text="Введите своё имя пользователя в GitHub" 
-                               x:Name="TitleComponent" Margin="0 10"/>
+                               x:Name="TitleComponent" Margin="0 10"
+                               FontSize="16"/>
                     <TextBox TextWrapping="Wrap" Width="380" FontSize="16"
                              Margin="0 0 0 10" TextChanged="GithabNameAccount_TextChanged" 
-                             x:Name="GithabNameAccount"/>
+                             x:Name="GithabNameAccount" Style="{StaticResource TextBox}"/>
                     <Border x:Name="BorderGithubProfile" BorderBrush="Gray" BorderThickness="1" Padding="5" Visibility="Collapsed" CornerRadius="4" Margin="0 0 0 10" >
                         <StackPanel Orientation="Horizontal">
                             <Image Height="60" Width="60" Stretch="UniformToFill" Source="{Binding GithubProfilePhoto}" x:Name="ProfilePhoto">
@@ -52,11 +53,11 @@
                             </EventTrigger>
                         </Image.Triggers>
                     </Image>
-                    <Button Height="25"
-                        Content="Подключить"
-                        Width="100"
-                        x:Name="ButtonPress" Click="ButtonPress_Click"
-                        Margin="0 0 0 10" Background="White"/>
+                    <Button Height="30"
+                            Width="380"
+                            Content="Подключить"
+                            x:Name="ButtonPress" Click="ButtonPress_Click"
+                            Margin="0 0 0 10" Style="{StaticResource Button}"/>
                 </StackPanel>
             </Border>
         </StackPanel>

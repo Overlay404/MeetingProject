@@ -65,16 +65,14 @@ namespace MeetingProject.View.Windows
 
         private void MyProjectButton_Checked(object sender, RoutedEventArgs e) { if ((sender as RadioButton) != null) FrameDisplayingContent.Navigate(new ProjectPage()); }
 
-        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            new GithubConnection().Show();
-        }
+        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e) { new GithubConnection().Show(); }
 
         private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)
         {
             App.user = null;
-            Properties.Settings.Default.Password = null;
-            Properties.Settings.Default.Login = null;
+            Properties.Settings.Default.Password = "";
+            Properties.Settings.Default.Login = "";
+            Properties.Settings.Default.Save();
             new StartWindow().Show();
             Close();
         }

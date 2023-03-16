@@ -55,5 +55,11 @@ namespace MeetingProject.View.Pages
 
             
         }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            new GithubConnection().Show();
+            StartWindow.Instance.Close();
+        }
     }
 }
