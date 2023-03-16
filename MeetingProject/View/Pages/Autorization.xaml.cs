@@ -28,7 +28,7 @@ namespace MeetingProject.View.Pages
 
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            App.user = App.db.ManWithResume.Where(u => u.Login.Equals(login.Text.Trim()) && u.Password.Equals(password.Password.Trim())).Select(u => u).FirstOrDefault();
+            App.user = App.db.ManWithResume.Local.Where(u => u.Login.Equals(Login.Text.Trim()) && u.Password.Equals(Password.Password.Trim())).Select(u => u).FirstOrDefault();
 
             if (App.user == null)
             {
@@ -41,10 +41,10 @@ namespace MeetingProject.View.Pages
                 StartWindow.Instance.Close();
             }
 
-            if (saveDataCheckBox.IsChecked == false)
+            if (SaveDataCheckBox.IsChecked == false)
             {
-                Properties.Settings.Default.Login = login.Text.Trim();
-                Properties.Settings.Default.Password = password.Password.Trim();
+                Properties.Settings.Default.Login = Login.Text.Trim();
+                Properties.Settings.Default.Password = Password.Password.Trim();
             }
             else
             {

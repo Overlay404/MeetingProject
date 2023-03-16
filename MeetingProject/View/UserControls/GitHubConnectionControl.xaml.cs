@@ -1,25 +1,24 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
-using MeetingProject.ModelView;
 using MeetingProject.View.Pages;
-using MeetingProject.View.UserControls;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace MeetingProject.View.Windows
+namespace MeetingProject.View.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для GithubConnection.xaml
+    /// Логика взаимодействия для GitHubConnectionControl.xaml
     /// </summary>
-    public partial class GithubConnection : System.Windows.Window
+    public partial class GitHubConnectionControl : UserControl
     {
-        public static GithubConnection Instance { get; private set; }
+        public static GitHubConnectionControl Instance { get; private set; }
 
         public static string UriGithubProfileImage;
 
@@ -40,7 +39,7 @@ namespace MeetingProject.View.Windows
         }
 
         public static readonly DependencyProperty GithubProfilePhotoProperty =
-            DependencyProperty.Register("GithubProfilePhoto", typeof(ImageSource), typeof(GithubConnection));
+            DependencyProperty.Register("GithubProfilePhoto", typeof(ImageSource), typeof(GitHubConnectionControl));
 
 
         public string NameGithubProfile
@@ -50,7 +49,7 @@ namespace MeetingProject.View.Windows
         }
 
         public static readonly DependencyProperty NameGithubProfileProperty =
-            DependencyProperty.Register("NameGithubProfile", typeof(string), typeof(GithubConnection));
+            DependencyProperty.Register("NameGithubProfile", typeof(string), typeof(GitHubConnectionControl));
 
 
         public string AboutGithubProfile
@@ -60,47 +59,13 @@ namespace MeetingProject.View.Windows
         }
 
         public static readonly DependencyProperty AboutGithubProfileProperty =
-            DependencyProperty.Register("AboutGithubProfile", typeof(string), typeof(GithubConnection));
+            DependencyProperty.Register("AboutGithubProfile", typeof(string), typeof(GitHubConnectionControl));
 
-        public GithubConnection()
+        public GitHubConnectionControl()
         {
             GithubProfilePhoto = null;
             InitializeComponent();
             Instance = this;
-        }
-
-        private void ButtonPress_Click(object sender, RoutedEventArgs e)
-        {
-            //Проверка что пользователь пуст
-            if(App.user == null)
-            {
-                //Проверка есть ли такой GitHub в базе данных
-                var objectUser = App.db.ManWithResume.Where(m => m.github.Equals(GithabNameAccount.Text.Trim())).FirstOrDefault();
-                if(objectUser == null)
-                {
-                    //Создание нового пользователя с таким GitHub
-                    if(MessageBox.Show("Нет такого пользователя создать нового?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    {
-                        new StartWindow().Show();
-                        StartWindow.Instance.Registration.IsChecked = true;
-                        GitHubConnectionControl.Instance.GithabNameAccount.Text = GithabNameAccount.Text.Trim();
-                        Close();
-                        return;
-                    }
-                }
-                //Вход в аккаунт с таким GitHub
-                App.user = objectUser;
-                new PortfolioWindow().Show();
-                PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
-                Close();
-                return;
-            }
-
-            
-            App.user.github = GithabNameAccount.Text.Trim();
-            App.db.SaveChanges();
-            PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
-            Close();
         }
 
 
@@ -191,3 +156,4 @@ namespace MeetingProject.View.Windows
         }
     }
 }
+

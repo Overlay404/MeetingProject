@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        AllowsTransparency="True" Background="Transparent"
+        AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize"
         WindowStyle="None" mc:Ignorable="d" Style="{StaticResource WindowStyle}"
         Height="500" Width="400" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Border CornerRadius="5" Background="#F2F0FF">

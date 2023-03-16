@@ -121,6 +121,9 @@
     <Compile Include="View\UserControls\CloseApplicationControl.xaml.cs">
       <DependentUpon>CloseApplicationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
+      <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\GithubConnection.xaml.cs">
       <DependentUpon>GithubConnection.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\CloseApplicationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\GitHubConnectionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,15 +18,15 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-            <TextBlock Text="Пароль"/>
-            <PasswordBox x:Name="password" Width="300" Style="{StaticResource PasswordBox}"/>
+            <TextBlock Text="Пароль" Margin="0 0 0 5"/>
+            <PasswordBox x:Name="Password" Width="300" Style="{StaticResource PasswordBox}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-            <TextBlock Text="Логин"/>
-            <TextBox x:Name="login" Width="300" Style="{StaticResource TextBox}"/>
+            <TextBlock Text="Логин" Margin="0 0 0 5"/>
+            <TextBox x:Name="Login" Width="300" Style="{StaticResource TextBox}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <CheckBox x:Name="saveDataCheckBox" Content="Чужой компьютер"/>
+            <CheckBox x:Name="SaveDataCheckBox" Content="Чужой компьютер"/>
         </StackPanel>
         <Button x:Name="AuthButton" Grid.Row="4" HorizontalAlignment="Center" Content="Вход" Height="30" Width="300" Style="{StaticResource Button}" Click="AuthButton_Click"/>
         <Separator Grid.Row="5" Width="300"/>

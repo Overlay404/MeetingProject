@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingProject.View.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace MeetingProject.View.Pages
     /// </summary>
     public partial class Registration : Page
     {
+        public static Registration Instance { get; private set; }
+
         public Registration()
         {
+            Instance = this;
             InitializeComponent();
+        }
+
+        private void ButtonRegistration_Click(object sender, RoutedEventArgs e)
+        {
+            var content = Email.Text + Password.Text + PasswordConfirmation.Text + GitHubConnectionControl.Instance.GithabNameAccount.Text;
+            MessageBox.Show(content);
         }
     }
 }
