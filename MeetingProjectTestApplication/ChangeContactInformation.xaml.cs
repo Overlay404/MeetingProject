@@ -28,11 +28,7 @@ namespace MeetingProjectTestApplication
 
         public static string UriGithubProfileImage;
 
-        string NameProfile;
-
         string NameBaseProfile;
-
-        string NameCollaborationProfile;
 
         string UsernameCollaborationProfile;
 
@@ -75,26 +71,15 @@ namespace MeetingProjectTestApplication
             GithubProfilePhoto = null;
             InitializeComponent();
             Instance = this;
-            UbdateDataG();
         }
 
-        public async void UbdateDataG()
-        {
-
-            var asd= Get<AccountGitHub>("users/overlay404");
-        }
-
-        private void ButtonPress_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void GetLinkGithudProfileImage()
+        #region Из интренет-ссылки в картинку
+        public void GetLinkGithudProfileImage(string uriImage)
         {
             try
             {
                 System.Drawing.Bitmap loadedBitmap = null;
-                using (var responseStream = System.Net.WebRequest.Create(UriGithubProfileImage).GetResponse().GetResponseStream())
+                using (var responseStream = WebRequest.Create(uriImage).GetResponse().GetResponseStream())
                 {
                     loadedBitmap = new System.Drawing.Bitmap(responseStream);
                 }
@@ -108,49 +93,39 @@ namespace MeetingProjectTestApplication
                 GithubProfilePhoto = image;
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 GithubProfilePhoto = null;
                 NameGithubProfile = "Нет такого пользователя";
+                Console.WriteLine(ex.Message);
             }
         }
+        #endregion
 
+        #region Анимирование загрузки
         public async Task GetInformationProfileGithubAsync(string NameUserGithub)
         {
             LoadComponetState(true);
-            await ParsingDataInSite(NameUserGithub);
+            await AnswerRequest(NameUserGithub);
             LoadComponetState(false);
         }
+        #endregion
 
-        private async Task ParsingDataInSite(string NameUserGithub)
+        #region Получение объекта из GET request
+        private async Task AnswerRequest(string NameUserGithub)
         {
-
-            var AccountGitHubObject = await Get<List<AccountGitHub>>("users/Overlay404");
-            //Ссылка на Github пользователя
-            //NameProfile = $"https://github.com/{NameUserGithub}";
-            ////Картинка профиля пользователя
-            //UriGithubProfileImage = AccountGitHubObject.AvatarUrl;
-            ////Имя обычного профиля
-            //NameBaseProfile = AccountGitHubObject.Name ?? "";
-            ////Имя корпоративного профиля
-            //NameCollaborationProfile = AccountGitHubObject.Login;
-            ////Имя пользователя обычного пользователя
-            //UsernameCollaborationProfile = AccountGitHubObject.Login;
-            ////О пользователе
-            //AboutProfileGithub = AccountGitHubObject.Bio;
-
-            VilidateDataRequest();
+            //Объект полученный из запроса
+            var AccountGitHubObject = await Get<AccountGitHub>($"users/{NameUserGithub}");
+            //Картинка пользователя
+            UriGithubProfileImage = AccountGitHubObject.avatar_url;
+            //Username или login пользователя
+            NameGithubProfile = AccountGitHubObject.name ?? AccountGitHubObject.login;
+            //О пользователе
+            AboutGithubProfile = AccountGitHubObject.bio ?? "";
         }
+        #endregion
 
-        private void VilidateDataRequest()
-        {
-            if (NameBaseProfile.Replace(Environment.NewLine, "").Trim() != "") { NameGithubProfile = NameBaseProfile.Replace(Environment.NewLine, "").Trim(); }
-            else if (NameCollaborationProfile != "") { NameGithubProfile = NameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
-            else { NameGithubProfile = UsernameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
-
-            AboutGithubProfile = AboutProfileGithub.Replace(Environment.NewLine, "").Trim();
-        }
-
+        #region Анимация
         private void LoadComponetState(bool IsLoad)
         {
             if (IsLoad)
@@ -164,30 +139,33 @@ namespace MeetingProjectTestApplication
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
             }
         }
+        #endregion
 
-        private async void ValueComponent_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private async void ButtonPress_ClickAsync(object sender, RoutedEventArgs e)
         {
-            if (GithabNameAccount == null) return;
-            if (GithabNameAccount.Text == "")
-            {
-                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
-                return;
-            }
             await GetInformationProfileGithubAsync(GithabNameAccount.Text);
-            GetLinkGithudProfileImage();
+            GetLinkGithudProfileImage(UriGithubProfileImage);
         }
 
+        #region
         public static async Task<T> Get<T>(string controller)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            HttpClient http = new HttpClient();
-            http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://api.github.com/" + controller);
-            var response = await http.SendAsync(request);
-            MessageBox.Show(response.Content.ReadAsStringAsync().Result);
-            var data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            HttpResponseMessage response = null;
+            T data = default;
+            try{
+                HttpClient http = new HttpClient();
+                http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
+                var request = new HttpRequestMessage(HttpMethod.Get, "http://api.github.com/" + controller);
+                response = await http.SendAsync(request);
+                data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return data;
         }
+        #endregion
     }
 }
 
