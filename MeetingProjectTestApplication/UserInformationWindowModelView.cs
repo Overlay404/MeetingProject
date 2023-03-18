@@ -1,9 +1,6 @@
 ﻿using MeetingProjectTestApplication.Model;
-using System;
-using System.Data;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 
 namespace MeetingProjectTestApplication
 {
@@ -19,8 +16,8 @@ namespace MeetingProjectTestApplication
         public static readonly DependencyProperty BackgroundImageProperty =
             DependencyProperty.Register("BackgroundImage", typeof(byte[]), typeof(UserInformationWindow));
 
-        
-        
+
+
 
         public string GithubLink
         {
@@ -31,8 +28,8 @@ namespace MeetingProjectTestApplication
         public static readonly DependencyProperty GithubLinkProperty =
             DependencyProperty.Register("GithubLink", typeof(string), typeof(UserInformationWindow));
 
-        
-        
+
+
 
         public byte[] ProfilePhoto
         {

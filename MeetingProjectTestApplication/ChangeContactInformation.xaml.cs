@@ -1,12 +1,21 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Io;
+using MeetingProject.SupportiveClasses;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace MeetingProjectTestApplication
 {
@@ -66,6 +75,13 @@ namespace MeetingProjectTestApplication
             GithubProfilePhoto = null;
             InitializeComponent();
             Instance = this;
+            UbdateDataG();
+        }
+
+        public async void UbdateDataG()
+        {
+
+            var asd= Get<AccountGitHub>("users/overlay404");
         }
 
         private void ButtonPress_Click(object sender, RoutedEventArgs e)
@@ -108,18 +124,20 @@ namespace MeetingProjectTestApplication
 
         private async Task ParsingDataInSite(string NameUserGithub)
         {
+
+            var AccountGitHubObject = await Get<List<AccountGitHub>>("users/Overlay404");
             //Ссылка на Github пользователя
-            NameProfile = $"https://github.com/{NameUserGithub}";
-            //Картинка профиля пользователя
-            UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
-            //Имя обычного профиля
-            NameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //Имя корпоративного профиля
-            NameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".h2.lh-condensed").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //Имя пользователя обычного пользователя
-            UsernameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-username").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //О пользователе
-            AboutProfileGithub = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".user-profile-bio").Select(m => m.Attributes["data-bio-text"].Value).FirstOrDefault() ?? "";
+            //NameProfile = $"https://github.com/{NameUserGithub}";
+            ////Картинка профиля пользователя
+            //UriGithubProfileImage = AccountGitHubObject.AvatarUrl;
+            ////Имя обычного профиля
+            //NameBaseProfile = AccountGitHubObject.Name ?? "";
+            ////Имя корпоративного профиля
+            //NameCollaborationProfile = AccountGitHubObject.Login;
+            ////Имя пользователя обычного пользователя
+            //UsernameCollaborationProfile = AccountGitHubObject.Login;
+            ////О пользователе
+            //AboutProfileGithub = AccountGitHubObject.Bio;
 
             VilidateDataRequest();
         }
@@ -158,5 +176,55 @@ namespace MeetingProjectTestApplication
             await GetInformationProfileGithubAsync(GithabNameAccount.Text);
             GetLinkGithudProfileImage();
         }
+
+        public static async Task<T> Get<T>(string controller)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            HttpClient http = new HttpClient();
+            http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://api.github.com/" + controller);
+            var response = await http.SendAsync(request);
+            MessageBox.Show(response.Content.ReadAsStringAsync().Result);
+            var data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return data;
+        }
     }
+}
+
+
+
+public class AccountGitHub
+{
+    public string login { get; set; }
+    public int id { get; set; }
+    public string node_id { get; set; }
+    public string avatar_url { get; set; }
+    public string gravatar_id { get; set; }
+    public string url { get; set; }
+    public string html_url { get; set; }
+    public string followers_url { get; set; }
+    public string following_url { get; set; }
+    public string gists_url { get; set; }
+    public string starred_url { get; set; }
+    public string subscriptions_url { get; set; }
+    public string organizations_url { get; set; }
+    public string repos_url { get; set; }
+    public string events_url { get; set; }
+    public string received_events_url { get; set; }
+    public string type { get; set; }
+    public string site_admin { get; set; }
+    public string name { get; set; }
+    public string company { get; set; }
+    public string blog { get; set; }
+    public string location { get; set; }
+    public string email { get; set; }
+    public string hireable { get; set; }
+    public string bio { get; set; }
+    public string twitter_username { get; set; }
+    public int public_repos { get; set; }
+    public int public_gists { get; set; }
+    public int followers { get; set; }
+    public int following { get; set; }
+    public string created_at { get; set; }
+    public string updated_at { get; set; }
 }
