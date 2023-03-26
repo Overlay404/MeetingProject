@@ -202,4 +202,27 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="Image" x:Key="AnimationStart">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard RepeatBehavior="Forever">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" By="360" Duration="0:0:1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Image" x:Key="AnimationEnd">
+        <Style.Setters>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    
 </ResourceDictionary>

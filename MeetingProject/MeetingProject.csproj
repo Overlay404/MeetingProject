@@ -109,9 +109,13 @@
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
+    <Compile Include="SupportiveClasses\ParseAccountInformation.cs" />
     <Compile Include="SupportiveClasses\RequestManager.cs" />
     <Compile Include="View\Pages\Autorization.xaml.cs">
       <DependentUpon>Autorization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\ConnectionGithub.xaml.cs">
+      <DependentUpon>ConnectionGithub.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
@@ -150,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\Autorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\ConnectionGithub.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,6 +266,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Image\ImageLoad.png" />
+    <Resource Include="Image\RefreshImage.png" />
     <Content Include="Model\MeetingProjectDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeetingProjectDB.Context.cs</LastGenOutput>

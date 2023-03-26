@@ -1,0 +1,66 @@
+﻿<Page x:Class="MeetingProject.View.Pages.ConnectionGithub"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" Background="#F2F0FF"
+      d:DesignHeight="480" d:DesignWidth="400"
+      Title="ConnectionGithub"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    Margin="0 40 0 0">
+            <TextBlock Text="Ваше имя пользователя github" 
+                       Margin="0 0 0 5" FontSize="10"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="UsernameGithubText" 
+                         Width="250" 
+                         Style="{StaticResource TextBox}" 
+                         Margin="0 0 10 0"/>
+                <Image Source="..\..\Image\RefreshImage.png" 
+                       Width="30" MouseDown="Image_MouseDownAsync"
+                       x:Name="ImageRefresh" Style="{StaticResource AnimationStart}">
+                </Image>
+            </StackPanel>
+        </StackPanel>
+        <Border Background="#C1C8E0" 
+                CornerRadius="10" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Width="290"
+                Height="200"
+                Padding="15">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="80" Width="80" 
+                           Stretch="UniformToFill" 
+                           Source="{Binding GithubProfilePhoto}" 
+                           x:Name="ProfilePhoto">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,60,60"/>
+                        </Image.Clip>
+                    </Image>
+                    <TextBlock Text="{Binding NameGithubProfile}" 
+                               FontSize="24"
+                               FontWeight="Bold"
+                               TextAlignment="Left"
+                               TextWrapping="Wrap"
+                               Width="150"
+                               Margin="20 0"/>
+                </StackPanel>
+                <TextBlock Text="{Binding AboutGithubProfile}" 
+                           TextWrapping="Wrap"
+                           Margin="0 10"
+                           FontSize="13"
+                           Height="80"/>
+            </StackPanel>
+        </Border>
+        <Button Style="{StaticResource Button}"
+                VerticalAlignment="Bottom"
+                Content="Подключить"
+                Width="290"
+                Height="30"
+                Margin="0 0 0 40" Click="Button_Click"/>
+    </Grid>
+</Page>

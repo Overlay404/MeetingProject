@@ -237,6 +237,9 @@
     <Compile Include="CloseApplicationCotrol.xaml.cs">
       <DependentUpon>CloseApplicationCotrol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConnectionGithub.xaml.cs">
+      <DependentUpon>ConnectionGithub.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditArticleUserControl.xaml.cs">
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
@@ -293,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CloseApplicationCotrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConnectionGithub.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -374,6 +381,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Image\ImageLoad.png" />
+    <Resource Include="Image\RefreshImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Model\DateBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DateBase.Context.cs</LastGenOutput>

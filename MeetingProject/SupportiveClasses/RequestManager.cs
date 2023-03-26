@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace MeetingProject.SupportiveClasses
@@ -15,27 +13,21 @@ namespace MeetingProject.SupportiveClasses
 
         public static async Task<T> Get<T>(string controller)
         {
-            var response = await httpClient.GetAsync(URL + controller);
-            var data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            HttpResponseMessage response = null;
+            T data = default;
+            try
+            {
+                HttpClient http = new HttpClient();
+                http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
+                var request = new HttpRequestMessage(HttpMethod.Get, URL + controller);
+                response = await http.SendAsync(request);
+                data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return data;
-        }
-
-        public static async Task<HttpResponseMessage> Post<T>(string controller, T data)
-        {
-            var jsonData = JsonConvert.SerializeObject(data);
-            var response = await httpClient.PostAsync(URL + controller, new StringContent(jsonData, Encoding.UTF8, "application/json"));
-            return response;
-        }
-        public static async Task<HttpResponseMessage> Put<T>(string controller, T data)
-        {
-            var jsonData = JsonConvert.SerializeObject(data);
-            var response = await httpClient.PutAsync(URL + controller, new StringContent(jsonData, Encoding.UTF8, "application/json"));
-            return response;
-        }
-        public static async Task<HttpResponseMessage> Delete<T>(string controller)
-        {
-            var response = await httpClient.DeleteAsync(URL + controller);
-            return response;
         }
     }
 }

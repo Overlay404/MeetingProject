@@ -1,16 +1,9 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Io;
-using MeetingProject.SupportiveClasses;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -19,21 +12,12 @@ using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace MeetingProjectTestApplication
 {
-    /// <summary>
-    /// Логика взаимодействия для ChangeContactInformation.xaml
-    /// </summary>
+
     public partial class ChangeContactInformation : System.Windows.Window
     {
         public static ChangeContactInformation Instance;
 
         public static string UriGithubProfileImage;
-
-        string NameBaseProfile;
-
-        string UsernameCollaborationProfile;
-
-        string AboutProfileGithub;
-
 
         public ImageSource GithubProfilePhoto
         {
@@ -152,14 +136,15 @@ namespace MeetingProjectTestApplication
         {
             HttpResponseMessage response = null;
             T data = default;
-            try{
+            try
+            {
                 HttpClient http = new HttpClient();
                 http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
                 var request = new HttpRequestMessage(HttpMethod.Get, "http://api.github.com/" + controller);
                 response = await http.SendAsync(request);
                 data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
