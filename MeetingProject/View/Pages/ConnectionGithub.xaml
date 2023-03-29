@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center"
-                    Margin="0 40 0 0">
+                    Margin="0 10 0 0">
             <TextBlock Text="Ваше имя пользователя github" 
                        Margin="0 0 0 5" FontSize="10"/>
             <StackPanel Orientation="Horizontal">
@@ -18,9 +18,34 @@
                          Width="250" 
                          Style="{StaticResource TextBox}" 
                          Margin="0 0 10 0"/>
-                <Image Source="..\..\Image\RefreshImage.png" 
-                       Width="30" MouseDown="Image_MouseDownAsync"
-                       x:Name="ImageRefresh" Style="{StaticResource AnimationStart}">
+                <Image x:Name="ImageControl"
+                       Width="30" MouseDown="Image_MouseDownAsync" 
+                       Source="..\..\Image\RefreshImage.png"
+                       RenderTransformOrigin=".5,.5">
+                    <Image.RenderTransform>
+                        <RotateTransform x:Name="MyAnimation" Angle="0" />
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard x:Name="BeginImageRotateAni" >
+                                <Storyboard x:Name="MyStoryboard">
+                                    <DoubleAnimation x:Name="Prope11" 
+                                     Storyboard.TargetName="ImageControl"         
+                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" 
+                                     To="360" 
+                                     Duration="0:0:0"
+                                     RepeatBehavior="Forever"
+                                     FillBehavior="Stop">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseDown">
+                            <EventTrigger.Actions>
+                                <StopStoryboard BeginStoryboardName="BeginImageRotateAni"/>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Image.Triggers>
                 </Image>
             </StackPanel>
         </StackPanel>
@@ -30,31 +55,40 @@
                 VerticalAlignment="Center"
                 Width="290"
                 Height="200"
-                Padding="15">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Height="80" Width="80" 
-                           Stretch="UniformToFill" 
-                           Source="{Binding GithubProfilePhoto}" 
-                           x:Name="ProfilePhoto">
-                        <Image.Clip>
-                            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,60,60"/>
-                        </Image.Clip>
-                    </Image>
-                    <TextBlock Text="{Binding NameGithubProfile}" 
-                               FontSize="24"
-                               FontWeight="Bold"
-                               TextAlignment="Left"
-                               TextWrapping="Wrap"
-                               Width="150"
-                               Margin="20 0"/>
-                </StackPanel>
-                <TextBlock Text="{Binding AboutGithubProfile}" 
+                Padding="15"
+                Margin="0 0 0 30">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
                            TextWrapping="Wrap"
-                           Margin="0 10"
-                           FontSize="13"
-                           Height="80"/>
-            </StackPanel>
+                           x:Name="MessageToUser"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="80" Width="80" 
+                               Stretch="UniformToFill" 
+                               Source="{Binding GithubProfilePhoto}" 
+                               x:Name="ProfilePhoto">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,60,60"/>
+                            </Image.Clip>
+                        </Image>
+                        <TextBlock Text="{Binding NameGithubProfile}" 
+                                   FontSize="26"
+                                   FontWeight="Bold"
+                                   TextAlignment="Left"
+                                   TextWrapping="Wrap"
+                                   Width="150"
+                                   Margin="20 0"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding AboutGithubProfile}" 
+                               TextWrapping="Wrap"
+                               Margin="0 10"
+                               FontSize="13"
+                               Height="80"/>
+                </StackPanel>
+            </Grid>
         </Border>
         <Button Style="{StaticResource Button}"
                 VerticalAlignment="Bottom"

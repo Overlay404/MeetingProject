@@ -1,10 +1,14 @@
-﻿using MeetingProject.SupportiveClasses;
+﻿using MeetingProject.ModelView;
+using MeetingProject.SupportiveClasses;
+using MeetingProject.View.UserControls;
+using MeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,9 +22,7 @@ using System.Windows.Shapes;
 
 namespace MeetingProject.View.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для ConnectionGithub.xaml
-    /// </summary>
+
     public partial class ConnectionGithub : Page
     {
         #region DependencyProperty
@@ -57,6 +59,9 @@ namespace MeetingProject.View.Pages
         public ConnectionGithub()
         {
             InitializeComponent();
+            StartWindow.Instance.Autorization.IsChecked = false;
+            StartWindow.Instance.Registration.IsChecked = false;
+
         }
 
 
@@ -82,7 +87,7 @@ namespace MeetingProject.View.Pages
             catch (Exception ex)
             {
                 GithubProfilePhoto = null;
-                NameGithubProfile = "Нет такого пользователя";
+                MessageToUser.Text = "Нет такого пользователя";
                 Console.WriteLine(ex.Message);
             }
         }
@@ -91,35 +96,84 @@ namespace MeetingProject.View.Pages
         #region Анимация загрузки
         private void LoadComponetState(bool v)
         {
-            if(v) ImageRefresh.Style = (Style)Resources["AnimationStart"];
-            else ImageRefresh.Style = (Style)Resources["AnimationEnd"];
+            if (v)
+            {
+                MyStoryboard.Stop();
+            }
+            else
+            {
+                TimeSpan ts = TimeSpan.FromMilliseconds(500);
+                Prope11.Duration = ts;
+                MyStoryboard.Begin();
+            }
         }
         #endregion
 
         #region Получение объекта из GET request
         private async Task AnswerRequest(string NameUserGithub)
         {
+            MessageToUser.Text = "";
             //Объект полученный из запроса
-            var AccountGitHubObject = await RequestManager.Get<ParseAccountInformation>($"users/{NameUserGithub}");
+            var AccountGitHubObject = await RequestManager.Get<ParseAccountInformation>($"users/{NameUserGithub}") ??
+                new ParseAccountInformation
+                {
+                    avatar_url = "",
+                    name = "",
+                    bio = "",
+                    login = ""
+                };
             //Картинка пользователя
-            ConvertProfileImage(AccountGitHubObject.avatar_url);
+            var imageUri = AccountGitHubObject.avatar_url;
             //Username или login пользователя
             NameGithubProfile = AccountGitHubObject.name ?? AccountGitHubObject.login;
             //О пользователе
-            AboutGithubProfile = AccountGitHubObject.bio ?? "";
+            AboutGithubProfile = AccountGitHubObject.bio;
+            //Конвертация изображения
+            ConvertProfileImage(imageUri);
         }
         #endregion
 
         private async void Image_MouseDownAsync(object sender, MouseButtonEventArgs e)
         {
-            LoadComponetState(true);
-            await AnswerRequest(UsernameGithubText.Text.Trim());
+            if (string.IsNullOrEmpty(UsernameGithubText.Text.Trim())) return;
+
             LoadComponetState(false);
+            await AnswerRequest(UsernameGithubText.Text.Trim());
+            LoadComponetState(true);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //Проверка что пользователь пуст
+            if (App.user == null)
+            {
+                //Проверка есть ли такой GitHub в базе данных
+                var objectUser = App.db.ManWithResume.Where(m => m.github.Equals(UsernameGithubText.Text.Trim())).FirstOrDefault();
+                if (objectUser == null)
+                {
+                    //Создание нового пользователя с таким GitHub
+                    if (MessageBox.Show("Нет такого пользователя создать нового?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        new StartWindow().Show();
+                        StartWindow.Instance.Registration.IsChecked = true;
+                        GitHubConnectionControl.Instance.GithabNameAccount.Text = UsernameGithubText.Text.Trim();
+                        return;
+                    }
+                }
+                //Вход в аккаунт с таким GitHub
+                App.user = objectUser;
+                new PortfolioWindow().Show();
+                PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
+                StartWindow.Instance.Close();
+                return;
+            }
 
+
+            //Редактирование github авторизаваного пользователя
+
+            //App.user.github = UsernameGithubText.Text.Trim();
+            //App.db.SaveChanges();
+            //PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
         }
     }
 }
