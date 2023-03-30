@@ -7,28 +7,30 @@
       mc:Ignorable="d" Background="#F2F0FF"
       d:DesignHeight="450" d:DesignWidth="400"
       Title="Registration">
-
-    <StackPanel>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 0">
-            <local:GitHubConnectionControl/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="10 8">
-            <TextBlock Text="Почта" Margin="0 0 0 5"/>
-            <TextBox x:Name="Email" Width="300" Style="{StaticResource TextBox}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10 8">
-            <TextBlock Text="Пароль" Margin="0 0 0 5"/>
-            <TextBox x:Name="Password" Width="300" Style="{StaticResource TextBox}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10 8">
-            <TextBlock Text="Подтвердите пароль" Margin="0 0 0 5"/>
-            <TextBox x:Name="PasswordConfirmation" Width="300" Style="{StaticResource TextBox}"/>
-        </StackPanel>
-        <Button x:Name="ButtonRegistration" 
+    
+    <ScrollViewer Height="400" Padding="0 0 0 40">
+        <StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 0">
+                <local:GitHubConnectionControl/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="10 8">
+                <TextBlock Text="Почта" Margin="0 0 0 5"/>
+                <TextBox x:Name="Email" Width="300" Style="{StaticResource TextBox}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10 8">
+                <TextBlock Text="Пароль" Margin="0 0 0 5"/>
+                <TextBox x:Name="Password" Width="300" Style="{StaticResource TextBox}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10 8">
+                <TextBlock Text="Подтвердите пароль" Margin="0 0 0 5"/>
+                <TextBox x:Name="PasswordConfirmation" Width="300" Style="{StaticResource TextBox}"/>
+            </StackPanel>
+            <Button x:Name="ButtonRegistration" 
                 Grid.Row="5" Content="Зарегистрироваться"
                 Style="{StaticResource Button}"
                 Height="30" Width="300"
                 Click="ButtonRegistration_Click"
                 Margin="0 30 0 0"/>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

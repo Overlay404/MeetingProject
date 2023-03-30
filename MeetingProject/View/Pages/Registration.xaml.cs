@@ -31,7 +31,7 @@ namespace MeetingProject.View.Pages
 
         private void ButtonRegistration_Click(object sender, RoutedEventArgs e)
         {
-            var content = Email.Text + Password.Text + PasswordConfirmation.Text + GitHubConnectionControl.Instance.GithabNameAccount.Text;
+            var content = Email.Text + Password.Text + PasswordConfirmation.Text + GitHubConnectionControl.Instance.UsernameGithubText.Text;
             MessageBox.Show(content);
         }
     }

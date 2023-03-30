@@ -29,36 +29,36 @@ namespace MeetingProjectTestApplication
             InitializeComponent();
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SymbolGenerate("# ", false);
-        }
+        //private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    SymbolGenerate("# ", false);
+        //}
 
-        private void SymbolGenerate(string symbol, bool isDoublegenerate)
-        {
-            string textLine = EditTextBox.GetLineText(EditTextBox.GetLineIndexFromCharacterIndex(EditTextBox.SelectionStart));
-            if (textLine.Contains(symbol) || textLine == "" || textLine == Environment.NewLine) return;
+        //private void SymbolGenerate(string symbol, bool isDoublegenerate)
+        //{
+        //    string textLine = EditTextBox.GetLineText(EditTextBox.GetLineIndexFromCharacterIndex(EditTextBox.SelectionStart));
+        //    if (textLine.Contains(symbol) || textLine == "" || textLine == Environment.NewLine) return;
 
-            string fullText = EditTextBox.Text;
-            int cursorPosition = EditTextBox.SelectionStart;
-            if (isDoublegenerate)
-            {
-                EditTextBox.Text = fullText.Replace(textLine, symbol + textLine + symbol);
-                EditTextBox.SelectionStart = cursorPosition;
-                return;
-            }
-            EditTextBox.Text = fullText.Replace(textLine, symbol + textLine);
-            EditTextBox.SelectionStart = cursorPosition;
-        }
+        //    string fullText = EditTextBox.Text;
+        //    int cursorPosition = EditTextBox.SelectionStart;
+        //    if (isDoublegenerate)
+        //    {
+        //        EditTextBox.Text = fullText.Replace(textLine, symbol + textLine + symbol);
+        //        EditTextBox.SelectionStart = cursorPosition;
+        //        return;
+        //    }
+        //    EditTextBox.Text = fullText.Replace(textLine, symbol + textLine);
+        //    EditTextBox.SelectionStart = cursorPosition;
+        //}
 
-        private void Border_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            SymbolGenerate("*", true);
-        }
+        //private void Border_MouseDown_1(object sender, MouseButtonEventArgs e)
+        //{
+        //    SymbolGenerate("*", true);
+        //}
 
-        private void Border_MouseDown_2(object sender, MouseButtonEventArgs e)
-        {
-            SymbolGenerate("~", true);
-        }
+        //private void Border_MouseDown_2(object sender, MouseButtonEventArgs e)
+        //{
+        //    SymbolGenerate("~", true);
+        //}
     }
 }

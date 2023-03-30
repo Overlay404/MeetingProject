@@ -61,7 +61,6 @@ namespace MeetingProject.View.Pages
             InitializeComponent();
             StartWindow.Instance.Autorization.IsChecked = false;
             StartWindow.Instance.Registration.IsChecked = false;
-
         }
 
 
@@ -142,7 +141,7 @@ namespace MeetingProject.View.Pages
             LoadComponetState(true);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             //Проверка что пользователь пуст
             if (App.user == null)
@@ -154,9 +153,9 @@ namespace MeetingProject.View.Pages
                     //Создание нового пользователя с таким GitHub
                     if (MessageBox.Show("Нет такого пользователя создать нового?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        new StartWindow().Show();
                         StartWindow.Instance.Registration.IsChecked = true;
-                        GitHubConnectionControl.Instance.GithabNameAccount.Text = UsernameGithubText.Text.Trim();
+                        GitHubConnectionControl.Instance.UsernameGithubText.Text = UsernameGithubText.Text.Trim();
+                        await GitHubConnectionControl.Instance.AnswerRequest(UsernameGithubText.Text.Trim());
                         return;
                     }
                 }

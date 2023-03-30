@@ -100,6 +100,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MeetingProjectDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ModelView\InformationPageVM.cs" />
     <Compile Include="ModelView\PortfolioWindowVM.cs" />
     <Compile Include="Model\Education.cs">
@@ -126,14 +131,8 @@
     <Compile Include="View\Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\CloseApplicationControl.xaml.cs">
-      <DependentUpon>CloseApplicationControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
       <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Windows\GithubConnection.xaml.cs">
-      <DependentUpon>GithubConnection.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\PortfolioWindow.xaml.cs">
       <DependentUpon>PortfolioWindow.xaml</DependentUpon>
@@ -173,15 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\CloseApplicationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\UserControls\GitHubConnectionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Windows\GithubConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,6 +237,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MeetingProjectDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="MeetingProjectDataSet.xsc">
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MeetingProjectDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MeetingProjectDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MeetingProjectDataSet.xss">
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Model\MeetingProjectDB.edmx.diagram">
       <DependentUpon>MeetingProjectDB.edmx</DependentUpon>
     </None>

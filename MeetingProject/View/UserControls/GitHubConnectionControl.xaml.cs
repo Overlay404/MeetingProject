@@ -1,36 +1,28 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using MeetingProject.SupportiveClasses;
 using MeetingProject.View.Pages;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace MeetingProject.View.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для GitHubConnectionControl.xaml
+    /// Контролл для отображения информации о пользователе
     /// </summary>
     public partial class GitHubConnectionControl : UserControl
     {
+        #region DependencyProperty
         public static GitHubConnectionControl Instance { get; private set; }
-
-        public static string UriGithubProfileImage;
-
-        string NameProfile;
-
-        string NameBaseProfile;
-
-        string NameCollaborationProfile;
-
-        string UsernameCollaborationProfile;
-
-        string AboutProfileGithub;
 
         public ImageSource GithubProfilePhoto
         {
@@ -67,16 +59,17 @@ namespace MeetingProject.View.UserControls
             InitializeComponent();
             Instance = this;
         }
+#endregion
 
-
-        public void GetLinkGithudProfileImage()
+        #region Из интренет-ссылки в картинку
+        public void ConvertProfileImage(string uriImage)
         {
             try
             {
-                Bitmap loadedBitmap = null;
-                using (var responseStream = System.Net.WebRequest.Create(UriGithubProfileImage).GetResponse().GetResponseStream())
+                System.Drawing.Bitmap loadedBitmap = null;
+                using (var responseStream = WebRequest.Create(uriImage).GetResponse().GetResponseStream())
                 {
-                    loadedBitmap = new Bitmap(responseStream);
+                    loadedBitmap = new System.Drawing.Bitmap(responseStream);
                 }
                 MemoryStream ms = new MemoryStream();
                 loadedBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -88,72 +81,78 @@ namespace MeetingProject.View.UserControls
                 GithubProfilePhoto = image;
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 GithubProfilePhoto = null;
-                NameGithubProfile = "Нет такого пользователя";
+                MessageToUser.Text = "Нет такого пользователя";
+                Console.WriteLine(ex.Message);
             }
         }
+        #endregion
 
-        public async Task GetInformationProfileGithubAsync(string NameUserGithub)
+        #region Анимация
+        private void LoadComponetState(bool v)
         {
-            LoadComponetState(true);
-            await ParsingDataInSite(NameUserGithub);
-            LoadComponetState(false);
-        }
-
-        private async Task ParsingDataInSite(string NameUserGithub)
-        {
-            //Ссылка на Github пользователя
-            NameProfile = $"https://github.com/{NameUserGithub}";
-            //Картинка профиля пользователя
-            UriGithubProfileImage = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".avatar-user").Select(m => m.Attributes["src"].Value).FirstOrDefault();
-            //Имя обычного профиля
-            NameBaseProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-fullname").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //Имя корпоративного профиля
-            NameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".h2.lh-condensed").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //Имя пользователя обычного пользователя
-            UsernameCollaborationProfile = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".vcard-username").Select(m => m.Text()).FirstOrDefault() ?? "";
-            //О пользователе
-            AboutProfileGithub = (await BrowsingContext.New(Configuration.Default.WithDefaultLoader()).OpenAsync(NameProfile)).QuerySelectorAll(".user-profile-bio").Select(m => m.Attributes["data-bio-text"].Value).FirstOrDefault() ?? "";
-
-            VilidateDataRequest();
-        }
-
-        private void VilidateDataRequest()
-        {
-            if (NameBaseProfile.Replace(Environment.NewLine, "").Trim() != "") { NameGithubProfile = NameBaseProfile.Replace(Environment.NewLine, "").Trim(); }
-            else if (NameCollaborationProfile != "") { NameGithubProfile = NameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
-            else { NameGithubProfile = UsernameCollaborationProfile.Replace(Environment.NewLine, "").Trim(); }
-
-            AboutGithubProfile = AboutProfileGithub.Replace(Environment.NewLine, "").Trim();
-        }
-
-        private void LoadComponetState(bool IsLoad)
-        {
-            if (IsLoad)
+            if (v)
             {
-                ImageLoad.Visibility = System.Windows.Visibility.Visible;
-                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
+                MyStoryboard.Stop();
+                BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
-                ImageLoad.Visibility = System.Windows.Visibility.Collapsed;
-                BorderGithubProfile.Visibility = System.Windows.Visibility.Visible;
+                BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
+                TimeSpan ts = TimeSpan.FromMilliseconds(500);
+                Prope11.Duration = ts;
+                MyStoryboard.Begin();
             }
         }
+        #endregion
 
-        private async void GithabNameAccount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        #region Получение объекта из GET request
+        public async Task AnswerRequest(string NameUserGithub)
         {
-            if (GithabNameAccount == null) return;
-            if (GithabNameAccount.Text == "")
+            MessageToUser.Text = "";
+            //Объект полученный из запроса
+            var AccountGitHubObject = await RequestManager.Get<ParseAccountInformation>($"users/{NameUserGithub}") ??
+                new ParseAccountInformation
+                {
+                    avatar_url = "",
+                    name = "",
+                    bio = "",
+                    login = ""
+                };
+            //Картинка пользователя
+            var imageUri = AccountGitHubObject.avatar_url;
+            //Username или login пользователя
+            NameGithubProfile = AccountGitHubObject.name ?? AccountGitHubObject.login;
+            //О пользователе
+            AboutGithubProfile = AccountGitHubObject.bio;
+            //Конвертация изображения
+            ConvertProfileImage(imageUri);
+        }
+        #endregion
+
+        #region Отображение информации
+        public async Task DataDisplay(string username)
+        {
+            LoadComponetState(false);
+            await AnswerRequest(username);
+            LoadComponetState(true);
+        }
+        #endregion
+
+        #region События
+        private async void Image_MouseDownAsync(object sender, MouseButtonEventArgs e)
+        {
+            if (string.IsNullOrEmpty(UsernameGithubText.Text.Trim()))
             {
                 BorderGithubProfile.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
-            await GetInformationProfileGithubAsync(GithabNameAccount.Text);
-            GetLinkGithudProfileImage();
+
+            await DataDisplay(UsernameGithubText.Text.Trim());
         }
+        #endregion
     }
 }
 

@@ -16,7 +16,7 @@
                     BorderBrush="Black"
                     Background="White"
                     Padding="5"
-                    MouseDown="Border_MouseDown">
+                    >
                 <fa:ImageAwesome Icon="Bold" Width="20"/>
             </Border>
             <Border BorderThickness="2"
@@ -24,7 +24,7 @@
                     Background="White"
                     Padding="5"
                     Margin="5 0 0 0"
-                    MouseDown="Border_MouseDown_1">
+                    >
                 <fa:ImageAwesome Icon="Italic" Width="20" Height="20"/>
             </Border>
 
@@ -33,7 +33,7 @@
                     Background="White"
                     Padding="5"
                     Margin="5 0 0 0"
-                    MouseDown="Border_MouseDown_2">
+                    >
                 <fa:ImageAwesome Icon="Underline" Width="20" Height="20"/>
             </Border>
         </WrapPanel>
@@ -41,12 +41,17 @@
             <TabItem Header="Редактирование"
                      FontSize="20">
                 <ScrollViewer>
-                    <TextBox TextWrapping="Wrap" 
+                    <RichTextBox
                              AcceptsReturn="True"
-                             Text="{Binding MdText, NotifyOnSourceUpdated=True}"
                              FontSize="14"
                              FontStretch="ExtraCondensed"
-                             x:Name="EditTextBox"/>
+                             x:Name="EditTextBox">
+                        <FlowDocument>
+                            <Paragraph>
+                                <TextBlock Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
 
                 </ScrollViewer>
             </TabItem>

@@ -65,7 +65,10 @@ namespace MeetingProject.View.Windows
 
         private void MyProjectButton_Checked(object sender, RoutedEventArgs e) { if ((sender as RadioButton) != null) FrameDisplayingContent.Navigate(new ProjectPage()); }
 
-        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e) { new GithubConnection().Show(); }
+        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
+        { 
+            //Вызов окна изменения Github проектов 
+        }
 
         private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)
         {
