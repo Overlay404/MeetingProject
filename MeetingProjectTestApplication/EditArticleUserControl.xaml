@@ -40,25 +40,17 @@
         <TabControl DockPanel.Dock="Bottom">
             <TabItem Header="Редактирование"
                      FontSize="20">
-                <ScrollViewer>
-                    <RichTextBox
-                             AcceptsReturn="True"
-                             FontSize="14"
-                             FontStretch="ExtraCondensed"
-                             x:Name="EditTextBox">
-                        <FlowDocument>
-                            <Paragraph>
-                                <TextBlock Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-
+                <ScrollViewer x:Name="TextGenerating">
+                    <TextBox Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}"/>
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Предпросмотр"
-                     FontSize="20">
-                <mdMark:MarkdownScrollViewer Markdown="{Binding MdText}"
+                     FontSize="20"
+                     MouseDown="TabItem_MouseDown">
+                <ScrollViewer x:Name="MDGenerate">
+                    <mdMark:MarkdownScrollViewer Markdown="{Binding MdText}"
                                              MarkdownStyleName="GitHubLike"/>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </DockPanel>

@@ -29,6 +29,21 @@ namespace MeetingProjectTestApplication
             InitializeComponent();
         }
 
+        private void TabItem_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            while (true)
+            {
+                
+            }
+        }
+
+
+        //Берем картинку из бд если в тексте символ % то берем значение после до пробела находим значение в базе создаем картинку в качестве дочернего элемента стак панели.
+        //цель обработать текст на наличие % получить значение после, получить объект, создать image. Это все в при переходе в область отображения md
+        //при cntl+v загружаем в бд, добавляем в текст ссылку.
+        //при сборе данных из github перегенерация md github'а и скачивание картинок из папок проекта и добавление их в бд, в тексте присвоение ссылки.
+
+
         //private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         //{
         //    SymbolGenerate("# ", false);
