@@ -33,6 +33,14 @@ namespace MeetingProject.SupportiveClasses
             return null;
         }
 
+        public static byte[] ConvertToByteCollection(Image pasteImage)
+        {
+            MemoryStream image = new MemoryStream();
+            pasteImage.Save(image, pasteImage.RawFormat);
+            image.Position = 0;
+            return image.ToArray();
+        }
+
         public static ImageSource ConvertToImageSourse(byte[] bytes)
         {
             BitmapImage biImg = new BitmapImage();

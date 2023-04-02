@@ -244,6 +244,11 @@
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageConverter.cs" />
+    <Compile Include="MeetingProjectDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Model\Company.cs">
       <DependentUpon>DateBase.tt</DependentUpon>
     </Compile>
@@ -358,6 +363,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DateBase.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="MeetingProjectDataSet.xsc">
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MeetingProjectDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MeetingProjectDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MeetingProjectDataSet.xss">
+      <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Model\DateBase.edmx.diagram">
       <DependentUpon>DateBase.edmx</DependentUpon>
     </None>

@@ -1,7 +1,10 @@
 ﻿
 using Microsoft.Win32;
 using System;
+using System.Drawing;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace MeetingProjectTestApplication
@@ -17,6 +20,25 @@ namespace MeetingProjectTestApplication
             encoder.Frames.Add(BitmapFrame.Create(image));
             encoder.Save(memoryStream);
             return memoryStream.ToArray();
+        }
+
+        public static byte[] ConvertToByteCollection(Image pasteImage)
+        {
+            MemoryStream image = new MemoryStream();
+            pasteImage.Save(image, pasteImage.RawFormat);
+            image.Position = 0;
+            return image.ToArray();
+        }
+
+        public static ImageSource ConvertToImageSourse(byte[] bytes)
+        {
+            BitmapImage biImg = new BitmapImage();
+            MemoryStream ms = new MemoryStream(bytes);
+            biImg.BeginInit();
+            biImg.StreamSource = ms;
+            biImg.EndInit();
+            ImageSource image = biImg as ImageSource;
+            return image;
         }
 
         public static byte[] OpenFileDialogSave()
