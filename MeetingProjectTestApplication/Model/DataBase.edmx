@@ -11,6 +11,15 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="NameInstitution" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeOfEducation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Experience">
           <Key>
             <PropertyRef Name="id" />
@@ -43,6 +52,16 @@
           <Property Name="about" Type="nvarchar" MaxLength="50" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ManWithResumeEducation">
+          <Key>
+            <PropertyRef Name="ManWithResumeId" />
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="ManWithResumeId" Type="int" Nullable="false" />
+          <Property Name="EducationId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ManWithResumeExperienceTable">
           <Key>
@@ -60,7 +79,15 @@
           <Property Name="JobTitleId" Type="int" Nullable="false" />
           <Property Name="ManWithResumeId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="MyProject">
+        <EntityType Name="PictureProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeImage" Type="varbinary(max)" />
+          <Property Name="ProjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="Project">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -71,14 +98,30 @@
           <Property Name="text" Type="nvarchar(max)" />
           <Property Name="ManWithResumeId" Type="int" />
         </EntityType>
-        <EntityType Name="PictureProject">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codeImage" Type="varbinary(max)" />
-          <Property Name="MyProjectId" Type="int" />
-        </EntityType>
+        <Association Name="FK_ManWithResumeEducation_Education">
+          <End Role="Education" Type="Self.Education" Multiplicity="1" />
+          <End Role="ManWithResumeEducation" Type="Self.ManWithResumeEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Education">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeEducation">
+              <PropertyRef Name="EducationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeEducation_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="1" />
+          <End Role="ManWithResumeEducation" Type="Self.ManWithResumeEducation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeEducation">
+              <PropertyRef Name="ManWithResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ManWithResumeExperienceTable_Experience">
           <End Role="Experience" Type="Self.Experience" Multiplicity="1" />
           <End Role="ManWithResumeExperienceTable" Type="Self.ManWithResumeExperienceTable" Multiplicity="*" />
@@ -129,37 +172,47 @@
         </Association>
         <Association Name="FK_MyProject_ManWithResume">
           <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="0..1" />
-          <End Role="MyProject" Type="Self.MyProject" Multiplicity="*" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManWithResume">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="MyProject">
+            <Dependent Role="Project">
               <PropertyRef Name="ManWithResumeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PictureProject_MyProject">
-          <End Role="MyProject" Type="Self.MyProject" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
           <End Role="PictureProject" Type="Self.PictureProject" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MyProject">
+            <Principal Role="Project">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="PictureProject">
-              <PropertyRef Name="MyProjectId" />
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище MeetingProjectModelContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResumeEducation" EntityType="Self.ManWithResumeEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeExperienceTable" EntityType="Self.ManWithResumeExperienceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeJobTitleTable" EntityType="Self.ManWithResumeJobTitleTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MyProject" EntityType="Self.MyProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PictureProject" EntityType="Self.PictureProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ManWithResumeEducation_Education" Association="Self.FK_ManWithResumeEducation_Education">
+            <End Role="Education" EntitySet="Education" />
+            <End Role="ManWithResumeEducation" EntitySet="ManWithResumeEducation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeEducation_ManWithResume" Association="Self.FK_ManWithResumeEducation_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="ManWithResumeEducation" EntitySet="ManWithResumeEducation" />
+          </AssociationSet>
           <AssociationSet Name="FK_ManWithResumeExperienceTable_Experience" Association="Self.FK_ManWithResumeExperienceTable_Experience">
             <End Role="Experience" EntitySet="Experience" />
             <End Role="ManWithResumeExperienceTable" EntitySet="ManWithResumeExperienceTable" />
@@ -178,10 +231,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_MyProject_ManWithResume" Association="Self.FK_MyProject_ManWithResume">
             <End Role="ManWithResume" EntitySet="ManWithResume" />
-            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="Project" EntitySet="Project" />
           </AssociationSet>
           <AssociationSet Name="FK_PictureProject_MyProject" Association="Self.FK_PictureProject_MyProject">
-            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="Project" EntitySet="Project" />
             <End Role="PictureProject" EntitySet="PictureProject" />
           </AssociationSet>
         </EntityContainer>
@@ -195,6 +248,16 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="NameInstitution" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfEducation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManWithResume" Relationship="Self.ManWithResumeEducation" FromRole="Education" ToRole="ManWithResume" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -230,11 +293,23 @@
           <Property Name="about" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="MyProject" Relationship="Self.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="MyProject" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="Project" />
+          <NavigationProperty Name="Education" Relationship="Self.ManWithResumeEducation" FromRole="ManWithResume" ToRole="Education" />
           <NavigationProperty Name="Experience" Relationship="Self.ManWithResumeExperienceTable" FromRole="ManWithResume" ToRole="Experience" />
           <NavigationProperty Name="JobTitle" Relationship="Self.ManWithResumeJobTitleTable" FromRole="ManWithResume" ToRole="JobTitle" />
         </EntityType>
-        <EntityType Name="MyProject">
+        <EntityType Name="PictureProject">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProjectId" Type="Int32" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_PictureProject_MyProject" FromRole="PictureProject" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -244,41 +319,36 @@
           <Property Name="MainPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ManWithResumeId" Type="Int32" />
-          <NavigationProperty Name="ManWithResume" Relationship="Self.FK_MyProject_ManWithResume" FromRole="MyProject" ToRole="ManWithResume" />
-          <NavigationProperty Name="PictureProject" Relationship="Self.FK_PictureProject_MyProject" FromRole="MyProject" ToRole="PictureProject" />
-        </EntityType>
-        <EntityType Name="PictureProject">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="MyProjectId" Type="Int32" />
-          <NavigationProperty Name="MyProject" Relationship="Self.FK_PictureProject_MyProject" FromRole="PictureProject" ToRole="MyProject" />
+          <NavigationProperty Name="ManWithResume" Relationship="Self.FK_MyProject_ManWithResume" FromRole="Project" ToRole="ManWithResume" />
+          <NavigationProperty Name="PictureProject" Relationship="Self.FK_PictureProject_MyProject" FromRole="Project" ToRole="PictureProject" />
         </EntityType>
         <Association Name="FK_MyProject_ManWithResume">
           <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="0..1" />
-          <End Role="MyProject" Type="Self.MyProject" Multiplicity="*" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManWithResume">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="MyProject">
+            <Dependent Role="Project">
               <PropertyRef Name="ManWithResumeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PictureProject_MyProject">
-          <End Role="MyProject" Type="Self.MyProject" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
           <End Role="PictureProject" Type="Self.PictureProject" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MyProject">
+            <Principal Role="Project">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="PictureProject">
-              <PropertyRef Name="MyProjectId" />
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="ManWithResumeEducation">
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="*" />
         </Association>
         <Association Name="ManWithResumeExperienceTable">
           <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
@@ -290,18 +360,23 @@
         </Association>
         <EntityContainer Name="MeetingProjectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="Education" EntityType="Self.Education" />
           <EntitySet Name="Experience" EntityType="Self.Experience" />
           <EntitySet Name="JobTitle" EntityType="Self.JobTitle" />
           <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" />
-          <EntitySet Name="MyProject" EntityType="Self.MyProject" />
           <EntitySet Name="PictureProject" EntityType="Self.PictureProject" />
+          <EntitySet Name="Project" EntityType="Self.Project" />
           <AssociationSet Name="FK_MyProject_ManWithResume" Association="Self.FK_MyProject_ManWithResume">
             <End Role="ManWithResume" EntitySet="ManWithResume" />
-            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="Project" EntitySet="Project" />
           </AssociationSet>
           <AssociationSet Name="FK_PictureProject_MyProject" Association="Self.FK_PictureProject_MyProject">
-            <End Role="MyProject" EntitySet="MyProject" />
+            <End Role="Project" EntitySet="Project" />
             <End Role="PictureProject" EntitySet="PictureProject" />
+          </AssociationSet>
+          <AssociationSet Name="ManWithResumeEducation" Association="Self.ManWithResumeEducation">
+            <End Role="Education" EntitySet="Education" />
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
           </AssociationSet>
           <AssociationSet Name="ManWithResumeExperienceTable" Association="Self.ManWithResumeExperienceTable">
             <End Role="Experience" EntitySet="Experience" />
@@ -322,6 +397,16 @@
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Education">
+            <EntityTypeMapping TypeName="MeetingProjectModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="NameInstitution" ColumnName="NameInstitution" />
+                <ScalarProperty Name="TypeOfEducation" ColumnName="TypeOfEducation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -358,12 +443,23 @@
                 <ScalarProperty Name="about" ColumnName="about" />
                 <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MyProject">
-            <EntityTypeMapping TypeName="MeetingProjectModel.MyProject">
-              <MappingFragment StoreEntitySet="MyProject">
+          <EntitySetMapping Name="PictureProject">
+            <EntityTypeMapping TypeName="MeetingProjectModel.PictureProject">
+              <MappingFragment StoreEntitySet="PictureProject">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codeImage" ColumnName="codeImage" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="MeetingProjectModel.Project">
+              <MappingFragment StoreEntitySet="Project">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -373,15 +469,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PictureProject">
-            <EntityTypeMapping TypeName="MeetingProjectModel.PictureProject">
-              <MappingFragment StoreEntitySet="PictureProject">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="codeImage" ColumnName="codeImage" />
-                <ScalarProperty Name="MyProjectId" ColumnName="MyProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="ManWithResumeEducation" TypeName="MeetingProjectModel.ManWithResumeEducation" StoreEntitySet="ManWithResumeEducation">
+            <EndProperty Name="Education">
+              <ScalarProperty Name="id" ColumnName="EducationId" />
+            </EndProperty>
+            <EndProperty Name="ManWithResume">
+              <ScalarProperty Name="id" ColumnName="ManWithResumeId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="ManWithResumeExperienceTable" TypeName="MeetingProjectModel.ManWithResumeExperienceTable" StoreEntitySet="ManWithResumeExperienceTable">
             <EndProperty Name="Experience">
               <ScalarProperty Name="id" ColumnName="ExperienceId" />

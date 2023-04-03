@@ -22,15 +22,22 @@ namespace MeetingProjectTestApplication
             return memoryStream.ToArray();
         }
 
-        public static byte[] ConvertToByteCollection(Image pasteImage)
+        public static byte[] ConvertToByteCollection(BitmapSource pasteImage)
         {
-            MemoryStream image = new MemoryStream();
-            pasteImage.Save(image, pasteImage.RawFormat);
-            image.Position = 0;
-            return image.ToArray();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.QualityLevel = 100;
+             byte[] bit = new byte[0];
+            using (MemoryStream stream = new MemoryStream())
+            {
+                encoder.Frames.Add(BitmapFrame.Create(pasteImage));
+                encoder.Save(stream);
+                bit = stream.ToArray();
+                stream.Close();
+            }
+            return bit;
         }
 
-        public static ImageSource ConvertToImageSourse(byte[] bytes)
+        public static ImageSource ConvertToImageSource(byte[] bytes)
         {
             BitmapImage biImg = new BitmapImage();
             MemoryStream ms = new MemoryStream(bytes);

@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\TEMP\Source\Repos\MeetingProject\MeetingProjectTestApplication\Model\DateBase.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\denis\source\repos\MeetingProject\MeetingProjectTestApplication\Model\DataBase.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

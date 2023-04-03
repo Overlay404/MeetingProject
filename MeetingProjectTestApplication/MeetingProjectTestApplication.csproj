@@ -250,37 +250,40 @@
       <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Model\Company.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\DateBase.Context.cs">
+    <Compile Include="Model\DataBase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DateBase.Context.tt</DependentUpon>
+      <DependentUpon>DataBase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\DateBase.cs">
+    <Compile Include="Model\DataBase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\DateBase.Designer.cs">
+    <Compile Include="Model\DataBase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DateBase.edmx</DependentUpon>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Education.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Experience.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\JobTitle.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ManWithResume.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\MyProject.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PictureProject.cs">
-      <DependentUpon>DateBase.tt</DependentUpon>
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Project.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
@@ -359,10 +362,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\DateBase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DateBase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="MeetingProjectDataSet.xsc">
       <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
     </None>
@@ -374,8 +373,12 @@
     <None Include="MeetingProjectDataSet.xss">
       <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Model\DateBase.edmx.diagram">
-      <DependentUpon>DateBase.edmx</DependentUpon>
+    <EntityDeploy Include="Model\DataBase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataBase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\DataBase.edmx.diagram">
+      <DependentUpon>DataBase.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -396,20 +399,20 @@
     <Content Include="Image\EmptyPersonImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Model\DataBase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+      <LastGenOutput>DataBase.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\DataBase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+      <LastGenOutput>DataBase.cs</LastGenOutput>
+    </Content>
     <Resource Include="Image\ImageLoad.png" />
     <Resource Include="Image\RefreshImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Model\DateBase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DateBase.Context.cs</LastGenOutput>
-      <DependentUpon>DateBase.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model\DateBase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DateBase.edmx</DependentUpon>
-      <LastGenOutput>DateBase.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

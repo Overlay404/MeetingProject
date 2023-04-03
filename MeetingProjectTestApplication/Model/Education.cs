@@ -12,12 +12,20 @@ namespace MeetingProjectTestApplication.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PictureProject
+    public partial class Education
     {
-        public int id { get; set; }
-        public byte[] codeImage { get; set; }
-        public Nullable<int> ProjectId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Education()
+        {
+            this.ManWithResume = new HashSet<ManWithResume>();
+        }
     
-        public virtual Project Project { get; set; }
+        public int id { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public string NameInstitution { get; set; }
+        public string TypeOfEducation { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManWithResume> ManWithResume { get; set; }
     }
 }
