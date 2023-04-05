@@ -9,6 +9,40 @@
              d:DesignHeight="600" d:DesignWidth="800"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <UserControl.Resources>
+        <Style TargetType="TabItem" x:Key="TabItemPreview">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Label Content="{Binding}">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <EventSetter Event="MouseDown"  Handler="PreviewTabItem_MouseDown"/>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem" x:Key="TabItemEdit">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Label Content="{Binding}">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <EventSetter Event="MouseDown"  Handler="EditTabItem_MouseDown"/>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top"
                     Orientation="Horizontal">
@@ -39,26 +73,20 @@
         </WrapPanel>
         <TabControl DockPanel.Dock="Bottom">
             <TabItem Header="Редактирование"
-                     FontSize="20">
-                <ScrollViewer x:Name="TextGenerating">
-                    <StackPanel x:Name="EditingTextStackPanel">
-                        <Border  BorderBrush="Black" BorderThickness="1" CornerRadius="4" Padding="2">
-                            <Grid>
-                                <TextBlock Text="%image1" Margin="0 0 10 0"/>
-                                <fa:ImageAwesome Icon = "Trash" Width="15" Foreground="Red"/>
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                     FontSize="20"
+                     Style="{StaticResource TabItemEdit}">
+                <ScrollViewer x:Name="TextGenerating" KeyDown="TextGenerating_KeyDown">
+                    <TextBox Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" x:Name="TextInScrollView"/>
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Предпросмотр"
                      FontSize="20"
-                     >
+                     Style="{StaticResource TabItemPreview}">
                 <ScrollViewer x:Name="MDGenerate">
-                    <StackPanel>
-                    <mdMark:MarkdownScrollViewer Markdown="{Binding MdText}"
+                    <StackPanel x:Name="TextGeneratingPreview">
+                        <mdMark:MarkdownScrollViewer Markdown="{Binding MdText}"
                                              MarkdownStyleName="GitHubLike"/>
-                    <Image x:Name="TestImagePaste" />
+                        <Image x:Name="TestImagePaste" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

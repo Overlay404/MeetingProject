@@ -243,6 +243,9 @@
     <Compile Include="EditArticleUserControl.xaml.cs">
       <DependentUpon>EditArticleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditProjectWindow.xaml.cs">
+      <DependentUpon>EditProjectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageConverter.cs" />
     <Compile Include="MeetingProjectDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditArticleUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditProjectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
