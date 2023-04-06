@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using static System.Windows.MessageBox;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using Markdown.Avalonia;
+using System.Windows.Forms;
+using AngleSharp.Html.Dom;
+using System.Runtime.InteropServices;
 
 namespace MeetingProjectTestApplication
 {
@@ -31,11 +32,15 @@ namespace MeetingProjectTestApplication
         public Regex regexForImageProcessing = new Regex(@"%\d+image");
         public Regex regexNumberInImage = new Regex(@"\d+");
 
-        public MarkdownScrollViewer markdownScrollViewer;
-
         public EditArticleUserControl()
         {
-            MdText = "# Dillinger\n##The Last Markdown Editor, Ever\n\n[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)\n\n![N|Solid](https://icdn.lenta.ru/images/2021/12/28/20/20211228202958360/wide_4_3_4a433584cb35ec4ce60e1316564b86d1.jpg)\n\nDillinger is a cloud-enabled, mobile-ready, offline-storage compatible,\nAngularJS-powered HTML5 Markdown editor.\n\n- Type some Markdown on the left\n- See HTML in the right\n- ✨Magic ✨\n\n## Features\n\n- Import a HTML file and watch it magically convert to Markdown\n- Drag and drop images (requires your Dropbox account be linked)\n- Import and save files from GitHub, Dropbox, Google Drive and One Drive\n- Drag and drop markdown and HTML files into Dillinger\n- Export documents as Markdown, HTML and PDF\n\nMarkdown is a lightweight markup language based on the formatting conventions\nthat people naturally use in email.\nAs [John Gruber] writes on the [Markdown site][df1]\n\n> The overriding design goal for Markdown's\n> formatting syntax is to make it as readable\n> as possible. The idea is that a\n> Markdown-formatted document should be\n> publishable as-is, as plain text, without\n> looking like it's been marked up with tags\n> or formatting instructions.\n\nThis text you see here is *actually- written in Markdown! To get a feel\nfor Markdown's syntax, type some text into the left window and\nwatch the results in the right.\n\n## Tech\n\nDillinger uses a number of open source projects to work properly:\n\n- [AngularJS] - HTML enhanced for web apps!\n- [Ace Editor] - awesome web-based text editor\n- [markdown-it] - Markdown parser done right. Fast and easy to extend.\n- [Twitter Bootstrap] - great UI boilerplate for modern web apps\n- [node.js] - evented I/O for the backend\n- [Express] - fast node.js network app framework [@tjholowaychuk]\n- [Gulp] - the streaming build system\n- [Breakdance](https://breakdance.github.io/breakdance/) - HTML\nto Markdown converter\n- [jQuery] - duh\n\nAnd of course Dillinger itself is open source with a [public repository][dill]\n on GitHub.\n\n## Installation\n\nDillinger requires [Node.js](https://nodejs.org/) v10+ to run.\n\nInstall the dependencies and devDependencies and start the server.\n\n```sh\ncd dillinger\nnpm i\nnode app\n```\n\nFor production environments...\n\n```sh\nnpm install --production\nNODE_ENV=production node app\n```\n\n## Plugins\n\nDillinger is currently extended with the following plugins.\nInstructions on how to use them in your own application are linked below.\n\n| Plugin | README |\n| ------ | ------ |\n| Dropbox | [plugins/dropbox/README.md][PlDb] |\n| GitHub | [plugins/github/README.md][PlGh] |\n| Google Drive | [plugins/googledrive/README.md][PlGd] |\n| OneDrive | [plugins/onedrive/README.md][PlOd] |\n| Medium | [plugins/medium/README.md][PlMe] |\n| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |\n\n## Development\n\nWant to contribute? Great!\n\nDillinger uses Gulp + Webpack for fast developing.\nMake a change in your file and instantaneously see your updates!\n\nOpen your favorite Terminal and run these commands.\n\nFirst Tab:\n\n```sh\nnode app\n```\n\nSecond Tab:\n\n```sh\ngulp watch\n```\n\n(optional) Third:\n\n```sh\nkarma test\n```\n\n#### Building for source";
+            MdText = @"
+```
+| Заголовок 1 | Заголовок 2 |
+| ----------- | ----------- |
+| Строка 1, ячейка 1 | Строка 1, ячейка 2 |
+| Строка 2, ячейка 1 | Строка 2, ячейка 2 |
+```";
             InitializeComponent();
             Instance = this;
 
@@ -46,13 +51,14 @@ namespace MeetingProjectTestApplication
         {
             int lineLengthOnThePlot = 0;
 
+            InitializedMarkdownStartStart(MdText.Length);
+
             foreach (var item in MdText.Split(new string[] { "\n" }, StringSplitOptions.None))
             {
                 lineLengthOnThePlot += item.Length;
 
                 if (regexForImageProcessing.IsMatch(item))
                 {
-                    InitializedMarkdownStartStart(lineLengthOnThePlot);
                     CreatingImage(regexForImageProcessing.Match(item).Value);
                 }
             }
@@ -67,18 +73,31 @@ namespace MeetingProjectTestApplication
 
         private void InitializedMarkdownStartStart(int characters)
         {
-            if (TextGeneratingPreview.Children.Count != 0) return;
+            var markdown = new MarkdownSharp.Markdown();
+            var html = markdown.Transform(MdText);
 
-            markdownScrollViewer = new MarkdownScrollViewer();
+            //MarkdownSharp.Markdown markdown = new MarkdownSharp.Markdown();
+            //var htmlText = $@"
+            //    <html>
+            //        <head>
+            //            <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
+            //            <style>
+            //                body {{
+            //                    font-family: 'Hubot Sans', sans-serif;
+            //                    font-size: 12px;
+            //                }}
+            //            </style>
+            //        </head>
+            //        <body>
+            //            {markdown.Transform(regexForImageProcessing.Replace(MdText.Substring(0, characters), ""))}
+            //        </body>
+            //    </html>";
 
-            markdownScrollViewer.Markdown = regexForImageProcessing.Replace(MdText.Substring(0, characters), "");
-            markdownScrollViewer.MarkdownStyleName = "GithubLike";
-
-            UIElement uIElement = new UIElement();
-            uIElement.SetValue(MdTextProperty, markdownScrollViewer);
-
-            TextGeneratingPreview.Children.Add(uIElement);
+            BrowserForPreviewMarkdown.NavigateToString(html);
         }
+
+
+
 
         private void CreatingImage(string contentId)
         {
@@ -129,9 +148,17 @@ namespace MeetingProjectTestApplication
 
         private void EditTabItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
-           
             MdText = InitialText;
-        } 
+        }
+
+        private void BrowserForPreviewMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (e.Uri != null)
+            {
+                e.Cancel = true;
+                System.Windows.Clipboard.SetText(e.Uri.ToString());
+            }
+        }
         #endregion
 
         //вход

@@ -125,11 +125,8 @@
     <Reference Include="Markdown.Avalonia.SyntaxHigh, Version=0.10.13.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Markdown.Avalonia.SyntaxHigh.0.10.13\lib\net461\Markdown.Avalonia.SyntaxHigh.dll</HintPath>
     </Reference>
-    <Reference Include="MdXaml, Version=1.16.3.0, Culture=neutral, PublicKeyToken=9f8c7afb435b7edc, processorArchitecture=MSIL">
-      <HintPath>..\packages\MdXaml.1.16.3\lib\net45\MdXaml.dll</HintPath>
-    </Reference>
-    <Reference Include="MdXaml.Plugins, Version=1.16.3.0, Culture=neutral, PublicKeyToken=9f8c7afb435b7edc, processorArchitecture=MSIL">
-      <HintPath>..\packages\MdXaml.Plugins.1.16.3\lib\net45\MdXaml.Plugins.dll</HintPath>
+    <Reference Include="MarkdownSharp, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkdownSharp.2.0.5\lib\net40\MarkdownSharp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -146,6 +143,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -292,9 +290,6 @@
       <DependentUpon>ProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="RequestManager.cs" />
-    <Compile Include="UserControl2.xaml.cs">
-      <DependentUpon>UserControl2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInformationPage.xaml.cs">
       <DependentUpon>UserInformationPage.xaml</DependentUpon>
     </Compile>
@@ -335,10 +330,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ProjectPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControl2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
