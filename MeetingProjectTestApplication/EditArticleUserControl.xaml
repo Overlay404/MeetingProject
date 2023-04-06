@@ -82,13 +82,13 @@
             <TabItem Header="Предпросмотр"
                      FontSize="20"
                      Style="{StaticResource TabItemPreview}">
+                <Grid>
                 <ScrollViewer x:Name="MDGenerate">
                     <StackPanel x:Name="TextGeneratingPreview">
-                        <mdMark:MarkdownScrollViewer Markdown="{Binding MdText}"
-                                             MarkdownStyleName="GitHubLike"/>
-                        <Image x:Name="TestImagePaste" />
                     </StackPanel>
                 </ScrollViewer>
+                        <mdMark:MarkdownScrollViewer/>
+                </Grid>
             </TabItem>
         </TabControl>
     </DockPanel>
