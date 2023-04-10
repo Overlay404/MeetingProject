@@ -23,7 +23,7 @@ namespace MeetingProject.SupportiveClasses
         {
             OpenFileDialog openFile = new OpenFileDialog()
             {
-                Filter = "All Files (*.*)|*.*"
+                Filter = "Image files|*.jpg;*.jpeg;*.png"
             };
 
             if (openFile.ShowDialog().GetValueOrDefault())

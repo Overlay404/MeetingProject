@@ -93,9 +93,9 @@ namespace MeetingProject.View.Pages
         #endregion
 
         #region Анимация загрузки
-        private void LoadComponetState(bool v)
+        private void LoadComponetState(bool IsLoad)
         {
-            if (v)
+            if (IsLoad)
             {
                 MyStoryboard.Stop();
             }
@@ -156,6 +156,10 @@ namespace MeetingProject.View.Pages
                         StartWindow.Instance.Registration.IsChecked = true;
                         GitHubConnectionControl.Instance.UsernameGithubText.Text = UsernameGithubText.Text.Trim();
                         await GitHubConnectionControl.Instance.AnswerRequest(UsernameGithubText.Text.Trim());
+                        return;
+                    }
+                    else
+                    {
                         return;
                     }
                 }

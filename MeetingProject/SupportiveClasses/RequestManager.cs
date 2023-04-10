@@ -13,14 +13,13 @@ namespace MeetingProject.SupportiveClasses
 
         public static async Task<T> Get<T>(string controller)
         {
-            HttpResponseMessage response = null;
             T data = default;
             try
             {
                 HttpClient http = new HttpClient();
                 http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
                 var request = new HttpRequestMessage(HttpMethod.Get, URL + controller);
-                response = await http.SendAsync(request);
+                HttpResponseMessage response = await http.SendAsync(request);
                 data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
             catch (Exception ex)

@@ -101,9 +101,6 @@
     <Reference Include="AvaloniaEdit, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Avalonia.AvaloniaEdit.0.10.0\lib\netstandard2.0\AvaloniaEdit.dll</HintPath>
     </Reference>
-    <Reference Include="ColorTextBlock.Avalonia, Version=0.10.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Markdown.Avalonia.Tight.0.10.13\lib\net461\ColorTextBlock.Avalonia.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -119,14 +116,8 @@
     <Reference Include="JetBrains.Annotations, Version=10.3.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.10.3.0\lib\net\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="Markdown.Avalonia, Version=0.10.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Markdown.Avalonia.Tight.0.10.13\lib\net461\Markdown.Avalonia.dll</HintPath>
-    </Reference>
-    <Reference Include="Markdown.Avalonia.SyntaxHigh, Version=0.10.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Markdown.Avalonia.SyntaxHigh.0.10.13\lib\net461\Markdown.Avalonia.SyntaxHigh.dll</HintPath>
-    </Reference>
-    <Reference Include="MarkdownSharp, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MarkdownSharp.2.0.5\lib\net40\MarkdownSharp.dll</HintPath>
+    <Reference Include="Markdig, Version=0.31.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.0.31.0\lib\net462\Markdig.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>

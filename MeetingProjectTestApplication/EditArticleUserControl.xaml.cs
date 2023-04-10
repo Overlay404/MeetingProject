@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Markdig;
+
 using System.Windows;
-using static System.Windows.MessageBox;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Forms;
-using AngleSharp.Html.Dom;
-using System.Runtime.InteropServices;
 
 namespace MeetingProjectTestApplication
 {
@@ -35,16 +33,15 @@ namespace MeetingProjectTestApplication
         public EditArticleUserControl()
         {
             MdText = @"
-```
 | Заголовок 1 | Заголовок 2 |
 | ----------- | ----------- |
 | Строка 1, ячейка 1 | Строка 1, ячейка 2 |
 | Строка 2, ячейка 1 | Строка 2, ячейка 2 |
-```";
+";
             InitializeComponent();
             Instance = this;
 
-            
+
         }
 
         private void CheckingTextForImages()
@@ -63,7 +60,7 @@ namespace MeetingProjectTestApplication
                 }
             }
 
-            if(TextGeneratingPreview.Children.Count == 0)
+            if (TextGeneratingPreview.Children.Count == 0)
             {
                 InitializedMarkdownStartStart(MdText.Length);
             }
@@ -73,27 +70,60 @@ namespace MeetingProjectTestApplication
 
         private void InitializedMarkdownStartStart(int characters)
         {
-            var markdown = new MarkdownSharp.Markdown();
-            var html = markdown.Transform(MdText);
+            var pipeline = new MarkdownPipelineBuilder()
+                                    .UseAdvancedExtensions()
+                                    .UsePipeTables()
+                                    .UseSoftlineBreakAsHardlineBreak()
+                                    .Build();
 
-            //MarkdownSharp.Markdown markdown = new MarkdownSharp.Markdown();
-            //var htmlText = $@"
-            //    <html>
-            //        <head>
-            //            <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
-            //            <style>
-            //                body {{
-            //                    font-family: 'Hubot Sans', sans-serif;
-            //                    font-size: 12px;
-            //                }}
-            //            </style>
-            //        </head>
-            //        <body>
-            //            {markdown.Transform(regexForImageProcessing.Replace(MdText.Substring(0, characters), ""))}
-            //        </body>
-            //    </html>";
+            var htmlTextInPreview = Markdown.ToHtml(regexForImageProcessing.Replace(MdText.Substring(0, characters), ""), pipeline);
 
-            BrowserForPreviewMarkdown.NavigateToString(html);
+            var htmlText = $@"
+                <html>
+                    <head>
+                        <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
+                        <style>
+                            body {{
+                                font-family: 'Hubot Sans', sans-serif;
+                                font-size: 12px;
+                            }}
+                            code {{
+                                display: block;
+                                font-family: 'Source Code Pro', monospace;
+                                width: auto;
+                                background-color: black;
+                                color: rgb(211, 211, 211);
+                                font-size: 20px;
+                                border: 1px solid grey;
+                                padding: 5px 10px 5px 10px;
+                                white-space: pre;
+                                overflow: auto;
+                            }}
+                            table {{
+                                width: 100%;
+	                            margin-bottom: 20px;
+	                            border: 1px solid #dddddd;
+	                            border-collapse: collapse; 
+                            }}
+                            th {{
+                                font - weight: bold;
+	                            padding: 5px;
+	                            background: #efefef;
+	                            border: 1px solid #dddddd;
+                            }}
+                            td {{
+                                border: 1px solid #dddddd;
+	                            padding: 5px;
+                            }}
+                        </style>
+                    </head>
+                    <body>
+                        {htmlTextInPreview}
+                    </body>
+                </html>";
+
+
+            BrowserForPreviewMarkdown.NavigateToString(htmlText);
         }
 
 

@@ -2,18 +2,10 @@
 using MeetingProject.SupportiveClasses;
 using MeetingProject.View.Pages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace MeetingProject.View.Windows
@@ -24,9 +16,8 @@ namespace MeetingProject.View.Windows
     public partial class PortfolioWindow : Window
     {
         public static PortfolioWindow Instance;
-
-        double screenWidth;
-        double positionCursorX;
+        private double screenWidth;
+        private double positionCursorX;
 
         public PortfolioWindow()
         {
@@ -38,12 +29,12 @@ namespace MeetingProject.View.Windows
             FrameDisplayingContent.Navigate(new InformationPage());
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) 
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
             {
                 screenWidth = SystemParameters.FullPrimaryScreenWidth;
-                positionCursorX =(double) PointToScreen(new Point(e.GetPosition(null).X, e.GetPosition(null).Y)).X;
+                positionCursorX = PointToScreen(new Point(e.GetPosition(null).X, e.GetPosition(null).Y)).X;
                 WindowState = WindowState.Normal;
                 Top = 0;
                 Left = positionCursorX - Width / 2;
@@ -61,12 +52,24 @@ namespace MeetingProject.View.Windows
 
         private void GridContent_MouseLeave(object sender, MouseEventArgs e) { AnimationBorder(0); }
 
-        private void MyInfoButton_Checked(object sender, RoutedEventArgs e) { if (this.IsLoaded) FrameDisplayingContent.Navigate(new InformationPage()); }
+        private void MyInfoButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                FrameDisplayingContent.Navigate(new InformationPage());
+            }
+        }
 
-        private void MyProjectButton_Checked(object sender, RoutedEventArgs e) { if ((sender as RadioButton) != null) FrameDisplayingContent.Navigate(new ProjectPage()); }
+        private void MyProjectButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton) != null)
+            {
+                FrameDisplayingContent.Navigate(new ProjectPage());
+            }
+        }
 
         private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
-        { 
+        {
             //Вызов окна изменения Github проектов 
         }
 
@@ -82,28 +85,36 @@ namespace MeetingProject.View.Windows
 
         private void ProfileImage_MouseEnter(object sender, MouseEventArgs e)
         {
-            var animation = new DoubleAnimation();
-            animation.From = ChangeBackgroundImage.Opacity;
-            animation.To = 0.5;
-            animation.Duration = TimeSpan.FromSeconds(0.2);
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = ChangeBackgroundImage.Opacity,
+                To = 0.5,
+                Duration = TimeSpan.FromSeconds(0.2)
+            };
             Profile.BeginAnimation(OpacityProperty, animation);
             ButtonProfile.Opacity = 1;
         }
 
         private void ProfileImage_MouseLeave(object sender, MouseEventArgs e)
         {
-            var animation = new DoubleAnimation();
-            animation.From = ChangeBackgroundImage.Opacity;
-            animation.To = 1;
-            animation.Duration = TimeSpan.FromSeconds(0.2);
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = ChangeBackgroundImage.Opacity,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.2)
+            };
             Profile.BeginAnimation(OpacityProperty, animation);
             ButtonProfile.Opacity = 0;
         }
 
         private void AddProfileImageButton_Click(object sender, RoutedEventArgs e)
         {
-            var byteImage = ImageConverter.OpenFileDialogSave();
-            if (byteImage != null) App.user.ProfilePhoto = byteImage;
+            byte[] byteImage = ImageConverter.OpenFileDialogSave();
+            if (byteImage != null)
+            {
+                App.user.ProfilePhoto = byteImage;
+            }
+
             App.db.SaveChanges();
             PortfolioWindowVM.Instance.ProfilePhoto = App.user.ProfilePhoto;
             UpdateDataContext();
@@ -122,8 +133,12 @@ namespace MeetingProject.View.Windows
 
         private void AddBackgroundImageButton_Click(object sender, RoutedEventArgs e)
         {
-            var byteImage = ImageConverter.OpenFileDialogSave();
-            if (byteImage == null) return;
+            byte[] byteImage = ImageConverter.OpenFileDialogSave();
+            if (byteImage == null)
+            {
+                return;
+            }
+
             App.user.BackgroundImage = byteImage;
             App.db.SaveChanges();
             UpdateDataContext();
@@ -138,30 +153,36 @@ namespace MeetingProject.View.Windows
                 UpdateDataContext();
             }
         }
-       
+
 
         private void AnimationButton(int Opacity)
         {
-            var animation = new DoubleAnimation();
-            animation.From = ChangeBackgroundImage.Opacity;
-            animation.To = Opacity;
-            animation.Duration = TimeSpan.FromSeconds(0.3);
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = ChangeBackgroundImage.Opacity,
+                To = Opacity,
+                Duration = TimeSpan.FromSeconds(0.3)
+            };
             ChangeBackgroundImage.BeginAnimation(OpacityProperty, animation);
         }
 
         private void AnimationBorder(int Opacity)
         {
-            var animation = new DoubleAnimation();
-            animation.From = ChangeBackgroundImage.Opacity;
-            animation.To = Opacity;
-            animation.Duration = TimeSpan.FromSeconds(0.3);
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = ChangeBackgroundImage.Opacity,
+                To = Opacity,
+                Duration = TimeSpan.FromSeconds(0.3)
+            };
             ChangeBackgroundImageButtons.BeginAnimation(OpacityProperty, animation);
         }
 
         private static void ShutdownApplication()
         {
             if (MessageBox.Show("Завершить сеанс?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
                 Application.Current.Shutdown();
+            }
         }
 
 
@@ -172,7 +193,7 @@ namespace MeetingProject.View.Windows
 
 
         #region ResizeWindows
-        bool ResizeInProcess = false;
+        private bool ResizeInProcess = false;
         private void Resize_Init(object sender, MouseButtonEventArgs e)
         {
             if (sender is Rectangle senderRect)
@@ -207,7 +228,9 @@ namespace MeetingProject.View.Windows
                     {
                         width += 5;
                         if (width > 0)
+                        {
                             mainWindow.Width = width;
+                        }
                     }
                     if (senderRect.Name.ToLower().Contains("left"))
                     {
@@ -223,7 +246,9 @@ namespace MeetingProject.View.Windows
                     {
                         height += 5;
                         if (height > 0)
+                        {
                             mainWindow.Height = height;
+                        }
                     }
                     if (senderRect.Name.ToLower().Contains("top"))
                     {
