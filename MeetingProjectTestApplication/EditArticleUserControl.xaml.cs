@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Markdig;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Markdig;
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,12 +31,7 @@ namespace MeetingProjectTestApplication
 
         public EditArticleUserControl()
         {
-            MdText = @"
-| Заголовок 1 | Заголовок 2 |
-| ----------- | ----------- |
-| Строка 1, ячейка 1 | Строка 1, ячейка 2 |
-| Строка 2, ячейка 1 | Строка 2, ячейка 2 |
-";
+            InitializeMdText();
             InitializeComponent();
             Instance = this;
 
@@ -76,7 +70,9 @@ namespace MeetingProjectTestApplication
                                     .UseSoftlineBreakAsHardlineBreak()
                                     .Build();
 
-            var htmlTextInPreview = Markdown.ToHtml(regexForImageProcessing.Replace(MdText.Substring(0, characters), ""), pipeline);
+            var stringConverting = regexForImageProcessing.Replace(MdText.Substring(0, characters), "");
+
+            HTMLTextInPreview = Markdown.ToHtml(stringConverting, pipeline);
 
             var htmlText = $@"
                 <html>
@@ -118,7 +114,7 @@ namespace MeetingProjectTestApplication
                         </style>
                     </head>
                     <body>
-                        {htmlTextInPreview}
+                        {HTMLTextInPreview}
                     </body>
                 </html>";
 
@@ -178,7 +174,7 @@ namespace MeetingProjectTestApplication
 
         private void EditTabItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MdText = InitialText;
+            
         }
 
         private void BrowserForPreviewMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
@@ -262,4 +258,6 @@ namespace MeetingProjectTestApplication
         //    SymbolGenerate("~", true);
         //}
     }
+
+
 }

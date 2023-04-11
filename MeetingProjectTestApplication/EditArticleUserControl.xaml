@@ -75,7 +75,7 @@
                      FontSize="20"
                      Style="{StaticResource TabItemEdit}">
                 <ScrollViewer x:Name="TextGenerating" KeyDown="TextGenerating_KeyDown">
-                    <TextBox Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" x:Name="TextInScrollView"/>
+                    <TextBox Text="{Binding MdText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" x:Name="TextInScrollView" Width="750" TextWrapping="Wrap"/>
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Предпросмотр"

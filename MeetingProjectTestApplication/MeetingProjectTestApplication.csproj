@@ -235,6 +235,7 @@
     <Compile Include="EditProjectWindow.xaml.cs">
       <DependentUpon>EditProjectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageBytePatternParser.cs" />
     <Compile Include="ImageConverter.cs" />
     <Compile Include="MeetingProjectDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -351,6 +352,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="EditArticleUserControl.Extension.cs" />
     <None Include="MeetingProjectDataSet.xsc">
       <DependentUpon>MeetingProjectDataSet.xsd</DependentUpon>
     </None>
