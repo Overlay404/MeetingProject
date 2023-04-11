@@ -44,20 +44,7 @@ namespace MeetingProjectTestApplication
 
             InitializedMarkdownStartStart(MdText.Length);
 
-            foreach (var item in MdText.Split(new string[] { "\n" }, StringSplitOptions.None))
-            {
-                lineLengthOnThePlot += item.Length;
-
-                if (regexForImageProcessing.IsMatch(item))
-                {
-                    CreatingImage(regexForImageProcessing.Match(item).Value);
-                }
-            }
-
-            if (TextGeneratingPreview.Children.Count == 0)
-            {
-                InitializedMarkdownStartStart(MdText.Length);
-            }
+            
 
             InitialText = MdText;
         }
@@ -74,52 +61,9 @@ namespace MeetingProjectTestApplication
 
             HTMLTextInPreview = Markdown.ToHtml(stringConverting, pipeline);
 
-            var htmlText = $@"
-                <html>
-                    <head>
-                        <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
-                        <style>
-                            body {{
-                                font-family: 'Hubot Sans', sans-serif;
-                                font-size: 12px;
-                            }}
-                            code {{
-                                display: block;
-                                font-family: 'Source Code Pro', monospace;
-                                width: auto;
-                                background-color: black;
-                                color: rgb(211, 211, 211);
-                                font-size: 20px;
-                                border: 1px solid grey;
-                                padding: 5px 10px 5px 10px;
-                                white-space: pre;
-                                overflow: auto;
-                            }}
-                            table {{
-                                width: 100%;
-	                            margin-bottom: 20px;
-	                            border: 1px solid #dddddd;
-	                            border-collapse: collapse; 
-                            }}
-                            th {{
-                                font - weight: bold;
-	                            padding: 5px;
-	                            background: #efefef;
-	                            border: 1px solid #dddddd;
-                            }}
-                            td {{
-                                border: 1px solid #dddddd;
-	                            padding: 5px;
-                            }}
-                        </style>
-                    </head>
-                    <body>
-                        {HTMLTextInPreview}
-                    </body>
-                </html>";
+            BrowserForPreviewMarkdown.NavigateToString(HTMLHeader);
 
-
-            BrowserForPreviewMarkdown.NavigateToString(htmlText);
+            Clipboard.SetText(HTMLHeader);
         }
 
 

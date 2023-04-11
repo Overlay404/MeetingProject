@@ -10,7 +10,10 @@ namespace MeetingProjectTestApplication
     {
         public static string HTMLTextInPreview = "";
 
-		public string HTMLHeader = $@"
+        public string HTMLHeader
+        {
+            set => HTMLHeader = value;
+            get => $@"
                 <html>
                     <head>
                         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
@@ -19,17 +22,17 @@ namespace MeetingProjectTestApplication
                                 font-family: 'Hubot Sans', sans-serif;
                                 font-size: 12px;
                             }}
+                            pre{{
+                                overflow-x:scroll;
+                            }}
                             code {{
-                                display: block;
                                 font-family: 'Source Code Pro', monospace;
-                                width: auto;
                                 background-color: black;
                                 color: rgb(211, 211, 211);
-                                font-size: 20px;
+                                font-size: 15px;
                                 border: 1px solid grey;
                                 padding: 5px 10px 5px 10px;
-                                white-space: pre;
-                                overflow: auto;
+                                white-space: nowrap;
                             }}
                             table {{
                                 width: 100%;
@@ -53,6 +56,8 @@ namespace MeetingProjectTestApplication
                         {HTMLTextInPreview}
                     </body>
                 </html>";
+        }
+
 
         private void InitializeMdText()
         {
@@ -67,6 +72,9 @@ namespace MeetingProjectTestApplication
 
 Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
 
+```
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+```
 
 # Files
 
