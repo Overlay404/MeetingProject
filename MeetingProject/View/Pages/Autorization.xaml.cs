@@ -28,7 +28,12 @@ namespace MeetingProject.View.Pages
 
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            App.user = App.db.ManWithResume.Local.Where(u => u.Login.Equals(Login.Text.Trim()) && u.Password.Equals(Password.Password.Trim())).Select(u => u).FirstOrDefault();
+            try { App.user = App.db.ManWithResume.Local.Where(u => u.Login.Equals(Login.Text.Trim()) && u.Password.Equals(Password.Password.Trim())).Select(u => u).FirstOrDefault(); }
+            catch
+            {
+                MessageBox.Show("База данных отсутствует");
+                return;
+            }
 
             if (App.user == null)
             {
@@ -51,9 +56,8 @@ namespace MeetingProject.View.Pages
                 Properties.Settings.Default.Login = null;
                 Properties.Settings.Default.Password = null;
             }
-            Properties.Settings.Default.Save();
 
-            
+            Properties.Settings.Default.Save();
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)

@@ -4,17 +4,53 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MeetingProject.View.Pages"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" Style="{StaticResource PageStyle}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProjectPage">
+      Title="ProjectPage" DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid Background="#F2F0FF">
-        <ListView>
+        <ListView Padding="30 30 30 0" 
+                  Background="Transparent" 
+                  ItemsSource="{Binding ProjectList}" 
+                  d:ItemsSource="{d:SampleData ItemCount=3}"
+                  x:Name="ListViewProject">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    
+                    <StackPanel Background="White">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Calendar" 
+                                             Width="13" 
+                                             Foreground="Gray" 
+                                             Margin="10 0"/>
+                            <TextBlock Text="{Binding date, StringFormat=d, ConverterCulture=ru}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding title}" 
+                                   Margin="20 10" 
+                                   FontSize="20" 
+                                   Foreground="#044AFD"/>
+                        <Grid HorizontalAlignment="Stretch"
+                               Height="200"
+                               Margin="20 0">
+                            <Grid.Background>
+                                <ImageBrush
+                                ImageSource="{Binding MainPicture}"/> 
+                            </Grid.Background>
+                        </Grid>
+
+                        <TextBlock Text="{Binding description}"
+                                   Margin="20 20"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="Margin" Value="0 0 0 30"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Page>

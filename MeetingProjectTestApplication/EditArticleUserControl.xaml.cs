@@ -55,6 +55,7 @@ namespace MeetingProjectTestApplication
                                     .UseAdvancedExtensions()
                                     .UsePipeTables()
                                     .UseSoftlineBreakAsHardlineBreak()
+                                    .UseCustomContainers()
                                     .Build();
 
             var stringConverting = regexForImageProcessing.Replace(MdText.Substring(0, characters), "");

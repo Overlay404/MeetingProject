@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,34 @@ namespace MeetingProject.View.Pages
     /// </summary>
     public partial class ProjectPage : Page
     {
+
+
+        public IEnumerable<Project> ProjectList
+        {
+            get { return (IEnumerable<Project>)GetValue(ProjectListProperty); }
+            set { SetValue(ProjectListProperty, value); }
+        }
+
+        public static readonly DependencyProperty ProjectListProperty =
+            DependencyProperty.Register("ProjectList", typeof(IEnumerable<Project>), typeof(ProjectPage));
+
+
+
         public ProjectPage()
         {
+            ProjectList = App.db.Project.ToList();
+
             InitializeComponent();
+
+            ListViewProject.SelectionChanged += delegate(object sender, SelectionChangedEventArgs e) 
+            {
+                var dataImage = SupportiveClasses.ImageConverter.OpenFileDialogSave();
+                (ListViewProject.SelectedItem as Project).MainPicture = dataImage;
+
+                App.db.SaveChanges();
+
+                ProjectList = App.db.Project.ToList();
+            };
         }
     }
 }
