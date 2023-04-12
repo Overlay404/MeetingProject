@@ -16,7 +16,6 @@ namespace MeetingProject.View.Windows
     public partial class PortfolioWindow : Window
     {
         public static PortfolioWindow Instance;
-        private double screenWidth;
         private double positionCursorX;
 
         public PortfolioWindow()
@@ -33,7 +32,6 @@ namespace MeetingProject.View.Windows
         {
             if (WindowState == WindowState.Maximized)
             {
-                screenWidth = SystemParameters.FullPrimaryScreenWidth;
                 positionCursorX = PointToScreen(new Point(e.GetPosition(null).X, e.GetPosition(null).Y)).X;
                 WindowState = WindowState.Normal;
                 Top = 0;

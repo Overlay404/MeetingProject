@@ -40,7 +40,6 @@ namespace MeetingProjectTestApplication
 
         private void CheckingTextForImages()
         {
-            int lineLengthOnThePlot = 0;
 
             InitializedMarkdownStartStart(MdText.Length);
 

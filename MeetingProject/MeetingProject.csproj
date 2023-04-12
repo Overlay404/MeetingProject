@@ -50,6 +50,9 @@
     <Reference Include="ICSharpCode.AvalonEdit, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.6.0.0\lib\net45\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
+    <Reference Include="Markdig, Version=0.31.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.0.31.0\lib\net462\Markdig.dll</HintPath>
+    </Reference>
     <Reference Include="MdXaml, Version=1.17.0.0, Culture=neutral, PublicKeyToken=9f8c7afb435b7edc, processorArchitecture=MSIL">
       <HintPath>..\packages\MdXaml.1.17.0\lib\net45\MdXaml.dll</HintPath>
     </Reference>
@@ -107,12 +110,29 @@
     </Compile>
     <Compile Include="ModelView\InformationPageVM.cs" />
     <Compile Include="ModelView\PortfolioWindowVM.cs" />
+    <Compile Include="Model\Company.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Education.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Experience.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\JobTitle.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ManWithResume.cs">
+      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PictureProject.cs">
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Project.cs">
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partial\EditingProjectPage.Extension.cs" />
+    <Compile Include="Partial\Project.Extension.cs" />
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
     <Compile Include="SupportiveClasses\ParseAccountInformation.cs" />
     <Compile Include="SupportiveClasses\RequestManager.cs" />
@@ -121,6 +141,9 @@
     </Compile>
     <Compile Include="View\Pages\ConnectionGithub.xaml.cs">
       <DependentUpon>ConnectionGithub.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\EditingProjectPage.xaml.cs">
+      <DependentUpon>EditingProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
@@ -131,8 +154,14 @@
     <Compile Include="View\Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\SettingProjectPage.xaml.cs">
+      <DependentUpon>SettingProjectPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
       <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditingProjectWindow.xaml.cs">
+      <DependentUpon>EditingProjectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\PortfolioWindow.xaml.cs">
       <DependentUpon>PortfolioWindow.xaml</DependentUpon>
@@ -160,6 +189,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Pages\EditingProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Pages\InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,7 +205,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Pages\SettingProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\GitHubConnectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\EditingProjectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,18 +227,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Company.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Experience.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\JobTitle.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ManWithResume.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\MeetingProjectDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -212,9 +241,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MeetingProjectDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PictureProject.cs">
-      <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -283,8 +309,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Partial\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

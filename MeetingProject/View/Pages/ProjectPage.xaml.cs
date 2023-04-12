@@ -1,7 +1,9 @@
 ﻿using MeetingProject.Model;
+using MeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,8 +23,6 @@ namespace MeetingProject.View.Pages
     /// </summary>
     public partial class ProjectPage : Page
     {
-
-
         public IEnumerable<Project> ProjectList
         {
             get { return (IEnumerable<Project>)GetValue(ProjectListProperty); }
@@ -32,22 +32,16 @@ namespace MeetingProject.View.Pages
         public static readonly DependencyProperty ProjectListProperty =
             DependencyProperty.Register("ProjectList", typeof(IEnumerable<Project>), typeof(ProjectPage));
 
-
-
         public ProjectPage()
         {
             ProjectList = App.db.Project.ToList();
 
             InitializeComponent();
 
-            ListViewProject.SelectionChanged += delegate(object sender, SelectionChangedEventArgs e) 
+            ListViewProject.SelectionChanged += delegate (object sender, SelectionChangedEventArgs e) 
             {
-                var dataImage = SupportiveClasses.ImageConverter.OpenFileDialogSave();
-                (ListViewProject.SelectedItem as Project).MainPicture = dataImage;
-
-                App.db.SaveChanges();
-
-                ProjectList = App.db.Project.ToList();
+                new EditingProjectWindow(ListViewProject.SelectedItem as Project).Show();
+                PortfolioWindow.Instance.Close();
             };
         }
     }

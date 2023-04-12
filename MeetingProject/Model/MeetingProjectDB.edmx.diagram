@@ -5,15 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c241bc26048746efba8b9551daf106f0" Name="Diagram1">
-        <EntityTypeShape EntityType="MeetingProjectModel.Company" Width="1.5" PointX="5.75" PointY="7.625" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Education" Width="1.5" PointX="0.75" PointY="4" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Experience" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MeetingProjectModel.JobTitle" Width="1.5" PointX="0.75" PointY="7.625" />
-        <EntityTypeShape EntityType="MeetingProjectModel.ManWithResume" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="MeetingProjectModel.PictureProject" Width="1.5" PointX="7.5" PointY="4.125" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Project" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Company" Width="1.5" PointX="0.75" PointY="9.125" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Education" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Experience" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="MeetingProjectModel.JobTitle" Width="1.5" PointX="0.75" PointY="13.25" />
+        <EntityTypeShape EntityType="MeetingProjectModel.ManWithResume" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="MeetingProjectModel.PictureProject" Width="1.5" PointX="7.5" PointY="2.375" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Project" Width="1.5" PointX="5.25" PointY="1.875" />
         <AssociationConnector Association="MeetingProjectModel.FK_MyProject_ManWithResume" />
         <AssociationConnector Association="MeetingProjectModel.FK_PictureProject_MyProject" />
+        <AssociationConnector Association="MeetingProjectModel.ManWithResumeCompany" />
         <AssociationConnector Association="MeetingProjectModel.ManWithResumeEducation" />
         <AssociationConnector Association="MeetingProjectModel.ManWithResumeExperienceTable" />
         <AssociationConnector Association="MeetingProjectModel.ManWithResumeJobTitleTable" />

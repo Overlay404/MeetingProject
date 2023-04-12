@@ -10,6 +10,16 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LegalForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="number" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="telegram" Type="nvarchar" MaxLength="50" />
+          <Property Name="adout" Type="nvarchar(max)" />
+          <Property Name="BackgroundImage" Type="varbinary(max)" />
+          <Property Name="ProfilePhoto" Type="varbinary(max)" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -49,11 +59,19 @@
           <Property Name="number" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="telegram" Type="nvarchar" MaxLength="50" />
-          <Property Name="about" Type="nvarchar" MaxLength="50" />
+          <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ManWithResumeCompany">
+          <Key>
+            <PropertyRef Name="ManWithResume" />
+            <PropertyRef Name="Company" />
+          </Key>
+          <Property Name="ManWithResume" Type="int" Nullable="false" />
+          <Property Name="Company" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ManWithResumeEducation">
           <Key>
@@ -97,7 +115,32 @@
           <Property Name="MainPicture" Type="varbinary(max)" />
           <Property Name="text" Type="nvarchar(max)" />
           <Property Name="ManWithResumeId" Type="int" />
+          <Property Name="description" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_ManWithResumeCompany_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="ManWithResumeCompany" Type="Self.ManWithResumeCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeCompany">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManWithResumeCompany_ManWithResume">
+          <End Role="ManWithResume" Type="Self.ManWithResume" Multiplicity="1" />
+          <End Role="ManWithResumeCompany" Type="Self.ManWithResumeCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManWithResume">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManWithResumeCompany">
+              <PropertyRef Name="ManWithResume" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ManWithResumeEducation_Education">
           <End Role="Education" Type="Self.Education" Multiplicity="1" />
           <End Role="ManWithResumeEducation" Type="Self.ManWithResumeEducation" Multiplicity="*" />
@@ -200,11 +243,20 @@
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManWithResumeCompany" EntityType="Self.ManWithResumeCompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeEducation" EntityType="Self.ManWithResumeEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeExperienceTable" EntityType="Self.ManWithResumeExperienceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResumeJobTitleTable" EntityType="Self.ManWithResumeJobTitleTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PictureProject" EntityType="Self.PictureProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ManWithResumeCompany_Company" Association="Self.FK_ManWithResumeCompany_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ManWithResumeCompany" EntitySet="ManWithResumeCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManWithResumeCompany_ManWithResume" Association="Self.FK_ManWithResumeCompany_ManWithResume">
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+            <End Role="ManWithResumeCompany" EntitySet="ManWithResumeCompany" />
+          </AssociationSet>
           <AssociationSet Name="FK_ManWithResumeEducation_Education" Association="Self.FK_ManWithResumeEducation_Education">
             <End Role="Education" EntitySet="Education" />
             <End Role="ManWithResumeEducation" EntitySet="ManWithResumeEducation" />
@@ -258,6 +310,10 @@
             <End Role="Project" EntitySet="Project" />
             <End Role="PictureProject" EntitySet="PictureProject" />
           </AssociationSet>
+          <AssociationSet Name="ManWithResumeCompany" Association="MeetingProjectModel.ManWithResumeCompany">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ManWithResume" EntitySet="ManWithResume" />
+          </AssociationSet>
           <AssociationSet Name="ManWithResumeEducation" Association="MeetingProjectModel.ManWithResumeEducation">
             <End Role="Education" EntitySet="Education" />
             <End Role="ManWithResume" EntitySet="ManWithResume" />
@@ -276,6 +332,17 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LegalForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManWithResume" Relationship="MeetingProjectModel.ManWithResumeCompany" FromRole="Company" ToRole="ManWithResume" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -318,12 +385,13 @@
           <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="about" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Project" Relationship="MeetingProjectModel.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="Project" />
+          <NavigationProperty Name="Company" Relationship="MeetingProjectModel.ManWithResumeCompany" FromRole="ManWithResume" ToRole="Company" />
           <NavigationProperty Name="Education" Relationship="MeetingProjectModel.ManWithResumeEducation" FromRole="ManWithResume" ToRole="Education" />
           <NavigationProperty Name="Experience" Relationship="MeetingProjectModel.ManWithResumeExperienceTable" FromRole="ManWithResume" ToRole="Experience" />
           <NavigationProperty Name="JobTitle" Relationship="MeetingProjectModel.ManWithResumeJobTitleTable" FromRole="ManWithResume" ToRole="JobTitle" />
@@ -347,6 +415,7 @@
           <Property Name="MainPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ManWithResumeId" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManWithResume" Relationship="MeetingProjectModel.FK_MyProject_ManWithResume" FromRole="Project" ToRole="ManWithResume" />
           <NavigationProperty Name="PictureProject" Relationship="MeetingProjectModel.FK_PictureProject_MyProject" FromRole="Project" ToRole="PictureProject" />
         </EntityType>
@@ -374,6 +443,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ManWithResumeCompany">
+          <End Type="MeetingProjectModel.Company" Role="Company" Multiplicity="*" />
+          <End Type="MeetingProjectModel.ManWithResume" Role="ManWithResume" Multiplicity="*" />
+        </Association>
         <Association Name="ManWithResumeEducation">
           <End Type="MeetingProjectModel.Education" Role="Education" Multiplicity="*" />
           <End Type="MeetingProjectModel.ManWithResume" Role="ManWithResume" Multiplicity="*" />
@@ -386,7 +459,7 @@
           <End Type="MeetingProjectModel.JobTitle" Role="JobTitle" Multiplicity="*" />
           <End Type="MeetingProjectModel.ManWithResume" Role="ManWithResume" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -395,6 +468,16 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="adout" ColumnName="adout" />
+                <ScalarProperty Name="telegram" ColumnName="telegram" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="LegalForm" ColumnName="LegalForm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -459,6 +542,7 @@
           <EntitySetMapping Name="Project">
             <EntityTypeMapping TypeName="MeetingProjectModel.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="ManWithResumeId" ColumnName="ManWithResumeId" />
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="MainPicture" ColumnName="MainPicture" />
@@ -468,6 +552,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="ManWithResumeCompany" TypeName="MeetingProjectModel.ManWithResumeCompany" StoreEntitySet="ManWithResumeCompany">
+            <EndProperty Name="ManWithResume">
+              <ScalarProperty Name="id" ColumnName="ManWithResume" />
+            </EndProperty>
+            <EndProperty Name="Company">
+              <ScalarProperty Name="id" ColumnName="Company" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="ManWithResumeEducation" TypeName="MeetingProjectModel.ManWithResumeEducation" StoreEntitySet="ManWithResumeEducation">
             <EndProperty Name="ManWithResume">
               <ScalarProperty Name="id" ColumnName="ManWithResumeId" />

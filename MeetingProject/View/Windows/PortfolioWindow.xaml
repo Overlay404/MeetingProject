@@ -26,43 +26,43 @@
     </Window.Resources>
     <Grid>
         <Border CornerRadius="5" Background="White" Margin="6">
-        <Grid Background="Transparent">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="28"/>
-                <RowDefinition Height="34*"/>
-                <RowDefinition Height="48*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" VerticalAlignment="Top">
-                <Border Background="#9DAFB5" 
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="34*"/>
+                    <RowDefinition Height="48*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" VerticalAlignment="Top">
+                    <Border Background="#9DAFB5" 
                 VerticalAlignment="Center"
                 Height="28"
                 MouseLeftButtonDown="Border_MouseLeftButtonDown"
                 CornerRadius="5 5 0 0">
-                </Border>
-                <Border
+                    </Border>
+                    <Border
                     HorizontalAlignment="Right"
                     Height="28" Width="30"
                     MouseDown="Rectangle_MouseDown"
                     Style="{StaticResource ButtonShutdown}">
-                    <fa:ImageAwesome Icon="Close" Width="10"
+                        <fa:ImageAwesome Icon="Close" Width="10"
                                  Foreground="Gray"/>
-                </Border>
-            </Grid>
-            <Grid MouseEnter="Grid_MouseEnter"
+                    </Border>
+                </Grid>
+                <Grid MouseEnter="Grid_MouseEnter"
                       MouseLeave="Grid_MouseLeave"
                   Grid.Row="1">
                     <Grid.Background>
                         <ImageBrush ImageSource="{Binding BackgroundImage}"
                                 Opacity="0.5" x:Name="BackgroundImage"/>
                     </Grid.Background>
-                <fa:ImageAwesome Icon="ArrowCircleLeft" 
+                    <fa:ImageAwesome Icon="ArrowCircleLeft" 
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
                                  Width="30"
                                  Margin="10"
                                  MouseDown="ImageAwesome_MouseDown"/>
 
-                <Button x:Name="ChangeBackgroundImage"
+                    <Button x:Name="ChangeBackgroundImage"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Width="150"
@@ -173,28 +173,28 @@
                     </ItemsControl>
                 </Grid>
 
-            <Grid Background="White"
+                <Grid Background="White"
                       Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <RadioButton Style="{StaticResource RadioButton}"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <RadioButton Style="{StaticResource RadioButton}"
                                          Height="48"
                                          IsChecked="True"
                                          Content="Информация о пользователе" Checked="MyInfoButton_Checked"/>
-                    <RadioButton Style="{StaticResource RadioButton}"
+                        <RadioButton Style="{StaticResource RadioButton}"
                                          Height="48"
                                          Content="Мои проекты" Checked="MyProjectButton_Checked"/>
-                </StackPanel>
-                <Frame x:Name="FrameDisplayingContent"
+                    </StackPanel>
+                    <Frame x:Name="FrameDisplayingContent"
                                Background="#F2F0FF"
                                NavigationUIVisibility="Hidden"
                            Grid.Column="1"/>
+                </Grid>
             </Grid>
-        </Grid>
-    </Border>
+        </Border>
 
         <Rectangle x:Name="leftSizeGrip"
                 Width="7"

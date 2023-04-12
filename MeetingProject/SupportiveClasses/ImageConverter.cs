@@ -19,6 +19,17 @@ namespace MeetingProject.SupportiveClasses
             return memoryStream.ToArray();
         }
 
+        public static ImageSource ConvertToImageSource(byte[] bytes)
+        {
+            BitmapImage biImg = new BitmapImage();
+            MemoryStream ms = new MemoryStream(bytes);
+            biImg.BeginInit();
+            biImg.StreamSource = ms;
+            biImg.EndInit();
+            ImageSource image = biImg as ImageSource;
+            return image;
+        }
+
         public static byte[] OpenFileDialogSave()
         {
             OpenFileDialog openFile = new OpenFileDialog()

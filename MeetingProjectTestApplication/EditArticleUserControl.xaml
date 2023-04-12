@@ -41,35 +41,8 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
-    <DockPanel>
-        <WrapPanel DockPanel.Dock="Top"
-                    Orientation="Horizontal">
-            <Border BorderThickness="2"
-                    BorderBrush="Black"
-                    Background="White"
-                    Padding="5"
-                    >
-                <fa:ImageAwesome Icon="Bold" Width="20"/>
-            </Border>
-            <Border BorderThickness="2"
-                    BorderBrush="Black"
-                    Background="White"
-                    Padding="5"
-                    Margin="5 0 0 0"
-                    >
-                <fa:ImageAwesome Icon="Italic" Width="20" Height="20"/>
-            </Border>
 
-            <Border BorderThickness="2"
-                    BorderBrush="Black"
-                    Background="White"
-                    Padding="5"
-                    Margin="5 0 0 0"
-                    >
-                <fa:ImageAwesome Icon="Underline" Width="20" Height="20"/>
-            </Border>
-        </WrapPanel>
+    <DockPanel>
         <TabControl DockPanel.Dock="Bottom">
             <TabItem Header="Редактирование"
                      FontSize="20"
