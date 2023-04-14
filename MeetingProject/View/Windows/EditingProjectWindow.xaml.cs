@@ -21,11 +21,13 @@ namespace MeetingProject.View.Windows
     /// </summary>
     public partial class EditingProjectWindow : Window
     {
+        public static EditingProjectWindow Instance;
+
         public EditingProjectWindow(Project project = null)
         {
             InitializeComponent();
             FramePageEditing.Navigate(new EditingProjectPage(project));
-
+            Instance = this;
             SettingBtn.MouseDown += (sender, e) => { FramePageEditing.Navigate(new SettingProjectPage(project)); };
         }
 

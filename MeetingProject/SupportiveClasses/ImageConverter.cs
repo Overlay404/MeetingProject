@@ -19,12 +19,47 @@ namespace MeetingProject.SupportiveClasses
             return memoryStream.ToArray();
         }
 
+        public static byte[] ConvertToByteCollection(BitmapSource pasteImage)
+        {
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.QualityLevel = 100;
+            byte[] bit = new byte[0];
+            using (MemoryStream stream = new MemoryStream())
+            {
+                encoder.Frames.Add(BitmapFrame.Create(pasteImage));
+                encoder.Save(stream);
+                bit = stream.ToArray();
+                stream.Close();
+            }
+            return bit;
+        }
+
+        public static byte[] ConvertToByteCollection(Image pasteImage)
+        {
+            MemoryStream image = new MemoryStream();
+            pasteImage.Save(image, pasteImage.RawFormat);
+            image.Position = 0;
+            return image.ToArray();
+        }
+
         public static ImageSource ConvertToImageSource(byte[] bytes)
         {
+            if (bytes == null) return null;
+
             BitmapImage biImg = new BitmapImage();
             MemoryStream ms = new MemoryStream(bytes);
             biImg.BeginInit();
             biImg.StreamSource = ms;
+            biImg.EndInit();
+            ImageSource image = biImg as ImageSource;
+            return image;
+        }
+
+        public static ImageSource ConvertToImageSourse(MemoryStream memoryStream)
+        {
+            BitmapImage biImg = new BitmapImage();
+            biImg.BeginInit();
+            biImg.StreamSource = memoryStream;
             biImg.EndInit();
             ImageSource image = biImg as ImageSource;
             return image;
@@ -43,25 +78,6 @@ namespace MeetingProject.SupportiveClasses
                 return File.ReadAllBytes(openFile.FileName);
             }
             return null;
-        }
-
-        public static byte[] ConvertToByteCollection(Image pasteImage)
-        {
-            MemoryStream image = new MemoryStream();
-            pasteImage.Save(image, pasteImage.RawFormat);
-            image.Position = 0;
-            return image.ToArray();
-        }
-
-        public static ImageSource ConvertToImageSourse(byte[] bytes)
-        {
-            BitmapImage biImg = new BitmapImage();
-            MemoryStream ms = new MemoryStream(bytes);
-            biImg.BeginInit();
-            biImg.StreamSource = ms;
-            biImg.EndInit();
-            ImageSource image = biImg as ImageSource;
-            return image;
         }
     }
 }

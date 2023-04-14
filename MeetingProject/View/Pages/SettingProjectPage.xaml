@@ -20,7 +20,8 @@
             </StackPanel>
             <TextBlock Text="Изображение проекта"/>
             <StackPanel Margin="0 10">
-                <Border BorderThickness="4" Background="#FFCCCCCC" Drop="Image_DragEnter">
+                
+                <Border BorderThickness="4" Background="#FFCCCCCC">
                     <Border.BorderBrush>
                         <DrawingBrush Viewport="0,0,4,4" ViewportUnits="Absolute" TileMode="Tile">
                             <DrawingBrush.Drawing>
@@ -37,8 +38,10 @@
                             </DrawingBrush.Drawing>
                         </DrawingBrush>
                     </Border.BorderBrush>
-                    <Grid Height="120">
-                        <Image Source="{Binding MainPicture}" x:Name="MainPictureDrop" Panel.ZIndex="1"/>
+                    <Grid Height="200" AllowDrop="True" Drop="Image_Drop" MouseDown="Grid_MouseDown">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="{Binding MainPicture}"/>
+                        </Grid.Background>
                         <StackPanel VerticalAlignment="Center">
                             <fa:ImageAwesome Icon="Image" Width="50"/>
                             <TextBlock Text="Перетащите картинку сюда" HorizontalAlignment="Center"/>

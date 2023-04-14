@@ -15,7 +15,7 @@
         <ListView Padding="30 30 30 0" 
                   Background="Transparent" 
                   ItemsSource="{Binding ProjectList}" 
-                  d:ItemsSource="{d:SampleData ItemCount=3}"
+                  ScrollViewer.CanContentScroll="False"
                   x:Name="ListViewProject">
             <ListView.ItemTemplate>
                 <DataTemplate>
