@@ -34,6 +34,9 @@ namespace MeetingProjectTestApplication
                                 padding: 5px 10px 5px 10px;
                                 white-space: nowrap;
                             }}
+                            image{{
+                                width: 100%;
+                            }}
                             table {{
                                 width: 100%;
 	                            margin-bottom: 20px;

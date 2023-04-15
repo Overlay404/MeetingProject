@@ -11,21 +11,10 @@ namespace MeetingProject.View.UserControls
         public ProjectEditorHints()
         {
             InitializeComponent();
-            InitializeListBox();
-
-            foreach(var element in ListBox.Items)
-            {
-                (element as WebBrowser).NavigateToString("<h1>Заголовок</h1>");
-            }
-        }
-
-        private void InitializeListBox()
-        {
-            ListBox.Items.Add(new ListBoxSupportive() { NameHint = "Заголовок 1" });
-            ListBox.Items.Add(new ListBoxSupportive() { NameHint = "Заголовок 2" });
-            ListBox.Items.Add(new ListBoxSupportive() { NameHint = "Заголовок 3" });
-            ListBox.Items.Add(new ListBoxSupportive() { NameHint = "Заголовок 4" });
-            ListBox.Items.Add(new ListBoxSupportive() { NameHint = "Заголовок 5" });
+            Header1.NavigateToString("<head><meta http-equiv='Content-Type' content='text/html;charset=utf-8'></head><body><h1>Заголовок</h1></body></html>");
+            Header2.NavigateToString("<head><meta http-equiv='Content-Type' content='text/html;charset=utf-8'></head><body><h2>Заголовок</h2s></body></html>");
+            Header3.NavigateToString("<head><meta http-equiv='Content-Type' content='text/html;charset=utf-8'></head><body><h3>Заголовок</h3></body></html>");
+            Header4.NavigateToString("<head><meta http-equiv='Content-Type' content='text/html;charset=utf-8'></head><body><h4>Заголовок</h4></body></html>");
         }
     }
 

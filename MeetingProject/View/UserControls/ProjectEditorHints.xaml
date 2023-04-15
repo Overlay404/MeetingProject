@@ -3,21 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MeetingProject.View.UserControls"
-             mc:Ignorable="d" Height="100" Width="100">
-    <ListBox x:Name="ListBox">
-        <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <StackPanel>
-                    <TextBlock Text="{Binding NameHint}"/>
-                    <WebBrowser x:Name="WebBrowser"/>
-                </StackPanel>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
+             mc:Ignorable="d">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Width="200" Background="White" VerticalScrollBarVisibility="Hidden">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Заголовок 1"/>
+                <WebBrowser x:Name="Header1"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Заголовок 2"/>
+                <WebBrowser x:Name="Header2"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Заголовок 3"/>
+                <WebBrowser x:Name="Header3"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Заголовок 4"/>
+                <WebBrowser x:Name="Header4"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+
 </UserControl>

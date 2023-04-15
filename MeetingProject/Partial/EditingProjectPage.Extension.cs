@@ -35,6 +35,9 @@ namespace MeetingProject.View.Pages
         pre{{
             overflow-x:scroll;
         }}
+        image{{
+            width: 100%;
+        }}
         code {{
             font-family: 'Source Code Pro', monospace;
             background-color: black;

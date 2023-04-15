@@ -31,19 +31,26 @@ namespace MeetingProject.View.Windows
             Instance = this;
 
             SettingBtn.MouseDown += (sender, e) => { FramePageEditing.Navigate(new SettingProjectPage(project)); };
-            ExitBtn.MouseDown += (sender, e) => 
-            { 
-                PortfolioWindow.Instance.Visibility = Visibility.Visible;
-                Close(); 
-                PortfolioWindow.Instance.FrameDisplayingContent.Navigate(new ProjectPage()); 
+            ExitBtn.MouseDown += (sender, e) =>
+            {
+                ClosingWindow(false);
             };
             HelpBtn.MouseEnter += (sender, e) => {  };
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ClosingWindow(bool IsClosing)
         {
+
             EditingProjectPage.Instance.AcceptChanges();
             App.db.SaveChanges();
+            PortfolioWindow.Instance.Visibility = Visibility.Visible;
+            if(!IsClosing) Close();
+            PortfolioWindow.Instance.FrameDisplayingContent.Navigate(new ProjectPage());
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ClosingWindow(true);
         }
     }
 }

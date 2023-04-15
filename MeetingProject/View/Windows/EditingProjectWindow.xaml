@@ -26,6 +26,6 @@
                          HorizontalAlignment="Right"
                          Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1"/>
 
-        <local:ProjectEditorHints/>
+        <local:ProjectEditorHints VerticalAlignment="Top" Margin="10 50" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
