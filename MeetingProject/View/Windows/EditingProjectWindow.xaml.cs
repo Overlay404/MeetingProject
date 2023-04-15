@@ -1,5 +1,6 @@
 ﻿using MeetingProject.Model;
 using MeetingProject.View.Pages;
+using static MeetingProject.SupportiveClasses.LocationWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +29,21 @@ namespace MeetingProject.View.Windows
             InitializeComponent();
             FramePageEditing.Navigate(new EditingProjectPage(project));
             Instance = this;
+
             SettingBtn.MouseDown += (sender, e) => { FramePageEditing.Navigate(new SettingProjectPage(project)); };
+            ExitBtn.MouseDown += (sender, e) => 
+            { 
+                PortfolioWindow.Instance.Visibility = Visibility.Visible;
+                Close(); 
+                PortfolioWindow.Instance.FrameDisplayingContent.Navigate(new ProjectPage()); 
+            };
+            HelpBtn.MouseEnter += (sender, e) => {  };
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             EditingProjectPage.Instance.AcceptChanges();
             App.db.SaveChanges();
-            new PortfolioWindow().Show();
         }
     }
 }

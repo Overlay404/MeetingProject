@@ -3,17 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MeetingProject.View.Windows"
+        xmlns:local="clr-namespace:MeetingProject.View.UserControls"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Редактирование проекта" Height="600" Width="1200"
-        Closing="Window_Closing">
+        Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Frame x:Name="FramePageEditing" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="FramePageEditing" NavigationUIVisibility="Hidden" Margin="0 40 0 0"/>
         <fa:ImageAwesome Icon="Gear" Width="25" 
                          VerticalAlignment="Top"
                          HorizontalAlignment="Right"
-                         Margin="10" x:Name="SettingBtn"/>
+                         Margin="10" x:Name="SettingBtn" Panel.ZIndex="1"/>
+        <fa:ImageAwesome Icon="ArrowLeft" Width="30"
+                         Height="25"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Margin="10" x:Name="ExitBtn" Panel.ZIndex="1"/>
+        <fa:ImageAwesome Icon="Question" Width="30"
+                         Height="25"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Right"
+                         Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1"/>
+
+        <local:ProjectEditorHints/>
     </Grid>
 </Window>

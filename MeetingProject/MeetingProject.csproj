@@ -134,6 +134,7 @@
     <Compile Include="Partial\EditingProjectPage.Extension.cs" />
     <Compile Include="Partial\Project.Extension.cs" />
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
+    <Compile Include="SupportiveClasses\LocationWindows.cs" />
     <Compile Include="SupportiveClasses\ParseAccountInformation.cs" />
     <Compile Include="SupportiveClasses\RequestManager.cs" />
     <Compile Include="View\Pages\Autorization.xaml.cs">
@@ -159,6 +160,9 @@
     </Compile>
     <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
       <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ProjectEditorHints.xaml.cs">
+      <DependentUpon>ProjectEditorHints.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\EditingProjectWindow.xaml.cs">
       <DependentUpon>EditingProjectWindow.xaml</DependentUpon>
@@ -210,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\GitHubConnectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ProjectEditorHints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

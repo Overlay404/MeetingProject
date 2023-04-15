@@ -58,6 +58,8 @@ namespace MeetingProject.View.Windows
             }
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) { LocationWindows.SaveLocationWindow(Top, Left); }
+
         private void MyProjectButton_Checked(object sender, RoutedEventArgs e)
         {
             if ((sender as RadioButton) != null)
@@ -262,5 +264,7 @@ namespace MeetingProject.View.Windows
             }
         }
         #endregion
+
+        
     }
 }

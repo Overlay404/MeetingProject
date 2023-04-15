@@ -41,7 +41,7 @@ namespace MeetingProject.View.Pages
             ListViewProject.SelectionChanged += delegate (object sender, SelectionChangedEventArgs e) 
             {
                 new EditingProjectWindow(ListViewProject.SelectedItem as Project).Show();
-                PortfolioWindow.Instance.Close();
+                PortfolioWindow.Instance.Visibility = Visibility.Hidden;
             };
         }
     }
