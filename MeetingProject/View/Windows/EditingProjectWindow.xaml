@@ -24,8 +24,25 @@
                          Height="25"
                          VerticalAlignment="Top"
                          HorizontalAlignment="Right"
-                         Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1"/>
-
-        <local:ProjectEditorHints VerticalAlignment="Top" Margin="10 50" HorizontalAlignment="Right"/>
+                         Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1">
+            <fa:ImageAwesome.ToolTip>
+                <ToolTip>
+                    <ToolTip.ContentTemplate>
+                        <DataTemplate>
+                            <ListBox>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding NamePattern}"/>
+                                            <TextBlock Text="{Binding ContentPattern}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DataTemplate>
+                    </ToolTip.ContentTemplate>
+                </ToolTip>
+            </fa:ImageAwesome.ToolTip>
+        </fa:ImageAwesome>
     </Grid>
 </Window>
