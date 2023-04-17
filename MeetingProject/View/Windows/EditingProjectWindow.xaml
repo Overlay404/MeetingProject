@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MeetingProject.View.UserControls"
+        xmlns:local="clr-namespace:MeetingProject.SupportiveClasses"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -23,26 +23,24 @@
         <fa:ImageAwesome Icon="Question" Width="30"
                          Height="25"
                          VerticalAlignment="Top"
-                         HorizontalAlignment="Right"
-                         Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1">
-            <fa:ImageAwesome.ToolTip>
-                <ToolTip>
-                    <ToolTip.ContentTemplate>
-                        <DataTemplate>
-                            <ListBox>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding NamePattern}"/>
-                                            <TextBlock Text="{Binding ContentPattern}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </DataTemplate>
-                    </ToolTip.ContentTemplate>
-                </ToolTip>
-            </fa:ImageAwesome.ToolTip>
-        </fa:ImageAwesome>
+                         HorizontalAlignment="Left"
+                         Margin="50 10" x:Name="HelpBtn" Panel.ZIndex="1"/>
+
+        <ListBox ItemsSource="{Binding Hint}" VerticalAlignment="Top" Visibility="{Binding VisibilityListBox}"
+                 HorizontalAlignment="Left" Margin="0 40" Panel.ZIndex="10" x:Name="HintListBox">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" Width="570"/> 
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Header}" FontSize="20" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Content}" FontSize="20" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

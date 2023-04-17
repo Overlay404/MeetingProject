@@ -27,7 +27,7 @@
                      Grid.Row="0"/>
         </ScrollViewer>
 
-        <GridSplitter Grid.Row="1" Width="5" Background="BurlyWood"/>
+        <GridSplitter Grid.Row="1" Width="5" Background="BlanchedAlmond"/>
 
         <WebBrowser x:Name="BrowserForPreviewMarkdown"
                                 Grid.Column="2"
