@@ -161,9 +161,6 @@
     <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
       <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\ProjectEditorHints.xaml.cs">
-      <DependentUpon>ProjectEditorHints.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Windows\EditingProjectWindow.xaml.cs">
       <DependentUpon>EditingProjectWindow.xaml</DependentUpon>
     </Compile>
@@ -214,10 +211,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\GitHubConnectionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControls\ProjectEditorHints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

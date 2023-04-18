@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MeetingProject.Model
+﻿namespace MeetingProject.Model
 {
     partial class Project
     {
-        public string descriptionProject {
-            get {
+        public string descriptionProject
+        {
+            get
+            {
                 var textCount = text.Length;
 
-                if(description != null)
+                if (description != null)
                 {
                     return description;
                 }
@@ -25,7 +21,7 @@ namespace MeetingProject.Model
                 {
                     return description ?? text;
                 }
-            } 
+            }
         }
 
     }

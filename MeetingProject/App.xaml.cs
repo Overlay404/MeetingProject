@@ -17,11 +17,17 @@ namespace MeetingProject
     {
         public static MeetingProjectEntities db = new MeetingProjectEntities();
 
-        public static ManWithResume user;
+        public static ManWithResume user;   
 
         public App()
         {
             db.ManWithResume.Load();
+            db.Project.Load();
+            db.PictureProject.Load();
+            db.Company.Load();
+            db.Education.Load();
+            db.Experience.Load();
+            db.JobTitle.Load();
         }
     }
 }

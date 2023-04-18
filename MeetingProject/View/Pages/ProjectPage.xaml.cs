@@ -34,7 +34,7 @@ namespace MeetingProject.View.Pages
 
         public ProjectPage()
         {
-            ProjectList = App.db.Project.ToList();
+            ProjectList = App.db.Project.Local;
 
             InitializeComponent();
 

@@ -147,7 +147,7 @@ namespace MeetingProject.View.Pages
             if (App.user == null)
             {
                 //Проверка есть ли такой GitHub в базе данных
-                var objectUser = App.db.ManWithResume.Where(m => m.github.Equals(UsernameGithubText.Text.Trim())).FirstOrDefault();
+                var objectUser = App.db.ManWithResume.Local.Where(m => m.github.Equals(UsernameGithubText.Text.Trim())).FirstOrDefault();
                 if (objectUser == null)
                 {
                     //Создание нового пользователя с таким GitHub

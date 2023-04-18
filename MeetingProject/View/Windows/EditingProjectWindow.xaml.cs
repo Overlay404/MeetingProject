@@ -72,7 +72,7 @@ namespace MeetingProject.View.Windows
             };
             HintListBox.SelectionChanged += (sender, e) =>
             {
-                EditingProjectPage.
+                EditingProjectPage.Instance.MarkdownText.SelectedText = (HintListBox.SelectedItem as HintMarkdownSyntax).Content;
             };
         }
 
@@ -82,26 +82,75 @@ namespace MeetingProject.View.Windows
             {
                 new HintMarkdownSyntax
                 {
-                    Header = "Заголовок 1",
-                    Content = "# Заголовок"
+                    Header = "Заголовок первого уровня",
+                    Content = "# Заголовок первого уровня"
                 },
 
                 new HintMarkdownSyntax
                 {
-                    Header = "Заголовок 2",
-                    Content = "## Заголовок"
+                    Header = "Заголовок второго уровня",
+                    Content = "## Заголовок второго уровня"
                 },
 
                 new HintMarkdownSyntax
                 {
-                    Header = "Заголовок 3",
-                    Content = "### Заголовок"
+                    Header = "Заголовок третьего уровня",
+                    Content = "### Заголовок третьего уровня"
                 },
 
                 new HintMarkdownSyntax
                 {
-                    Header = "Заголовок 4",
-                    Content = "#### Заголовок"
+                    Header = "Заголовок четвертого уровня",
+                    Content = "#### Заголовок четвертого уровня"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Заголовок пятого уровня",
+                    Content = "##### Заголовок пятого уровня"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Заголовок шестого уровня",
+                    Content = "###### Заголовок шестого уровня"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Жирный текст",
+                    Content = "**Жирный текст**"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Курсивный текст",
+                    Content = "*Курсивный текст*"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Цитата",
+                    Content = @"
+> Каждый в цирке думает, что знает в цирке,
+> но не каждый, что в цирке знает, 
+> что в цирке не каждый знает думает."
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Список",
+                    Content = @"
+- Первый
+- Второй
+    - Второй.Первый
+- Третий"
+                },
+
+                new HintMarkdownSyntax
+                {
+                    Header = "Картинка",
+                    Content = "![Текст заменяющий картинку](https://sun9-14.userapi.com/impg/iVKXr8bNqzesqrS91HNOgTKnQkEPZuW2xLjHTg/IxJHuOhO4K4.jpg?size=716x541&quality=96&sign=de8f75d1b1043c2dadb9805f2da88a39&type=album)"
                 },
 
                 new HintMarkdownSyntax
