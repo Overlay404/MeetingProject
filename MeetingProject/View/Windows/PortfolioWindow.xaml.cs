@@ -84,7 +84,7 @@ namespace MeetingProject.View.Windows
             Properties.Settings.Default.Password = "";
             Properties.Settings.Default.Login = "";
             Properties.Settings.Default.Save();
-            new StartWindow().ShowDialog();
+            new StartWindow().Show();
             Close();
         }
 

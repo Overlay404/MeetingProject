@@ -3,40 +3,141 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MeetingProject.View.Windows"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:MeetingProject.View.UserControls"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         mc:Ignorable="d" Height="600" Width="400"
-        Title="Редактирование портфолио">
-    <ScrollViewer>
-        <StackPanel Margin="30">
-            <StackPanel>
-                <TextBlock Text="Имя:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name"/>
+        Title="Редактирование портфолио" Closing="Window_Closing"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Border VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0 5 30 0"
+                Padding="5 3"
+                Background="#FFF3F0F0"
+                CornerRadius="5"
+                x:Name="SaveChangesBtn">
+            <StackPanel Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Check" Width="15"
+                         Margin="0 4 5 0"
+                         Foreground="Green"/>
+                <TextBlock Text="Сохранить"/>
             </StackPanel>
+        </Border>
+        <ScrollViewer Margin="0 30 0 0">
             <StackPanel>
-                <TextBlock Text="Фамилия:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name=""/>
+                <TextBlock Text="Личная информация" HorizontalAlignment="Center"
+                           Margin="0 10" FontSize="15"
+                           Foreground="#044AFD"/>
+                <ContentControl Content="{Binding ManWithResume}" Visibility="Collapsed">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="30 0 30 30">
+                                <StackPanel>
+                                    <TextBlock Text="Имя:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding name}" x:Name="Name"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Фамилия:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding surname}" x:Name="Surname"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Отчество:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding patronomic}" x:Name="Patronomic"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Номер:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding number}" x:Name="Phone"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Почта:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding email}" x:Name="Email"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Tелеграмм:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding telegram}" x:Name="Telegram"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="О себе:" Foreground="#044AFD" Margin="5 0 0 5"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding about}" x:Name="About" AcceptsReturn="True" Height="220"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+                <TextBlock Text="Образование" HorizontalAlignment="Center"
+                           Margin="0 10" FontSize="15"
+                           Foreground="#044AFD"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <fa:ImageAwesome Icon="Plus" Width="15" Foreground="#044AFD"
+                                     Margin="0 0 10 0" x:Name="AddingEducation"/>
+                    <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
+                                     Margin="0 0 10 0" x:Name="DeletingEducation"/>
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding Education}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#FFF3F0F0" Margin="10" Padding="10"
+                                    CornerRadius="10">
+                            <StackPanel>
+                                <StackPanel>
+                                    <TextBlock Foreground="#044AFD" Text="Дата окончания:"/>
+                                    <DatePicker Text="{Binding EndDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Foreground="#044AFD" Text="Наименование учереждения:"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding NameInstitution}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Foreground="#044AFD" Text="Тип обучения:"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding TypeOfEducation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Опыт работы" HorizontalAlignment="Center"
+                           Margin="0 10" FontSize="15"
+                           Foreground="#044AFD"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <fa:ImageAwesome Icon="Plus" Width="15" Foreground="#044AFD"
+                                     Margin="0 0 10 0" x:Name="AddingExperience"/>
+                    <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
+                                     Margin="0 0 10 0" x:Name="DeletingExperience"/>
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding Experience}" d:ItemsSource="{d:SampleData ItemCount=3}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#FFF3F0F0" Margin="10" Padding="10"
+                                    CornerRadius="10">
+                                <StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Foreground="#044AFD" Text="Дата начала работы:"/>
+                                        <DatePicker Text="{Binding StartDate}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Foreground="#044AFD" Text="Дата окончания работы:"/>
+                                        <DatePicker Text="{Binding EndDate}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Foreground="#044AFD" Text="Наименование учереждения:"/>
+                                        <TextBox Style="{StaticResource TextBox}" Text="{Binding NameExperience}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Foreground="#044AFD" Text="Тип обучения:"/>
+                                        <TextBox Style="{StaticResource TextBox}" Text="{Binding DescriptionExperience}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
             </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Отчество:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Номер:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Почта:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="телеграмм:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="О себе:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                <TextBox Style="{StaticResource TextBox}" x:Name="Name" AcceptsReturn="True" Height="220"/>
-            </StackPanel>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+        <local:MessageControl IconName="FloppyOutline" TextMessage="Сохранено" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                              Margin="0 20"/>
+    </Grid>
 </Window>
