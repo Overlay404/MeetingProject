@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:MeetingProject.ModelView"
+        xmlns:control="clr-namespace:MeetingProject.View.UserControls"
         mc:Ignorable="d" MinHeight="600" MinWidth="800"
         Height="800" Width="1000" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent"
@@ -54,7 +55,7 @@
                   Grid.Row="1">
                     <Grid.Background>
                         <ImageBrush ImageSource="{Binding BackgroundImage}"
-                                Opacity="0.5" x:Name="BackgroundImage"/>
+                                Opacity="0.5" x:Name="BackgroundImage" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <fa:ImageAwesome Icon="ArrowCircleLeft" 
                                  HorizontalAlignment="Left"
@@ -245,6 +246,20 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Cursor="SizeNESW"
-                Style="{StaticResource RectBorderStyle}" Grid.Row="2" />
+                Style="{StaticResource RectBorderStyle}" Grid.Row="2"/>
+        
+        <control:MessageControl HorizontalAlignment="Center" 
+                                VerticalAlignment="Bottom" 
+                                Margin="0 30"
+                                TextMessage="Скопировано"
+                                IconName="copy"/>
+
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="45 30" Padding="10 5" Background="#044AFD" CornerRadius="10" x:Name="EditingBtn">
+            <StackPanel Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Pencil" Width="15" Margin="0 0 10 0" Foreground="White"/>
+                <TextBlock Text="Редактировать" Foreground="White"/>
+            </StackPanel>
+        </Border>
+        
     </Grid>
 </Window>

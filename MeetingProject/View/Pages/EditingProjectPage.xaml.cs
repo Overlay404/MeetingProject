@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MeetingProject.Model;
 using MeetingProject.View.Windows;
+using MeetingProject.View.UserControls;
+using System.Windows.Media.Animation;
 
 namespace MeetingProject.View.Pages
 {
@@ -52,11 +54,12 @@ namespace MeetingProject.View.Pages
             BrowserForPreviewMarkdown.NavigateToString(HTMLHeader);
         }
 
-
         private void BrowserForPreviewMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
             if (e.Uri != null)
             {
+                MessageControl.Instance.StartAnimation();
+                ProjectObject.text = MdText;
                 e.Cancel = true;
                 System.Windows.Clipboard.SetText(e.Uri.ToString());
             }

@@ -81,8 +81,6 @@ namespace MeetingProject.View.Pages
             ProjectObject.title = TitleProject;
             ProjectObject.description = Description;
 
-            App.db.SaveChanges();
-
             EditingProjectWindow.Instance.FramePageEditing.Navigate(new EditingProjectPage(ProjectObject));
         }
     }

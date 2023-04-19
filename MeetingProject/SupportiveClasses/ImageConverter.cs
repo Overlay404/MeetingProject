@@ -21,6 +21,7 @@ namespace MeetingProject.SupportiveClasses
 
         public static byte[] ConvertToByteCollection(BitmapSource pasteImage)
         {
+            if(pasteImage == null) return null;
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.QualityLevel = 100;
             byte[] bit = new byte[0];

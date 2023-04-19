@@ -161,6 +161,12 @@
     <Compile Include="View\UserControls\GitHubConnectionControl.xaml.cs">
       <DependentUpon>GitHubConnectionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\MessageControl.xaml.cs">
+      <DependentUpon>MessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\EditingPorfolioWindow.xaml.cs">
+      <DependentUpon>EditingPorfolioWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\EditingProjectWindow.xaml.cs">
       <DependentUpon>EditingProjectWindow.xaml</DependentUpon>
     </Compile>
@@ -211,6 +217,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\GitHubConnectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\MessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\EditingPorfolioWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

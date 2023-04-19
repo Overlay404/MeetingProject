@@ -12,11 +12,35 @@
 
     <Border Background="#F2F0FF">
         <Grid>
-        <ListView Padding="30 30 30 0" 
+            <StackPanel VerticalAlignment="Top" 
+                    HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+            <Border Background="#FFFF8086" CornerRadius="5" 
+                    Padding="5" x:Name="DeletingBtn">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Удалить"/>
+                    <fa:ImageAwesome Icon="Trash" 
+                                     Width="12"
+                                     Margin="10 0 0 0"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#FF808EFF" CornerRadius="5" 
+                    Padding="5" Margin="10 0 0 0"
+                    x:Name="AddingBtn">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Добавить"/>
+                    <fa:ImageAwesome Icon="Plus" 
+                                     Width="12"
+                                     Margin="10 0 0 0"/>
+                </StackPanel>
+            </Border>
+            </StackPanel>
+            <ListView Padding="30 30 30 0" 
+                      Margin="0 30 0 0"
                   Background="Transparent" 
                   ItemsSource="{Binding ProjectList}" 
                   ScrollViewer.CanContentScroll="False"
-                  x:Name="ListViewProject">
+                  x:Name="ListViewProject"
+                      BorderBrush="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Background="White">
@@ -36,7 +60,7 @@
                                Margin="20 0">
                             <Grid.Background>
                                 <ImageBrush
-                                ImageSource="{Binding MainPicture}"/> 
+                                ImageSource="{Binding MainPicture}" Stretch="Fill"/> 
                             </Grid.Background>
                         </Grid>
 

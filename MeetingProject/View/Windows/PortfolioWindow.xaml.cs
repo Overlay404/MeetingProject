@@ -26,6 +26,11 @@ namespace MeetingProject.View.Windows
 
             Instance = this;
             FrameDisplayingContent.Navigate(new InformationPage());
+
+            EditingBtn.MouseDown += (sender, e) => 
+            {
+                new EditingPorfolioWindow(){ Owner = this }.ShowDialog(); 
+            };
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -79,7 +84,7 @@ namespace MeetingProject.View.Windows
             Properties.Settings.Default.Password = "";
             Properties.Settings.Default.Login = "";
             Properties.Settings.Default.Save();
-            new StartWindow().Show();
+            new StartWindow().ShowDialog();
             Close();
         }
 

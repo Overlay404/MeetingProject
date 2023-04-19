@@ -41,7 +41,7 @@ namespace MeetingProject.View.Windows
         public static readonly DependencyProperty VisibilityListBoxProperty =
             DependencyProperty.Register("VisibilityListBox", typeof(Visibility), typeof(EditingProjectWindow));
 
-
+        Project ProjectObject { get; set; }
 
         public static EditingProjectWindow Instance;
 
@@ -50,11 +50,27 @@ namespace MeetingProject.View.Windows
             VisibilityListBox = Visibility.Hidden;
             InitializeHintMarkdownSyntax();
             InitializeComponent();
-            FramePageEditing.Navigate(new EditingProjectPage(project));
+            if (project == null)
+            {
+                ProjectObject = new Project()
+                {
+                    text = "",
+                    date = DateTime.Today
+                };
+            }
+            else
+            {
+                ProjectObject = project;
+            }
+
+            FramePageEditing.Navigate(new EditingProjectPage(ProjectObject));
             Instance = this;
 
-
-            SettingBtn.MouseDown += (sender, e) => { FramePageEditing.Navigate(new SettingProjectPage(project)); };
+            SettingBtn.MouseDown += (sender, e) => 
+            {
+                UpdateProjectObject();
+                FramePageEditing.Navigate(new SettingProjectPage(ProjectObject)); 
+            };
             ExitBtn.MouseDown += (sender, e) =>
             {
                 ClosingWindow(false);
@@ -165,14 +181,30 @@ namespace MeetingProject.View.Windows
             };
         }
 
+        private void UpdateProjectObject()
+        {
+            ProjectObject.text = EditingProjectPage.Instance.MdText;
+        }
+
         private void ClosingWindow(bool IsClosing)
         {
-
-            EditingProjectPage.Instance.AcceptChanges();
             App.db.SaveChanges();
+            CheckForAvailability();
+            EditingProjectPage.Instance.AcceptChanges();
             PortfolioWindow.Instance.Visibility = Visibility.Visible;
             if(!IsClosing) Close();
             PortfolioWindow.Instance.FrameDisplayingContent.Navigate(new ProjectPage());
+        }
+
+        private void CheckForAvailability()
+        {
+            if (App.db.Project.ToList().Contains(ProjectObject)) return;
+
+            if (string.IsNullOrEmpty(ProjectObject.title) || string.IsNullOrEmpty(ProjectObject.text))
+                if(MessageBox.Show("Вы хотите создать пустой проект", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+
+            App.db.Project.Add(ProjectObject);
+            App.db.SaveChanges();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
