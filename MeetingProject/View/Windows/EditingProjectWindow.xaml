@@ -30,7 +30,7 @@
                  Visibility="{Binding VisibilityListBox}"
                  HorizontalAlignment="Left" Margin="0 40" 
                  Panel.ZIndex="10" x:Name="HintListBox" 
-                 Background="#FFD9E3FF" BorderBrush="Transparent">
+                 Background="#FFF4F7FF" BorderBrush="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" Width="580"/>
@@ -70,7 +70,7 @@
                                             <Condition Property="Selector.IsSelectionActive" Value="False"/>
                                             <Condition Property="Selector.IsSelected" Value="True"/>
                                         </MultiTrigger.Conditions>
-                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFC6D6FF"/>
+                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFDDE6FF"/>
                                         <Setter Property="Border.BorderBrush" TargetName="Bd" Value="Transparent"/>
                                     </MultiTrigger>
                                     <MultiTrigger>
@@ -78,11 +78,11 @@
                                             <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                             <Condition Property="Selector.IsSelected" Value="True"/>
                                         </MultiTrigger.Conditions>
-                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFA8C0FD"/>
+                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFC8D7FF"/>
                                         <Setter Property="Border.BorderBrush" TargetName="Bd" Value="Transparent"/>
                                     </MultiTrigger>
                                     <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFC5D4FB"/>
+                                        <Setter Property="Panel.Background" TargetName="Bd" Value="#FFD8E3FF"/>
                                         <Setter Property="Border.BorderBrush" TargetName="Bd" Value="Transparent"/>
                                     </Trigger>
                                     <Trigger Property="UIElement.IsEnabled" Value="False">

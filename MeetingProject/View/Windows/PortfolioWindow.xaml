@@ -258,7 +258,7 @@
                                 VerticalAlignment="Bottom" 
                                 Margin="0 30"
                                 TextMessage="Скопировано"
-                                IconName="copy"/>
+                                IconName="copy" Panel.ZIndex="10"/>
 
     </Grid>
 </Window>

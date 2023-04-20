@@ -28,6 +28,8 @@ namespace MeetingProject.View.Pages
 <head>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'>
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
         body {{
             font-family: 'Hubot Sans', sans-serif;
             font-size: 12px;
@@ -46,6 +48,18 @@ namespace MeetingProject.View.Pages
             border: 1px solid grey;
             padding: 5px 10px 5px 10px;
             white-space: nowrap;
+        }}
+        blockquote {{
+            border-left: 4px;
+			border-left-style: solid;
+			border-left-color: #044AFD;
+    		padding: 8px 0 8px 20px;
+			background: #d6d6ff; 
+			font - family: cursive;
+	        color: #2c2c2c;
+	        font-size: 15px;
+	        max-width: 600px;
+	        margin: 0;
         }}
         table {{
             width: 100%;

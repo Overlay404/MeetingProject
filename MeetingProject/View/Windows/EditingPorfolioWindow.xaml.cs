@@ -118,10 +118,5 @@ namespace MeetingProject.View.Windows
             App.user = ManWithResume;
             PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
         }
-
-        private void AddingEducation_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

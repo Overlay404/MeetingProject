@@ -29,7 +29,7 @@
                 <TextBlock Text="Личная информация" HorizontalAlignment="Center"
                            Margin="0 10" FontSize="15"
                            Foreground="#044AFD"/>
-                <ContentControl Content="{Binding ManWithResume}" Visibility="Collapsed">
+                <ContentControl Content="{Binding ManWithResume}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <StackPanel Margin="30 0 30 30">
@@ -126,8 +126,10 @@
                                         <TextBox Style="{StaticResource TextBox}" Text="{Binding NameExperience}"/>
                                     </StackPanel>
                                     <StackPanel>
-                                        <TextBlock Foreground="#044AFD" Text="Тип обучения:"/>
-                                        <TextBox Style="{StaticResource TextBox}" Text="{Binding DescriptionExperience}"/>
+                                        <TextBlock Foreground="#044AFD" Text="Описание рабочего процесса:"/>
+                                        <TextBox Style="{StaticResource TextBox}" 
+                                                 Text="{Binding DescriptionExperience}"
+                                                 AcceptsReturn="True" TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>

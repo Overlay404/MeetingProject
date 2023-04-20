@@ -1,4 +1,5 @@
 ﻿using MeetingProject.View.UserControls;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace MeetingProject.View.Pages
@@ -11,9 +12,27 @@ namespace MeetingProject.View.Pages
         public InformationPage()
         {
             InitializeComponent();
-            PhoneButton.Click += (sender, e) => { MessageControl.Instance.StartAnimation(); };
-            EmailButton.Click += (sender, e) => { MessageControl.Instance.StartAnimation(); };
-            TelegramButton.Click += (sender, e) => { MessageControl.Instance.StartAnimation(); };
+            PhoneButton.Click += (sender, e) => { PhoneCopy(); };
+            EmailButton.Click += (sender, e) => { EmailCopy(); };
+            TelegramButton.Click += (sender, e) => { TelegramCopy(); };
+        }
+
+        private void PhoneCopy()
+        {
+            Clipboard.SetText(PhoneButton.Content.ToString());
+            MessageControl.Instance.StartAnimation();
+        }
+
+        private void EmailCopy()
+        {
+            Clipboard.SetText(EmailButton.Content.ToString());
+            MessageControl.Instance.StartAnimation();
+        }
+
+        private void TelegramCopy()
+        {
+            Clipboard.SetText(TelegramButton.Content.ToString());
+            MessageControl.Instance.StartAnimation();
         }
     }
 }
