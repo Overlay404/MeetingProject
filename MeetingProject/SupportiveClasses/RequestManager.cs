@@ -8,7 +8,6 @@ namespace MeetingProject.SupportiveClasses
 {
     internal class RequestManager
     {
-        public static string URL = "https://api.github.com/";
         public static HttpClient httpClient = new HttpClient();
 
         public static async Task<T> Get<T>(string controller)
@@ -18,7 +17,7 @@ namespace MeetingProject.SupportiveClasses
             {
                 HttpClient http = new HttpClient();
                 http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("MeetingProject", "1.0"));
-                var request = new HttpRequestMessage(HttpMethod.Get, URL + controller);
+                var request = new HttpRequestMessage(HttpMethod.Get, controller);
                 HttpResponseMessage response = await http.SendAsync(request);
                 data = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }

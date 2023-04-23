@@ -75,7 +75,7 @@ namespace MeetingProject.View.Windows
 
         private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //Вызов окна изменения Github проектов 
+            new SelectionOfProjectWindows() { Owner = this }.ShowDialog();
         }
 
         private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)

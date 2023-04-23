@@ -113,7 +113,7 @@ namespace MeetingProject.View.UserControls
         {
             MessageToUser.Text = "";
             //Объект полученный из запроса
-            var AccountGitHubObject = await RequestManager.Get<ParseAccountInformation>($"users/{NameUserGithub}") ??
+            var AccountGitHubObject = await RequestManager.Get<ParseAccountInformation>($"https://api.github.com/users/{NameUserGithub}") ??
                 new ParseAccountInformation
                 {
                     avatar_url = "",

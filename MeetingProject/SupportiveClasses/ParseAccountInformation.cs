@@ -42,12 +42,13 @@ namespace MeetingProject.SupportiveClasses
         public string updated_at { get; set; }
     }
 
-    internal class ProjectListParse
+    public class ProjectListParse
     {
         public string name { get; set; }
         public string visibility { get; set; }
         public string default_branch { get; set; }
         public string language { get; set; }
         public int size { get; set; }
+        public bool IsChecked { get; set; }
     }
 }
