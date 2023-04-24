@@ -64,7 +64,6 @@ namespace MeetingProject.View.Windows
         public EditingPorfolioWindow()
         {
             RefreshData();
-            InitializeComponent();
 
             SaveChangesBtn.MouseDown += (sender, e) =>
             {
@@ -82,11 +81,14 @@ namespace MeetingProject.View.Windows
             Education = App.user.Education;
             Experience = App.user.Experience;
             ManWithResume = App.user;
+            InitializeComponent();
+            EducationList.ItemsSource = App.user.Education;
+            ExperienceList.ItemsSource = App.user.Experience;
         }
 
         private void AddingEducationInDataBase() 
         {
-            App.db.Education.Add(new Model.Education { ManWithResume = new List<ManWithResume>(){ App.user } });
+            App.db.Education.Add(new Model.Education { ManWithResume = new List<ManWithResume>(){ App.user }});
             RefreshData();
         }
 
@@ -97,7 +99,7 @@ namespace MeetingProject.View.Windows
 
         private void AddingExperienceInDataBase() 
         {
-            App.db.Experience.Add(new Model.Experience { ManWithResume = new List<ManWithResume>() { App.user } });
+            App.db.Experience.Add(new Model.Experience { ManWithResume = new List<ManWithResume>() { App.user }});
             RefreshData();
         }
         

@@ -74,7 +74,7 @@
                     <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
                                      Margin="0 0 10 0" x:Name="DeletingEducation"/>
                 </StackPanel>
-                <ItemsControl ItemsSource="{Binding Education}">
+                <ItemsControl ItemsSource="{Binding Education}" x:Name="EducationList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#FFF3F0F0" Margin="10" Padding="10"
@@ -107,7 +107,7 @@
                     <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
                                      Margin="0 0 10 0" x:Name="DeletingExperience"/>
                 </StackPanel>
-                <ItemsControl ItemsSource="{Binding Experience}" d:ItemsSource="{d:SampleData ItemCount=3}">
+                <ItemsControl ItemsSource="{Binding Experience}" x:Name="ExperienceList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#FFF3F0F0" Margin="10" Padding="10"
@@ -136,7 +136,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
             </StackPanel>
         </ScrollViewer>
         <local:MessageControl IconName="FloppyOutline" TextMessage="Сохранено" VerticalAlignment="Bottom" HorizontalAlignment="Center"

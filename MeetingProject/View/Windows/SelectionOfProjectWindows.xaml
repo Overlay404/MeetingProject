@@ -12,48 +12,80 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid>
-        <Border HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#FFE4E4E4"
-                Margin="5"
-                x:Name="AcceptChoiceProjectsBtn"
-                CornerRadius="10"
-                Padding="10 5">
-            <StackPanel Orientation="Horizontal">
-                <fa:ImageAwesome Icon="Check" 
-                                 Width="15" 
-                                 Foreground="Green"
-                                 Margin="0 0 10 0"/>
-                <TextBlock Text="{Binding CountProject}"/>
-            </StackPanel>
-        </Border>
+        <Image  x:Name="ImageControl"
+                Margin="10 0 0 0"
+                Width="100" Source="..\..\Image\RefreshImage.png"
+                RenderTransformOrigin=".5,.5"
+                Visibility="{Binding IsLoadedCompanentVisible}">
+            <Image.RenderTransform>
+                <RotateTransform x:Name="MyAnimation" Angle="0" />
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard x:Name="BeginImageRotateAni" >
+                        <Storyboard x:Name="MyStoryboard">
+                            <DoubleAnimation x:Name="Prope11" 
+                                             Storyboard.TargetName="ImageControl"         
+                                             Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" 
+                                             To="360"
+                                             Duration="0:0:1"
+                                             RepeatBehavior="Forever"
+                                             FillBehavior="Stop">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseDown">
+                    <EventTrigger.Actions>
+                        <StopStoryboard BeginStoryboardName="BeginImageRotateAni"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Grid Visibility="{Binding IsLoadingCompanentVisible}">
+            <Border HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#FFE4E4E4"
+                    Margin="5"
+                    x:Name="AcceptChoiceProjectsBtn"
+                    CornerRadius="10"
+                    Padding="10 5">
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Check" 
+                                     Width="15" 
+                                     Foreground="Green"
+                                     Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding CountProject}"/>
+                </StackPanel>
+            </Border>
 
-        <ScrollViewer Margin="0 40 0 0" x:Name="ItemsProjectList">
-            <ItemsControl ItemsSource="{Binding ProjectList}" d:ItemsSource="{d:SampleData ItemCount=3}" VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Panel.ZIndex="10" BorderBrush="Transparent">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border CornerRadius="10" Margin="5" Padding="5" Background="#FFF4F7FF">
-                            <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" VerticalContentAlignment="Center">
-                                <CheckBox.Content>
-                                    <WrapPanel Margin="10 0 0 0">
-                                        <StackPanel Margin="0 0 140 0">
-                                            <TextBlock Text="{Binding name}" FontSize="20" Foreground="#044AFD" HorizontalAlignment="Center"/>
-                                            <TextBlock Text="{Binding default_branch}" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Left"/>
-                                            <TextBlock Text="{Binding language}" FontSize="12" HorizontalAlignment="Left" Foreground="Gray"/>
-                                        </StackPanel>
-                                        <Grid HorizontalAlignment="Right">
-                                            <TextBlock Text="{Binding visibility}" FontSize="12" HorizontalAlignment="Center"/>
-                                            <TextBlock Text="{Binding size, StringFormat='{}{0} МБ'}" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center" Foreground="Green"/>
-                                        </Grid>
-                                    </WrapPanel>
-                                </CheckBox.Content>
-                            </CheckBox>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+            <ScrollViewer Margin="0 40 0 0" x:Name="ItemsProjectList">
+                <ItemsControl ItemsSource="{Binding ProjectList}" VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Panel.ZIndex="10" BorderBrush="Transparent">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" Margin="5" Padding="5" Background="#FFF4F7FF">
+                                <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" VerticalContentAlignment="Center">
+                                    <CheckBox.Content>
+                                        <WrapPanel Margin="10 0 0 0">
+                                            <StackPanel Margin="0 0 140 0">
+                                                <TextBlock Text="{Binding name}" FontSize="20" Foreground="#044AFD" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding default_branch}" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{Binding language}" FontSize="12" HorizontalAlignment="Left" Foreground="Gray"/>
+                                            </StackPanel>
+                                            <Grid HorizontalAlignment="Right">
+                                                <TextBlock Text="{Binding visibility}" FontSize="12" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding size, StringFormat='{}{0} МБ'}" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center" Foreground="Green"/>
+                                            </Grid>
+                                        </WrapPanel>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

@@ -50,20 +50,54 @@ namespace MeetingProject.View.Windows
 
 
 
+        public Visibility IsLoadedCompanentVisible
+        {
+            get { return (Visibility)GetValue(IsLoadedCompanentVisibleProperty); }
+            set { SetValue(IsLoadedCompanentVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsLoadedCompanentVisibleProperty =
+            DependencyProperty.Register("IsLoadedCompanentVisible", typeof(Visibility), typeof(SelectionOfProjectWindows));
+
+
+
+
+        public Visibility IsLoadingCompanentVisible
+        {
+            get { return (Visibility)GetValue(IsLoadingCompanentVisibleProperty); }
+            set { SetValue(IsLoadingCompanentVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsLoadingCompanentVisibleProperty =
+            DependencyProperty.Register("IsLoadingCompanentVisible", typeof(Visibility), typeof(SelectionOfProjectWindows));
+
+
+
+
         public SelectionOfProjectWindows()
         {
+            StartInitializeComponent();
             AsyncInitializeComponent();
+        }
+
+        private void StartInitializeComponent()
+        {
+            IsLoadingCompanentVisible = Visibility.Collapsed;
+            IsLoadedCompanentVisible = Visibility.Visible;
+            InitializeComponent();
         }
 
         private async void AsyncInitializeComponent()
         {
             ProjectList = await RequestApiGithub(App.user.github);
             RefreshCountProjectIsSelected();
+            IsLoadingCompanentVisible = Visibility.Visible;
+            IsLoadedCompanentVisible = Visibility.Collapsed;
             InitializeComponent();
 
             AcceptChoiceProjectsBtn.MouseDown += (sender, e) => { AcceptChoiceProjects(); };
         }
-        
+
         readonly Func<string, Task<List<ProjectListParse>>> RequestApiGithub = async (NameUserGithub) =>
         {
             List<ProjectListParse> ProjectListObjectParsed = await RequestManager.Get<List<ProjectListParse>>($"https://api.github.com/users/{NameUserGithub}/repos");
@@ -79,7 +113,7 @@ namespace MeetingProject.View.Windows
         private void RefreshCountProjectIsSelected()
         {
             int count = ProjectList.Where(p => p.IsChecked).Count();
-            if(count == 0) { CountProject = $"Не выбрано ни одного проекта"; }
+            if (count == 0) { CountProject = $"Не выбрано ни одного проекта"; }
             else { CountProject = $"Подтвердить выбор {count} проектов"; };
         }
 
@@ -89,11 +123,23 @@ namespace MeetingProject.View.Windows
 
             var ProjectListCopy = ProjectList;
 
-            Dispatcher.InvokeAsync(() => ProjectListCopy.ForEach(async (item) =>
+            List<string> paramMessage = new List<string>();
+
+            ProjectListCopy.ForEach((item) =>
             {
                 if (item.IsChecked)
                 {
-                    var textInProject = new WebClient().DownloadString($"https://raw.githubusercontent.com/{App.user.github}/{item.name}/{item.default_branch}/README.md");
+                    var textInProject = "";
+
+                    try
+                    {
+                        textInProject = new WebClient().DownloadString($"https://raw.githubusercontent.com/{App.user.github}/{item.name}/{item.default_branch}/README.md");
+                    }
+                    catch
+                    {
+                        paramMessage.Add($"{item.name}");
+                        return;
+                    }
 
                     App.db.Project.Add(new Model.Project
                     {
@@ -102,9 +148,18 @@ namespace MeetingProject.View.Windows
                         title = item.name
                     });
                 }
-                }));
+            });
 
-            Close();
+            if (paramMessage.Count == 0)
+            {
+                MessageBox.Show("Все проекты успешно добавлены");
+                Close();
+            }
+            else
+            {
+                MessageBox.Show($"В проектах {string.Join(", ", paramMessage)} нет README.md файла");
+            }
+
         }
     }
 }

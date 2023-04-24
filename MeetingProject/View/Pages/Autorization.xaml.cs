@@ -42,7 +42,7 @@ namespace MeetingProject.View.Pages
             }
             else
             {
-                new PortfolioWindow().ShowDialog();
+                new PortfolioWindow().Show();
                 StartWindow.Instance.Close();
             }
 

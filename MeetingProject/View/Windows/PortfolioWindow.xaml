@@ -259,7 +259,7 @@
                                 VerticalAlignment="Bottom" 
                                 Margin="0 30"
                                 TextMessage="Скопировано"
-                                IconName="copy" Panel.ZIndex="10"/>
+                                IconName="copy" Panel.ZIndex="40"/>
 
     </Grid>
 </Window>
