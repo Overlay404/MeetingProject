@@ -29,7 +29,7 @@
                 <TextBlock Text="Личная информация" HorizontalAlignment="Center"
                            Margin="0 10" FontSize="15"
                            Foreground="#044AFD"/>
-                <ContentControl Content="{Binding ManWithResume}">
+                <ContentControl Content="{Binding ManWithResume}" Visibility="Collapsed">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <StackPanel Margin="30 0 30 30">
@@ -71,10 +71,8 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <fa:ImageAwesome Icon="Plus" Width="15" Foreground="#044AFD"
                                      Margin="0 0 10 0" x:Name="AddingEducation"/>
-                    <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
-                                     Margin="0 0 10 0" x:Name="DeletingEducation"/>
                 </StackPanel>
-                <ItemsControl ItemsSource="{Binding Education}" x:Name="EducationList">
+                <ItemsControl ItemsSource="{Binding Education}" d:ItemsSource="{d:SampleData ItemCount=3}" x:Name="EducationList">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#FFF3F0F0" Margin="10" Padding="10"
@@ -82,7 +80,7 @@
                             <StackPanel>
                                 <StackPanel>
                                     <TextBlock Foreground="#044AFD" Text="Дата окончания:"/>
-                                    <DatePicker Text="{Binding EndDate}"/>
+                                    <DatePicker Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <TextBlock Foreground="#044AFD" Text="Наименование учереждения:"/>
@@ -92,7 +90,14 @@
                                     <TextBlock Foreground="#044AFD" Text="Тип обучения:"/>
                                     <TextBox Style="{StaticResource TextBox}" Text="{Binding TypeOfEducation}"/>
                                 </StackPanel>
-                            </StackPanel>
+                                    <TextBlock Text="Удалить" 
+                                               Foreground="Red" 
+                                               FontFamily="Candara" 
+                                               FontWeight="Bold"
+                                               TextAlignment="Right"
+                                               Margin="0 10 0 0"
+                                               MouseDown="TextBlock_MouseDown"/>
+                                </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -104,8 +109,6 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <fa:ImageAwesome Icon="Plus" Width="15" Foreground="#044AFD"
                                      Margin="0 0 10 0" x:Name="AddingExperience"/>
-                    <fa:ImageAwesome Icon="Trash" Width="15" Foreground="Red"
-                                     Margin="0 0 10 0" x:Name="DeletingExperience"/>
                 </StackPanel>
                 <ItemsControl ItemsSource="{Binding Experience}" x:Name="ExperienceList">
                     <ItemsControl.ItemTemplate>
@@ -131,6 +134,13 @@
                                                  Text="{Binding DescriptionExperience}"
                                                  AcceptsReturn="True" TextWrapping="Wrap"/>
                                     </StackPanel>
+                                    <TextBlock Text="Удалить" 
+                                               Foreground="Red" 
+                                               FontFamily="Candara" 
+                                               FontWeight="Bold"
+                                               TextAlignment="Right"
+                                               Margin="0 10 0 0"
+                                               MouseDown="TextBlock_MouseDown_1"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

@@ -153,13 +153,12 @@ namespace MeetingProject.View.Windows
             if (paramMessage.Count == 0)
             {
                 MessageBox.Show("Все проекты успешно добавлены");
-                Close();
             }
             else
             {
-                MessageBox.Show($"В проектах {string.Join(", ", paramMessage)} нет README.md файла");
+                MessageBox.Show($"В проектах {string.Join(", ", paramMessage)} нет README.md файла, остальные проекты успешно добавлены");
             }
-
+            Close();
         }
     }
 }

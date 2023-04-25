@@ -58,9 +58,6 @@ namespace MeetingProject.View.Windows
             DependencyProperty.Register("Experience", typeof(IEnumerable<Experience>), typeof(EditingPorfolioWindow));
 
 
-
-
-
         public EditingPorfolioWindow()
         {
             RefreshData();
@@ -71,9 +68,7 @@ namespace MeetingProject.View.Windows
                 MessageControl.Instance.StartAnimation();
             };
             AddingEducation.MouseDown += (sender, e) => { AddingEducationInDataBase(); };
-            DeletingEducation.MouseDown += (sender, e) => { DeletingEducationInDataBase(); };
             AddingExperience.MouseDown += (sender, e) => { AddingExperienceInDataBase(); };
-            DeletingExperience.MouseDown += (sender, e) => { DeletingExperienceInDataBase(); };
         }
 
         private void RefreshData()
@@ -88,25 +83,28 @@ namespace MeetingProject.View.Windows
 
         private void AddingEducationInDataBase() 
         {
-            App.db.Education.Add(new Model.Education { ManWithResume = new List<ManWithResume>(){ App.user }});
+            App.user.Education.Add(new Model.Education { ManWithResume = new List<ManWithResume>(){ App.user }});
             RefreshData();
         }
 
-        private void DeletingEducationInDataBase() 
-        { 
-            
-        }
-
-        private void AddingExperienceInDataBase() 
+        private void AddingExperienceInDataBase()
         {
-            App.db.Experience.Add(new Model.Experience { ManWithResume = new List<ManWithResume>() { App.user }});
+            App.user.Experience.Add(new Model.Experience { ManWithResume = new List<ManWithResume>() { App.user } });
             RefreshData();
         }
-        
-        private void DeletingExperienceInDataBase() 
-        { 
-        
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            App.user.Education.Remove((sender as TextBlock).DataContext as Education);
+            RefreshData();
         }
+
+        private void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e) 
+        {
+            App.user.Experience.Remove((sender as TextBlock).DataContext as Experience);
+            RefreshData();
+        }
+
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
