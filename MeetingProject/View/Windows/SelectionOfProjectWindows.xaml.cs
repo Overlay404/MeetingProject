@@ -76,6 +76,7 @@ namespace MeetingProject.View.Windows
 
         public SelectionOfProjectWindows()
         {
+            InitializeComponent();
             StartInitializeComponent();
             AsyncInitializeComponent();
         }
@@ -84,7 +85,6 @@ namespace MeetingProject.View.Windows
         {
             IsLoadingCompanentVisible = Visibility.Collapsed;
             IsLoadedCompanentVisible = Visibility.Visible;
-            InitializeComponent();
         }
 
         private async void AsyncInitializeComponent()
@@ -100,7 +100,7 @@ namespace MeetingProject.View.Windows
 
         readonly Func<string, Task<List<ProjectListParse>>> RequestApiGithub = async (NameUserGithub) =>
         {
-            List<ProjectListParse> ProjectListObjectParsed = await RequestManager.Get<List<ProjectListParse>>($"https://api.github.com/users/{NameUserGithub}/repos");
+            List<ProjectListParse> ProjectListObjectParsed = await RequestManager.Get<List<ProjectListParse>>($"https://api.github.com/users/{NameUserGithub}/repos?per_page=1000");
 
             return ProjectListObjectParsed;
         };
@@ -112,6 +112,7 @@ namespace MeetingProject.View.Windows
 
         private void RefreshCountProjectIsSelected()
         {
+            if(ProjectList == null) return;
             int count = ProjectList.Where(p => p.IsChecked).Count();
             if (count == 0) { CountProject = $"Не выбрано ни одного проекта"; }
             else { CountProject = $"Подтвердить выбор {count} проектов"; };
@@ -133,7 +134,7 @@ namespace MeetingProject.View.Windows
 
                     try
                     {
-                        textInProject = new WebClient().DownloadString($"https://raw.githubusercontent.com/{App.user.github}/{item.name}/{item.default_branch}/README.md");
+                        textInProject = new WebClient() { Encoding = Encoding.UTF8 }.DownloadString($"https://raw.githubusercontent.com/{App.user.github}/{item.name}/{item.default_branch}/README.md");
                     }
                     catch
                     {
@@ -156,7 +157,7 @@ namespace MeetingProject.View.Windows
             }
             else
             {
-                MessageBox.Show($"В проектах {string.Join(", ", paramMessage)} нет README.md файла, остальные проекты успешно добавлены");
+                MessageBox.Show($"В проектах {paramMessage.Aggregate((x,y)=> x + ", " + y)} нет README.md файла, остальные проекты успешно добавлены");
             }
             Close();
         }

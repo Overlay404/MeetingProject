@@ -60,12 +60,12 @@ namespace MeetingProject.View.Windows
 
         public EditingPorfolioWindow()
         {
+            InitializeComponent();
             RefreshData();
 
             SaveChangesBtn.MouseDown += (sender, e) =>
             {
                 RefreshAndSaveData();
-                MessageControl.Instance.StartAnimation();
             };
             AddingEducation.MouseDown += (sender, e) => { AddingEducationInDataBase(); };
             AddingExperience.MouseDown += (sender, e) => { AddingExperienceInDataBase(); };
@@ -76,9 +76,8 @@ namespace MeetingProject.View.Windows
             Education = App.user.Education;
             Experience = App.user.Experience;
             ManWithResume = App.user;
-            InitializeComponent();
-            EducationList.ItemsSource = App.user.Education;
-            ExperienceList.ItemsSource = App.user.Experience;
+            EducationList.Items.Refresh();
+            ExperienceList.Items.Refresh();
         }
 
         private void AddingEducationInDataBase() 
@@ -108,13 +107,21 @@ namespace MeetingProject.View.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Вы точно хотите покинуть окно редактирования", "Окно редактирования", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+            if (MessageBox.Show("Вы точно хотите покинуть окно редактирования, ваши данные могут не сохраниться", "Окно редактирования", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
             RefreshAndSaveData();
         }
 
         private void RefreshAndSaveData()
         {
+            var objectError = App.user.Experience.Where(e => e.EndDate <= e.StartDate);
+            if (objectError != null)
+            {
+                MessageBox.Show("Дата окончания работы не может быть меньше даты начала работы");
+                return;
+            }
+
             App.db.SaveChanges();
+            MessageControl.Instance.StartAnimation();
             App.user = ManWithResume;
             PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
         }

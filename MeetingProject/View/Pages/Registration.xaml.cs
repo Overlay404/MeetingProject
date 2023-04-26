@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,8 +32,30 @@ namespace MeetingProject.View.Pages
 
         private void ButtonRegistration_Click(object sender, RoutedEventArgs e)
         {
-            var content = Email.Text + Password.Text + PasswordConfirmation.Text + GitHubConnectionControl.Instance.UsernameGithubText.Text;
-            MessageBox.Show(content);
+            string nameGithubAccount = GitHubConnectionControl.Instance.UsernameGithubText.Text.Trim();
+            string email = Email.Text.Trim();
+            string password = Password.Text.Trim();
+            string passwordConfirmation = PasswordConfirmation.Text.Trim();
+
+            Regex emailRegex = new Regex(@"([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)");
+            Regex passwordRegex = new Regex(@"(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}");
+
+            if(emailRegex.IsMatch(email) == false && !password.Equals(passwordConfirmation) && passwordRegex.IsMatch(password) == false)
+            {
+                MessageBox.Show("Ваши данные не прошли валидацию");
+                return;
+            }
+
+            App.db.ManWithResume.Add(new Model.ManWithResume
+            {
+                github = nameGithubAccount,
+                email = email,
+                Password = password
+            });
+
+            App.db.SaveChanges();
+
+            Autorization.Instance.ValidateAndAutorizateData(email, password);
         }
     }
 }

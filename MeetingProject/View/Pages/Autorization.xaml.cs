@@ -21,14 +21,22 @@ namespace MeetingProject.View.Pages
     /// </summary>
     public partial class Autorization : Page
     {
+        public static Autorization Instance;
+
         public Autorization()
         {
+            Instance = this;
             InitializeComponent();
         }
 
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            try { App.user = App.db.ManWithResume.Local.Where(u => u.Login.Equals(Login.Text.Trim()) && u.Password.Equals(Password.Password.Trim())).Select(u => u).FirstOrDefault(); }
+            ValidateAndAutorizateData(Login.Text.Trim(), Password.Password.Trim());
+        }
+
+        public void ValidateAndAutorizateData(string login, string password)
+        {
+            try { App.user = App.db.ManWithResume.Local.Where(u => (u.email.Equals(login) || u.Login.Equals(login)) && u.Password.Equals(password)).Select(u => u).FirstOrDefault(); }
             catch
             {
                 MessageBox.Show("База данных отсутствует");
@@ -48,8 +56,8 @@ namespace MeetingProject.View.Pages
 
             if (SaveDataCheckBox.IsChecked == false)
             {
-                Properties.Settings.Default.Login = Login.Text.Trim();
-                Properties.Settings.Default.Password = Password.Password.Trim();
+                Properties.Settings.Default.Login = login;
+                Properties.Settings.Default.Password = password;
             }
             else
             {
