@@ -50,8 +50,8 @@ namespace MeetingProject.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sql-ser-larisa;Initial Catalog=MeetingProject;Integrated Security=Tru" +
-            "e")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=overlay\\SQLSER; Initial Catalog=MeetingProject;Integrated Security=Tr" +
+            "ue")]
         public string MeetingProjectConnectionString {
             get {
                 return ((string)(this["MeetingProjectConnectionString"]));

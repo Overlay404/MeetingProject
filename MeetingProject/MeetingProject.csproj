@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AngleSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
       <HintPath>..\packages\AngleSharp.1.0.1\lib\net472\AngleSharp.dll</HintPath>
@@ -319,6 +322,7 @@
     <Resource Include="Image\ImageLoad.png" />
     <Resource Include="Image\RefreshImage.png" />
     <Resource Include="Image\Logo.png" />
+    <Resource Include="Logo.ico" />
     <Content Include="Model\MeetingProjectDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeetingProjectDB.Context.cs</LastGenOutput>
