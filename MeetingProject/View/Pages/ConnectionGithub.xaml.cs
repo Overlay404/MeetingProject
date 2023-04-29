@@ -165,6 +165,9 @@ namespace MeetingProject.View.Pages
                 }
                 //Вход в аккаунт с таким GitHub
                 App.user = objectUser;
+                Properties.Settings.Default.Login = objectUser.email;
+                Properties.Settings.Default.Password = objectUser.Password;
+                Properties.Settings.Default.Save();
                 new PortfolioWindow().Show();
                 PortfolioWindow.Instance.DataContext = new PortfolioWindowVM();
                 StartWindow.Instance.Close();

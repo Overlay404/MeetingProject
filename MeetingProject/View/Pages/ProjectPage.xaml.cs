@@ -35,7 +35,7 @@ namespace MeetingProject.View.Pages
 
         public ProjectPage()
         {
-            ProjectList = App.db.Project.Local;
+            ProjectList = App.db.Project.Local.Where(p => p.ManWithResumeId == App.user.id);
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProjectList);
             view.SortDescriptions.Add(new SortDescription("date", ListSortDirection.Descending));

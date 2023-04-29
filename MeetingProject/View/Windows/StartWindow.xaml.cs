@@ -30,7 +30,7 @@ namespace MeetingProject.View.Windows
 
             if (String.IsNullOrEmpty(Properties.Settings.Default.Login) && String.IsNullOrEmpty(Properties.Settings.Default.Password)) return;
             
-            App.user = App.db.ManWithResume.Local.Where(u => u.Login.Equals(Properties.Settings.Default.Login) && u.Password.Equals(Properties.Settings.Default.Password)).Select(u => u).FirstOrDefault();
+            App.user = App.db.ManWithResume.Local.Where(u => u.email.Equals(Properties.Settings.Default.Login) && u.Password.Equals(Properties.Settings.Default.Password)).Select(u => u).FirstOrDefault();
             new PortfolioWindow().Show();
             Close();
         }

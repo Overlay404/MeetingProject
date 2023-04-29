@@ -36,7 +36,7 @@ namespace MeetingProject.View.Pages
 
         public void ValidateAndAutorizateData(string login, string password)
         {
-            try { App.user = App.db.ManWithResume.Local.Where(u => (u.email.Equals(login) || u.Login.Equals(login)) && u.Password.Equals(password)).Select(u => u).FirstOrDefault(); }
+            try { App.user = App.db.ManWithResume.Local.Where(u => (u.email.Equals(login) && u.Password.Equals(password))).Select(u => u).FirstOrDefault(); }
             catch
             {
                 MessageBox.Show("База данных отсутствует");

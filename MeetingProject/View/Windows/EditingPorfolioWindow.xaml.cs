@@ -113,13 +113,6 @@ namespace MeetingProject.View.Windows
 
         private void RefreshAndSaveData()
         {
-            var objectError = App.user.Experience.Where(e => e.EndDate <= e.StartDate);
-            if (objectError != null)
-            {
-                MessageBox.Show("Дата окончания работы не может быть меньше даты начала работы");
-                return;
-            }
-
             App.db.SaveChanges();
             MessageControl.Instance.StartAnimation();
             App.user = ManWithResume;
