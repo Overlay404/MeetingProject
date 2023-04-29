@@ -59,7 +59,8 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <TextBlock Text="О себе:" Foreground="#044AFD" Margin="5 0 0 5"/>
-                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding about}" x:Name="About" AcceptsReturn="True" Height="220"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text="{Binding about}" x:Name="About" AcceptsReturn="True"
+                                             TextWrapping="Wrap"/>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -110,7 +111,7 @@
                     <fa:ImageAwesome Icon="Plus" Width="15" Foreground="#044AFD"
                                      Margin="0 0 10 0" x:Name="AddingExperience"/>
                 </StackPanel>
-                <ItemsControl ItemsSource="{Binding Experience}" x:Name="ExperienceList">
+                <ItemsControl ItemsSource="{Binding Experience}" x:Name="ExperienceList" Margin="0 0 0 40">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#FFF3F0F0" Margin="10" Padding="10"

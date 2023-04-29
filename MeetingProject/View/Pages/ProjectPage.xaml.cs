@@ -2,6 +2,7 @@
 using MeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
@@ -24,18 +25,18 @@ namespace MeetingProject.View.Pages
     /// </summary>
     public partial class ProjectPage : Page
     {
-        public IEnumerable<Project> ProjectList
+        public ObservableCollection<Project> ProjectList
         {
-            get { return (IEnumerable<Project>)GetValue(ProjectListProperty); }
+            get { return (ObservableCollection<Project>)GetValue(ProjectListProperty); }
             set { SetValue(ProjectListProperty, value); }
         }
 
         public static readonly DependencyProperty ProjectListProperty =
-            DependencyProperty.Register("ProjectList", typeof(IEnumerable<Project>), typeof(ProjectPage));
+            DependencyProperty.Register("ProjectList", typeof(ObservableCollection<Project>), typeof(ProjectPage));
 
         public ProjectPage()
         {
-            ProjectList = App.db.Project.Local.Where(p => p.ManWithResumeId == App.user.id);
+            RefreshListProject();
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProjectList);
             view.SortDescriptions.Add(new SortDescription("date", ListSortDirection.Descending));
@@ -46,11 +47,16 @@ namespace MeetingProject.View.Pages
             AddingBtn.MouseDown += (sender, e) => { AddingProject(); };
             DeletingBtn.MouseDown += (sender, e) => { DeletingProject(); };
 
-            ListViewProject.MouseDoubleClick += (sender, e) => 
+            ListViewProject.MouseDoubleClick += (sender, e) =>
             {
                 new EditingProjectWindow(ListViewProject.SelectedItem as Project).Show();
                 PortfolioWindow.Instance.Visibility = Visibility.Hidden;
             };
+        }
+
+        private void RefreshListProject()
+        {
+            ProjectList = new ObservableCollection<Project>(App.db.Project.Local.Where(p => p.ManWithResumeId == App.user.id));
         }
 
         private void AddingProject() 
@@ -65,6 +71,8 @@ namespace MeetingProject.View.Pages
 
             App.db.Project.Remove(ListViewProject.SelectedItem as Project);
             App.db.SaveChanges();
+
+            RefreshListProject();
         }
     }
 }

@@ -132,6 +132,7 @@
       <DependentUpon>MeetingProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Partial\EditingProjectPage.Extension.cs" />
+    <Compile Include="Partial\Experience.Extension.cs" />
     <Compile Include="Partial\Project.Extension.cs" />
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
     <Compile Include="SupportiveClasses\LocationWindows.cs" />
@@ -317,6 +318,7 @@
     </Content>
     <Resource Include="Image\ImageLoad.png" />
     <Resource Include="Image\RefreshImage.png" />
+    <Resource Include="Image\Logo.png" />
     <Content Include="Model\MeetingProjectDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MeetingProjectDB.Context.cs</LastGenOutput>

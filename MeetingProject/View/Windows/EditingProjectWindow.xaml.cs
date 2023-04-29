@@ -54,6 +54,7 @@ namespace MeetingProject.View.Windows
             {
                 ProjectObject = new Project()
                 {
+                    ManWithResumeId = App.user.id,
                     text = "",
                     date = DateTime.Today
                 };

@@ -144,6 +144,7 @@ namespace MeetingProject.View.Windows
 
                     App.db.Project.Add(new Model.Project
                     {
+                        ManWithResumeId = App.user.id,
                         date = DateTime.Today,
                         text = textInProject,
                         title = item.name
