@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingProject", "MeetingPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingProjectTestApplication", "MeetingProjectTestApplication\MeetingProjectTestApplication.csproj", "{C08A7C75-70CA-4916-9D2E-36181B05781B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForCompanyMeetingProject", "ForCompanyMeetingProject\ForCompanyMeetingProject.csproj", "{85964A31-76B3-42A3-8DA9-46F435EBEFEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C08A7C75-70CA-4916-9D2E-36181B05781B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08A7C75-70CA-4916-9D2E-36181B05781B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08A7C75-70CA-4916-9D2E-36181B05781B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85964A31-76B3-42A3-8DA9-46F435EBEFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85964A31-76B3-42A3-8DA9-46F435EBEFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85964A31-76B3-42A3-8DA9-46F435EBEFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85964A31-76B3-42A3-8DA9-46F435EBEFEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
