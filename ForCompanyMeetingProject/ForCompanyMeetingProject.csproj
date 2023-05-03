@@ -76,6 +76,9 @@
     <Compile Include="View\Windows\CompanyWindow.xaml.cs">
       <DependentUpon>CompanyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Windows\EmployeesList.xaml.cs">
+      <DependentUpon>EmployeesList.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Company.cs">
@@ -151,6 +154,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\EmptyBackgroundImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\EmptyPersonImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\ImageLoad.png" />
+    <Resource Include="Image\Logo.png" />
+    <Resource Include="Image\RefreshImage.png" />
     <Content Include="Model\DataBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataBase.Context.cs</LastGenOutput>
@@ -175,6 +187,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Windows\CompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\EmployeesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

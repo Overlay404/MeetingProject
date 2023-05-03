@@ -26,11 +26,11 @@ namespace ForCompanyMeetingProject.Model
         public string number { get; set; }
         public string email { get; set; }
         public string telegram { get; set; }
-        public string adout { get; set; }
         public byte[] BackgroundImage { get; set; }
         public byte[] ProfilePhoto { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string about { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManWithResume> ManWithResume { get; set; }

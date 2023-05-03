@@ -1,8 +1,10 @@
 ﻿using ForCompanyMeetingProject.ModelView;
+using ForCompanyMeetingProject.SupportiveClasses;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace ForCompanyMeetingProject.View.Windows
@@ -17,17 +19,9 @@ namespace ForCompanyMeetingProject.View.Windows
 
         public CompanyWindow()
         {
-            DataContext = new CompanyWindowVM();
-
             InitializeComponent();
 
             Instance = this;
-            FrameDisplayingContent.Navigate(new InformationPage());
-
-            EditingBtn.MouseDown += (sender, e) =>
-            {
-                new EditingPorfolioWindow() { Owner = this }.ShowDialog();
-            };
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -51,29 +45,6 @@ namespace ForCompanyMeetingProject.View.Windows
         private void GridContent_MouseEnter(object sender, MouseEventArgs e) { AnimationBorder(1); }
 
         private void GridContent_MouseLeave(object sender, MouseEventArgs e) { AnimationBorder(0); }
-
-        private void MyInfoButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (IsLoaded)
-            {
-                FrameDisplayingContent.Navigate(new InformationPage());
-            }
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) { LocationWindows.SaveLocationWindow(Top, Left); }
-
-        private void MyProjectButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if ((sender as RadioButton) != null)
-            {
-                FrameDisplayingContent.Navigate(new ProjectPage());
-            }
-        }
-
-        private void GithubLinkEdit_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            new SelectionOfProjectWindows() { Owner = this }.ShowDialog();
-        }
 
         private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)
         {

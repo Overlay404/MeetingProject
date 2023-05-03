@@ -17,7 +17,7 @@ namespace ForCompanyMeetingProject
     {
         public static MeetingProjectEntities db = new MeetingProjectEntities();
 
-        public static ManWithResume user;
+        public static Company user = db.Company.FirstOrDefault();
 
         public App()
         {

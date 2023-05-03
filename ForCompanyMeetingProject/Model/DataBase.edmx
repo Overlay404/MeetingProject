@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="id" />
@@ -15,7 +15,7 @@
           <Property Name="number" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="telegram" Type="nvarchar" MaxLength="50" />
-          <Property Name="adout" Type="nvarchar(max)" />
+          <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" />
@@ -290,8 +290,7 @@
             <End Role="PictureProject" EntitySet="PictureProject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MeetingProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -305,12 +304,12 @@
           <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="adout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManWithResume" Relationship="Self.ManWithResumeCompany" FromRole="Company" ToRole="ManWithResume" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -469,13 +468,13 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="about" ColumnName="about" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LegalForm" ColumnName="LegalForm" />
                 <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="telegram" ColumnName="telegram" />
-                <ScalarProperty Name="adout" ColumnName="adout" />
                 <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
