@@ -17,9 +17,9 @@ namespace ForCompanyMeetingProject.View.Windows
     /// <summary>
     /// Логика взаимодействия для EmployeesList.xaml
     /// </summary>
-    public partial class EmployeesList : Window
+    public partial class MansWithResumeList : Window
     {
-        public EmployeesList()
+        public MansWithResumeList()
         {
             InitializeComponent();
         }

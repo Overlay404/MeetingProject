@@ -73,11 +73,14 @@
     </Compile>
     <Compile Include="ModelView\CompanyWindowVM.cs" />
     <Compile Include="SupportiveClasses\ImageConverter.cs" />
+    <Compile Include="View\Pages\CompanyPage.xaml.cs">
+      <DependentUpon>CompanyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\CompanyWindow.xaml.cs">
       <DependentUpon>CompanyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Windows\EmployeesList.xaml.cs">
-      <DependentUpon>EmployeesList.xaml</DependentUpon>
+    <Compile Include="View\Windows\MansWithResumeList.xaml.cs">
+      <DependentUpon>MansWithResumeList.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -174,9 +177,7 @@
       <LastGenOutput>DataBase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Style\ProjectTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -186,11 +187,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Pages\CompanyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\CompanyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Windows\EmployeesList.xaml">
+    <Page Include="View\Windows\MansWithResumeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
