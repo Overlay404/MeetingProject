@@ -13,12 +13,12 @@ namespace ForCompanyMeetingProject.View.Windows
     /// <summary>
     /// Логика взаимодействия для CompanyWindow.xaml
     /// </summary>
-    public partial class CompanyWindow : Window
+    public partial class MainWindow : Window
     {
-        public static CompanyWindow Instance;
+        public static MainWindow Instance;
         private double positionCursorX;
 
-        public CompanyWindow()
+        public MainWindow()
         {
             InitializeComponent();
             MainFrame.Navigate(new CompanyPage());

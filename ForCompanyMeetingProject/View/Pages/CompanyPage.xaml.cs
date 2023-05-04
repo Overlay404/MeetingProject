@@ -1,5 +1,6 @@
 ﻿using ForCompanyMeetingProject.ModelView;
 using ForCompanyMeetingProject.SupportiveClasses;
+using ForCompanyMeetingProject.View.Windows;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace ForCompanyMeetingProject.View.Pages
 
         private void ImageAwesome_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // Список работников
+            MainWindow.Instance.MainFrame.Navigate(new ManWithResumeListPage());
         }
 
         private void ProfileImage_MouseEnter(object sender, MouseEventArgs e)
