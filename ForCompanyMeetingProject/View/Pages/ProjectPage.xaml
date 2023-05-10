@@ -1,0 +1,63 @@
+﻿<Page x:Class="ForCompanyMeetingProject.View.Pages.ProjectPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:local="clr-namespace:ForCompanyMeetingProject.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProjectPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Border Background="#F2F0FF">
+        <Grid>
+            <ListView Padding="30 0" 
+                  Margin="0 30 0 0"
+                  Background="Transparent" 
+                  ItemsSource="{Binding ProjectList}" 
+                  ScrollViewer.CanContentScroll="False"
+                  x:Name="ListViewProject"
+                  BorderBrush="Transparent"
+                  d:ItemsSource="{d:SampleData}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Background="White">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Calendar" 
+                                             Width="13" 
+                                             Foreground="Gray" 
+                                             Margin="10 0"/>
+                                <TextBlock Text="{Binding date, StringFormat=d, ConverterCulture=ru}"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding title}" 
+                                   Margin="20 10" 
+                                   FontSize="20" 
+                                   Foreground="#044AFD"/>
+                            <Grid HorizontalAlignment="Stretch"
+                               Height="200"
+                               Margin="20 0">
+                                <Grid.Background>
+                                    <ImageBrush
+                                ImageSource="{Binding MainPicture}" Stretch="Fill"/>
+                                </Grid.Background>
+                            </Grid>
+
+                            <TextBlock Text="{Binding descriptionProject}"
+                                   Margin="20 20"
+                                   FontSize="13"
+                                   Width="640"
+                                   TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        <Setter Property="Margin" Value="0 0 0 30"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Border>
+</Page>

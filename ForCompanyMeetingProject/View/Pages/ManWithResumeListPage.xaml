@@ -11,17 +11,41 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid Background="#F5F5F5">
-        <fa:ImageAwesome Icon="Search" 
-                         Width="30"
+        <StackPanel Orientation="Horizontal" 
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right">
+            <Grid>
+                <TextBox Style="{StaticResource TextBox}"
+                         Width="200" Height="30"
+                         x:Name="SearchBox"/>
+                <TextBlock Text="Поиск" 
+                           VerticalAlignment="Center"
+                           FontSize="15"
+                           Margin="10 0"
+                           FontFamily="Candara"
+                           x:Name="HintText"/>
+            </Grid>
+            <fa:ImageAwesome Icon="Search"
                          HorizontalAlignment="Right"
                          VerticalAlignment="Top"
-                         Margin="20"/>
+                         Width="30"
+                         Margin="10"
+                         x:Name="SearchBtn"/>
+        </StackPanel>
+
+        <fa:ImageAwesome Icon="User" 
+                         x:Name="UserBtn"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         Width="30"
+                         Margin="10"/>
 
         <ListBox d:ItemsSource="{d:SampleData ItemCount=15}"
                  ItemsSource="{Binding ManWithResumes}"
                  Margin="0 80 0 0"
                  BorderBrush="Transparent"
-                 Background="Transparent">
+                 Background="Transparent"
+                 x:Name="ListManWithResumes">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="900"/>
@@ -30,7 +54,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="10"
-                            Margin="20"
+                            Margin="10"
                             Width="180"
                             Height="180"
                             CornerRadius="10">
@@ -51,6 +75,29 @@
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="SnapsToDevicePixels" Value="true"/>
+                    <Setter Property="OverridesDefaultStyle" Value="true"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border Name="Border" Padding="7" SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#DEE1FF"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="Border" Property="Background" Value="#C7CDFF"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
     </Grid>
 </Page>

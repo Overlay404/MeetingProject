@@ -1,25 +1,55 @@
-﻿using MeetingProject.Model;
-using System.Text.RegularExpressions;
+﻿using ForCompanyMeetingProject.Model;
+using Markdig;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace MeetingProject.View.Pages
+namespace ForCompanyMeetingProject.View.Windows
 {
-    partial class EditingProjectPage
+    /// <summary>
+    /// Логика взаимодействия для ShowingProjectWindow.xaml
+    /// </summary>
+    public partial class ShowingProjectWindow : Window
     {
         public static string HTMLTextInPreview = "";
 
-        public Regex regexForImageProcessing = new Regex(@"%\d+image");
-
-        public Project ProjectObject { get; private set; }
-
-        public string MdText
+        public ShowingProjectWindow(Project project = null)
         {
-            get { return (string)GetValue(MdTextProperty); }
-            set { SetValue(MdTextProperty, value); }
+            InitializeComponent();
+            MarkdownConvertingAndShowingInBrowser(project);
         }
 
-        public static readonly DependencyProperty MdTextProperty =
-            DependencyProperty.Register("MdText", typeof(string), typeof(EditingProjectPage));
+        private void MarkdownConvertingAndShowingInBrowser(Project project)
+        {
+            var pipeline = new MarkdownPipelineBuilder()
+                                    .UseAdvancedExtensions()
+                                    .UsePipeTables()
+                                    .UseSoftlineBreakAsHardlineBreak()
+                                    .UseCustomContainers()
+                                    .Build();
+
+            HTMLTextInPreview = Markdown.ToHtml(project.text, pipeline);
+            BrowserForPreviewMarkdown.NavigateToString(HTMLHeader);
+        }
+
+        private void BrowserForPreviewMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (e.Uri != null)
+            {
+                e.Cancel = true;
+                Clipboard.SetText(e.Uri.ToString());
+            }
+        }
 
         public string HTMLHeader
         {
@@ -86,4 +116,3 @@ namespace MeetingProject.View.Pages
         }
     }
 }
-

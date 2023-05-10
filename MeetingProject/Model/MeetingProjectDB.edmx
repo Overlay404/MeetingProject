@@ -15,7 +15,7 @@
           <Property Name="number" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="telegram" Type="nvarchar" MaxLength="50" />
-          <Property Name="adout" Type="nvarchar(max)" />
+          <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" />
@@ -337,12 +337,12 @@
           <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="adout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManWithResume" Relationship="MeetingProjectModel.ManWithResumeCompany" FromRole="Company" ToRole="ManWithResume" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -468,11 +468,11 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="about" ColumnName="about" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
                 <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
-                <ScalarProperty Name="adout" ColumnName="adout" />
                 <ScalarProperty Name="telegram" ColumnName="telegram" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="number" ColumnName="number" />

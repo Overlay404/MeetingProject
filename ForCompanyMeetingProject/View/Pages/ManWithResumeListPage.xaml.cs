@@ -1,4 +1,5 @@
 ﻿using ForCompanyMeetingProject.Model;
+using ForCompanyMeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,25 @@ namespace ForCompanyMeetingProject.View.Pages
         {
             ManWithResumes = App.db.ManWithResume.Local;
             InitializeComponent();
+
+
+            HintText.MouseDown += (sender, e) => SearchBox.Focus();
+            SearchBox.GotFocus += (sender, e) => HintText.Visibility = Visibility.Collapsed;
+            UserBtn.MouseDown += (sender, e ) => MainWindow.Instance.MainFrame.Navigate(new CompanyPage());
+            SearchBtn.MouseDown += (sender, e) =>
+            {
+                ManWithResumes = App.db.ManWithResume.Local.Where(m => (m.surname?.ToLower().Trim().StartsWith(SearchBox.Text.ToLower().Trim())) ?? true);
+            };
+            ListManWithResumes.MouseDoubleClick += (sender, e) =>
+            {
+                ManWithResume man = ListManWithResumes.SelectedItem as ManWithResume;
+                new PortfolioWindow(man).Show();
+            };
+            SearchBox.LostFocus += (sender, e) => 
+            {
+                SearchBox.Text = "";
+                HintText.Visibility = Visibility.Visible;
+            };
         }
     }
 }
