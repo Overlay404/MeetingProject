@@ -1,0 +1,36 @@
+﻿<Application x:Class="ForAdministratorMeetingProject.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ForAdministratorMeetingProject"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="RadioButtonStart" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid x:Name="Grid" Background="#F2F0FF">
+                            <Rectangle x:Name="Rect" 
+                                   Width="200" 
+                                   Height="2" Margin="0 30 0 0"
+                                   Fill="#044AFD" 
+                                   Visibility="Hidden" 
+                                   VerticalAlignment="Bottom"/>
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="Gray"
+                                       x:Name="TextBlock"
+                                   FontSize="16"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Rect" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -14,9 +14,20 @@ namespace ForCompanyMeetingProject.View.Pages
     /// </summary>
     public partial class CompanyPage : Page
     {
+        public static CompanyPage Instance { get; set; }
+
+
         public CompanyPage()
         {
+            UpdateDataContext();
             InitializeComponent();
+
+            Instance = this;
+
+            EditingBtn.MouseDown += (sender, e) =>
+            {
+                new EditingCompanyWindow().Show();
+            };
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e) { AnimationButton(1); }

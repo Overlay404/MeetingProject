@@ -93,16 +93,5 @@ namespace ForCompanyMeetingProject.ModelView
             Telegram = App.user.telegram ?? "Поле не заполнено";
             About = App.user.about ?? "Поле не заполнено";
         }
-
-        public static void UpdateData()
-        {
-            Instance.BackgroundImage = App.user.BackgroundImage ?? ImageConverter.ConvertToByteCollection("Image/EmptyBackgroundImage.png");
-            Instance.ProfilePhoto = App.user.ProfilePhoto ?? ImageConverter.ConvertToByteCollection("Image/EmptyPersonImage.png");
-            Instance.NameCompany = $"{App.user.LegalForm} {App.user.Name}";
-            Instance.Phone = App.user.number;
-            Instance.Email = App.user.email;
-            Instance.Telegram = App.user.telegram;
-            Instance.About = App.user.about;
-        }
     }
 }
