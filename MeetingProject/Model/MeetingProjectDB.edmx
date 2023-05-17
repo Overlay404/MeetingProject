@@ -18,8 +18,8 @@
           <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -62,8 +62,8 @@
           <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityType Name="ManWithResumeCompany">
           <Key>
@@ -337,12 +337,12 @@
           <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telegram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBanned" Type="Boolean" />
           <NavigationProperty Name="ManWithResume" Relationship="MeetingProjectModel.ManWithResumeCompany" FromRole="Company" ToRole="ManWithResume" />
-          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -388,8 +388,8 @@
           <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBanned" Type="Boolean" />
           <NavigationProperty Name="Project" Relationship="MeetingProjectModel.FK_MyProject_ManWithResume" FromRole="ManWithResume" ToRole="Project" />
           <NavigationProperty Name="Company" Relationship="MeetingProjectModel.ManWithResumeCompany" FromRole="ManWithResume" ToRole="Company" />
           <NavigationProperty Name="Education" Relationship="MeetingProjectModel.ManWithResumeEducation" FromRole="ManWithResume" ToRole="Education" />
@@ -468,11 +468,11 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
                 <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="about" ColumnName="about" />
                 <ScalarProperty Name="telegram" ColumnName="telegram" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="number" ColumnName="number" />
@@ -514,8 +514,8 @@
           <EntitySetMapping Name="ManWithResume">
             <EntityTypeMapping TypeName="MeetingProjectModel.ManWithResume">
               <MappingFragment StoreEntitySet="ManWithResume">
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
                 <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
                 <ScalarProperty Name="about" ColumnName="about" />

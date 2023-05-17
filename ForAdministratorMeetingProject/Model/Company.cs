@@ -23,7 +23,8 @@ namespace ForAdministratorMeetingProject.Model
         public string about { get; set; }
         public byte[] BackgroundImage { get; set; }
         public byte[] ProfilePhoto { get; set; }
-        public string Login { get; set; }
         public string Password { get; set; }
+        public string BannedText { get => IsBanned == true ? "Заблокирован" : "Не заблокирован" ; }
+        public Nullable<bool> IsBanned { get; set; }
     }
 }

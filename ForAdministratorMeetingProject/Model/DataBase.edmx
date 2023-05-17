@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MeetingProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="id" />
@@ -18,8 +18,8 @@
           <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityType Name="ManWithResume">
           <Key>
@@ -36,18 +36,21 @@
           <Property Name="about" Type="nvarchar(max)" />
           <Property Name="BackgroundImage" Type="varbinary(max)" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBanned" Type="bit" />
         </EntityType>
         <EntityContainer Name="Хранилище MeetingProjectModelContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MeetingProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MeetingProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company" EntityType="MeetingProjectModel.Company" />
+          <EntitySet Name="ManWithResume" EntityType="MeetingProjectModel.ManWithResume" />
+        </EntityContainer>
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="id" />
@@ -61,8 +64,8 @@
           <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBanned" Type="Boolean" />
         </EntityType>
         <EntityType Name="ManWithResume">
           <Key>
@@ -79,13 +82,9 @@
           <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBanned" Type="Boolean" />
         </EntityType>
-        <EntityContainer Name="MeetingProjectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Company" EntityType="Self.Company" />
-          <EntitySet Name="ManWithResume" EntityType="Self.ManWithResume" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -95,36 +94,36 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="MeetingProjectModel.Company">
               <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="LegalForm" ColumnName="LegalForm" />
-                <ScalarProperty Name="number" ColumnName="number" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="telegram" ColumnName="telegram" />
-                <ScalarProperty Name="about" ColumnName="about" />
-                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
-                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="telegram" ColumnName="telegram" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="LegalForm" ColumnName="LegalForm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ManWithResume">
             <EntityTypeMapping TypeName="MeetingProjectModel.ManWithResume">
               <MappingFragment StoreEntitySet="ManWithResume">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
-                <ScalarProperty Name="patronomic" ColumnName="patronomic" />
-                <ScalarProperty Name="github" ColumnName="github" />
-                <ScalarProperty Name="number" ColumnName="number" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="telegram" ColumnName="telegram" />
-                <ScalarProperty Name="about" ColumnName="about" />
-                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
-                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="telegram" ColumnName="telegram" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="github" ColumnName="github" />
+                <ScalarProperty Name="patronomic" ColumnName="patronomic" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

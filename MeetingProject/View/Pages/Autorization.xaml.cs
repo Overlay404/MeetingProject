@@ -31,12 +31,12 @@ namespace MeetingProject.View.Pages
 
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            ValidateAndAutorizateData(Login.Text.Trim(), Password.Password.Trim());
+            ValidateAndAutorizateData(Login.Text.Trim(), Password.Password.Trim(), false);
         }
 
-        public void ValidateAndAutorizateData(string login, string password)
+        public void ValidateAndAutorizateData(string login, string password, bool IsReg)
         {
-            try { App.user = App.db.ManWithResume.Local.Where(u => (u.email.Equals(login) && u.Password.Equals(password))).Select(u => u).FirstOrDefault(); }
+            try { App.user = App.db.ManWithResume.Where(u => (u.email.Equals(login) && u.Password.Equals(password) && u.IsBanned == false)).Select(u => u).FirstOrDefault(); }
             catch
             {
                 MessageBox.Show("База данных отсутствует");
@@ -66,6 +66,11 @@ namespace MeetingProject.View.Pages
             }
 
             Properties.Settings.Default.Save();
+
+            if (IsReg)
+            {
+                new SelectionOfProjectWindows().ShowDialog();
+            }
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)

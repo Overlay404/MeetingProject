@@ -9,7 +9,9 @@
       Title="ManWithResumeGrid"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <DataGrid ItemsSource="{Binding ManWithResumeDG}" AutoGenerateColumns="False">
+    <DataGrid ItemsSource="{Binding ManWithResumeDG}" 
+              AutoGenerateColumns="False"
+              x:Name="DGManWithResume">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Имя" Binding="{Binding name}"/>
             <DataGridTextColumn Header="Фамилия" Binding="{Binding surname}"/>
@@ -19,6 +21,7 @@
             <DataGridTextColumn Header="Почта" Binding="{Binding email}"/>
             <DataGridTextColumn Header="Телеграмм" Binding="{Binding telegram}"/>
             <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+            <DataGridTextColumn Header="Статус блокировки" Binding="{Binding BannedText}"/>
             <DataGridTextColumn Header="О себе" Binding="{Binding about}" Width="200"/>
         </DataGrid.Columns>
     </DataGrid>

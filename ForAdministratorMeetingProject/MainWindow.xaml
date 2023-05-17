@@ -13,7 +13,20 @@
                     HorizontalAlignment="Right">
             <Button Background="#19000000" 
                     BorderBrush="Transparent"
-                    Margin="10" Padding="5">
+                    Margin="5 10" Padding="5"
+                    x:Name="UnblockBtn">
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Check" Foreground="Green"
+                                     Width="15"
+                                     Height="15"
+                                     Margin="4 0"/>
+                    <TextBlock Text="Разблокировать"/>
+                </StackPanel>
+            </Button>
+            <Button Background="#19000000" 
+                    BorderBrush="Transparent"
+                    Margin="5 10" Padding="5"
+                    x:Name="BlockBtn">
                 <StackPanel Orientation="Horizontal">
                     <fa:ImageAwesome Icon="Ban" Foreground="Red"
                                      Width="15"

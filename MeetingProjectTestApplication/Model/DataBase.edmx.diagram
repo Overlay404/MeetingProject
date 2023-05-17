@@ -5,18 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6603bc05fbfe481e9165f64fb0d4f830" Name="Diagram1">
-        <EntityTypeShape EntityType="MeetingProjectModel.Company" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Education" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Experience" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.JobTitle" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.ManWithResume" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.PictureProject" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeetingProjectModel.Project" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="MeetingProjectModel.FK_MyProject_ManWithResume" ManuallyRouted="false" />
-        <AssociationConnector Association="MeetingProjectModel.FK_PictureProject_MyProject" ManuallyRouted="false" />
-        <AssociationConnector Association="MeetingProjectModel.ManWithResumeEducation" ManuallyRouted="false" />
-        <AssociationConnector Association="MeetingProjectModel.ManWithResumeExperienceTable" ManuallyRouted="false" />
-        <AssociationConnector Association="MeetingProjectModel.ManWithResumeJobTitleTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Company" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Education" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Experience" Width="1.5" PointX="0.75" PointY="12.875" />
+        <EntityTypeShape EntityType="MeetingProjectModel.JobTitle" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="MeetingProjectModel.ManWithResume" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="MeetingProjectModel.PictureProject" Width="1.5" PointX="7.5" PointY="2.375" />
+        <EntityTypeShape EntityType="MeetingProjectModel.Project" Width="1.5" PointX="5.25" PointY="1.875" />
+        <AssociationConnector Association="MeetingProjectModel.FK_MyProject_ManWithResume" />
+        <AssociationConnector Association="MeetingProjectModel.FK_PictureProject_MyProject" />
+        <AssociationConnector Association="MeetingProjectModel.ManWithResumeCompany" />
+        <AssociationConnector Association="MeetingProjectModel.ManWithResumeEducation" />
+        <AssociationConnector Association="MeetingProjectModel.ManWithResumeExperienceTable" />
+        <AssociationConnector Association="MeetingProjectModel.ManWithResumeJobTitleTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

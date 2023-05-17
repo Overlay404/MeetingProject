@@ -30,9 +30,12 @@ namespace MeetingProject.View.Windows
 
             if (String.IsNullOrEmpty(Properties.Settings.Default.Login) && String.IsNullOrEmpty(Properties.Settings.Default.Password)) return;
             
-            App.user = App.db.ManWithResume.Local.Where(u => u.email.Equals(Properties.Settings.Default.Login) && u.Password.Equals(Properties.Settings.Default.Password)).Select(u => u).FirstOrDefault();
-            new PortfolioWindow().Show();
-            Close();
+            App.user = App.db.ManWithResume.Local.Where(u => u.email.Equals(Properties.Settings.Default.Login) && u.Password.Equals(Properties.Settings.Default.Password) && u.IsBanned == false).Select(u => u).FirstOrDefault();
+            if (App.user != null)
+            {
+                new PortfolioWindow().Show();
+                Close();
+            }
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { DragMove(); }

@@ -1,4 +1,5 @@
 ﻿using MeetingProject.View.UserControls;
+using MeetingProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,12 +51,13 @@ namespace MeetingProject.View.Pages
             {
                 github = nameGithubAccount,
                 email = email,
-                Password = password
+                Password = password,
+                IsBanned = false,
             });
 
             App.db.SaveChanges();
 
-            Autorization.Instance.ValidateAndAutorizateData(email, password);
+            Autorization.Instance.ValidateAndAutorizateData(email, password, true);
         }
     }
 }

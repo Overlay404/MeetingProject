@@ -26,6 +26,7 @@ namespace MeetingProjectTestApplication.Model
         public byte[] MainPicture { get; set; }
         public string text { get; set; }
         public Nullable<int> ManWithResumeId { get; set; }
+        public string description { get; set; }
     
         public virtual ManWithResume ManWithResume { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

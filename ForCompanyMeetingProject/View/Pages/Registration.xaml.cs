@@ -47,7 +47,8 @@ namespace ForCompanyMeetingProject.View.Pages
             App.db.Company.Add(new Model.Company
             {
                 email = email,
-                Password = password
+                Password = password,
+                IsBanned = false
             });
 
             App.db.SaveChanges();

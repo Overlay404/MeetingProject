@@ -18,6 +18,7 @@ namespace MeetingProjectTestApplication.Model
         public ManWithResume()
         {
             this.Project = new HashSet<Project>();
+            this.Company = new HashSet<Company>();
             this.Education = new HashSet<Education>();
             this.Experience = new HashSet<Experience>();
             this.JobTitle = new HashSet<JobTitle>();
@@ -34,11 +35,13 @@ namespace MeetingProjectTestApplication.Model
         public string about { get; set; }
         public byte[] BackgroundImage { get; set; }
         public byte[] ProfilePhoto { get; set; }
-        public string Login { get; set; }
         public string Password { get; set; }
+        public Nullable<bool> IsBanned { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Company> Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Education> Education { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

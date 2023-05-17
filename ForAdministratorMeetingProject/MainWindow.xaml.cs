@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForAdministratorMeetingProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,31 @@ namespace ForAdministratorMeetingProject
             {
                 MainFrame.Navigate(new ManWithResumeGrid());
             };
+            BlockBtn.Click += (sender, e) =>
+            {
+                if(MainFrame.Content is ManWithResumeGrid)
+                {
+                    ManWithResumeGrid.Instance.BannedUser();
+                }
+                else
+                {
+                    CompanyGrid.Instance.BannedUser();
+                }
+            };
+
+            UnblockBtn.Click += (sender, e) =>
+            {
+                if (MainFrame.Content is ManWithResumeGrid)
+                {
+                    ManWithResumeGrid.Instance.UnbannedUser();
+                }
+                else
+                {
+                    CompanyGrid.Instance.UnbannedUser();
+                }
+            };
+
+            Closing += (sender, e) => App.db.SaveChanges();
         }
     }
 }

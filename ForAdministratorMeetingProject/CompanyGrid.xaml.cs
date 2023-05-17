@@ -21,7 +21,7 @@ namespace ForAdministratorMeetingProject
     /// </summary>
     public partial class CompanyGrid : Page
     {
-
+        public static CompanyGrid Instance { get; set; }
 
         public IEnumerable<Company> CompanyDG
         {
@@ -38,6 +38,29 @@ namespace ForAdministratorMeetingProject
         {
             CompanyDG = App.db.Company.Local;
             InitializeComponent();
+            Instance = this;
+        }
+
+        public void BannedUser()
+        {
+            foreach (var item in DGCompany.SelectedItems)
+            {
+                (item as Company).IsBanned = true;
+            }
+
+            DGCompany.Items.Refresh();
+            App.db.SaveChanges();
+        }
+
+        public void UnbannedUser()
+        {
+            foreach (var item in DGCompany.SelectedItems)
+            {
+                (item as Company).IsBanned = false;
+            }
+
+            DGCompany.Items.Refresh();
+            App.db.SaveChanges();
         }
     }
 }
